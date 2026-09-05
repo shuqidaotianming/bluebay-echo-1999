@@ -100,17 +100,20 @@
   // ==================== Typewriter Typography Engine ====================
   function applyTypewriter(el, speed = 20){
     if (!el || el.dataset.typewriterDone) return;
-    const fullText = el.textContent || '';
-    if (!fullText.trim() || fullText.length < 3) return;
+    const html = el.innerHTML || '';
+    const textOnly = html.replace(/<[^>]+>/g, '').trim();
+    if (!textOnly || textOnly.length < 3) return;
     el.dataset.typewriterDone = 'pending';
-    el.textContent = '';
-    
-    let i = 0;
-    let timer = null;
-    
+    // 按 <br> 分行逐行打字，保留换行与段间空行；结束后恢复原始 HTML（含链接/遮蔽等）
+    const segs = html.split(/<brs*/?>/i);
+    const plain = segs.map(s => { const d = document.createElement('div'); d.innerHTML = s; return d.textContent || ''; });
+    el.innerHTML = '';
+    const lineEls = plain.map(() => { const d = document.createElement('div'); d.style.minHeight = '1em'; el.appendChild(d); return d; });
+    let li = 0, ci = 0, timer = null;
+
     function complete(){
       if (timer) clearInterval(timer);
-      el.textContent = fullText;
+      el.innerHTML = html;
       el.dataset.typewriterDone = 'true';
       document.removeEventListener('click', complete);
       document.removeEventListener('keydown', onKey);
@@ -124,13 +127,11 @@
     document.addEventListener('keydown', onKey, { once: true });
 
     timer = setInterval(() => {
-      if (i < fullText.length) {
-        el.textContent += fullText[i];
-        if (i % 2 === 0) playSynthSound('type');
-        i++;
-      } else {
-        complete();
-      }
+      if (li >= plain.length) { complete(); return; }
+      lineEls[li].textContent = plain[li].slice(0, ci);
+      if (ci % 2 === 0 && plain[li].length) playSynthSound('type');
+      if (ci < plain[li].length) { ci++; }
+      else { li++; ci = 0; }
     }, speed);
   }
 
