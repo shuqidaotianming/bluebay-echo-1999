@@ -1,14 +1,31 @@
 {
   "version": "1.0.0",
   "title": "白噪 · 1999 蓝湾镇回声事件",
-  "startId": "node_desktop",
+  "startId": "node_prologue",
   "nodes": [
+    {
+      "id": "node_prologue",
+      "name": "序章·开机",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "siteName": "SHEN-YAN · 蓝湾广播站 FM99.4",
+        "title": "开机自检 / BOOT",
+        "date": "2003-11-17 02:47",
+        "author": "系统",
+        "typewriter": true,
+        "body": "> 主机：SHEN-YAN ／ 蓝湾广播站 · FM99.4\n> 上次登录：2000-03-14 03:14（此后再无）\n> 检测到新访客…… 指纹比对：沈知微（家属）\n> 欢迎回来。这台机器，等它的主人，等了三年。\n\n我叫沈知微，一个声音修复师——别人把旧磁带、坏录音交给我，我替他们，把里面的声音救回来。\n三年前，我哥沈砚，蓝湾深夜节目《潮声》的主持人，“出海遇难，尸骨无存”。海况通报：微风，浪 0.6 米。\n直到上周，这只寄回的旧箱子，和他那封没寄出的信。\n\n我不信那是意外。\n在他守了七年的这台机器里：桌面、加密聊天、一个能搜全网的老搜索引擎，还有上了锁的保险箱和机房。\n把每一页都读进去——你能对真相说出多少，取决于你亲手挖到了多少。有些门，要你自己解开。\n\n◈ 接下来： <a data-arg-link=\"开始调查\">[ 开始调查 → ]</a>"
+      },
+      "isStart": true
+    },
     {
       "id": "node_desktop",
       "name": "沈砚遗留的主机",
       "type": "Desktop",
       "template": "Windows XP 桌面",
-      "x": 80,
+      "x": 310,
       "y": 80,
       "fields": {
         "systemName": "沈砚的旧机 (Windows XP Pro · 蓝湾)",
@@ -17,8 +34,7 @@
         "startTitle": "开始",
         "primaryColor": "#000080",
         "bgColor": "linear-gradient(180deg,#0b1a3a 0%,#16335f 45%,#2b5a3a 78%,#123018 100%)"
-      },
-      "isStart": true
+      }
     },
     {
       "id": "node_intro_letter",
@@ -127,7 +143,7 @@
             },
             {
               "sender": "npc",
-              "text": "保险箱认的是一个英文词：那张磁带标签上的四个字母，每个都“被潮水推前三格”记的，退回去就是名字。"
+              "text": "保险箱认的是一个英文词。答案就在那张磁带标签的四个字母里——名字被潮水推前三格记着，我不替你解。"
             },
             {
               "sender": "npc",
@@ -1117,7 +1133,8 @@
       "fields": {
         "systemName": "沈砚的加密档案保险箱",
         "password": "tide,潮,tides",
-        "errorMessage": "❌ 口令错误。这是一串字母，不是数字——去读那张磁带标签（潮水推前三格）。"
+        "errorMessage": "❌ 口令错误。这是一串字母，不是数字——去读那张磁带标签。",
+        "customCss": ".vault-hint-box{display:none!important} .vault-input-wrapper input::placeholder{color:transparent}"
       }
     },
     {
@@ -1165,22 +1182,23 @@
       "fields": {
         "systemName": "蓝湾警务内网 · 卷宗调阅",
         "password": "lw1999,lw-1999",
-        "errorMessage": "❌ 口令错误。编号用摩斯点划记着——去“接线员的口哨”帖，照表翻成字母数字。"
+        "errorMessage": "❌ 口令错误。编号用摩斯点划记着——去“接线员的口哨”帖，照表翻成字母数字。",
+        "customCss": ".vault-hint-box{display:none!important} .vault-input-wrapper input::placeholder{color:transparent}"
       }
     },
     {
       "id": "clue_cassette_label",
-      "name": "磁带标签·凯撒",
+      "name": "磁带标签",
       "type": "Browse",
       "template": "极简现代杂志",
       "x": 540,
       "y": 420,
       "fields": {
         "siteName": "遗物 · 磁带标签",
-        "title": "一盘没有名字的带子（凯撒 · 退三格）",
+        "title": "一盘没有名字的带子",
         "date": "2000-03",
         "author": "沈砚",
-        "body": "标签正面只有四个大写字母：WLGH。\n背面一行小字：『名字被潮水推前三格记下了。想还原，就把它退回三格。（例：W → T）』\n——退三格后得到的英文词，就是保险箱的口令。\n\n◈ 接下来： <a data-arg-link=\"去开保险箱\">→ 去开保险箱</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+        "body": "标签正面只有四个大写字母：WLGH。\n背面一行小字，是哥哥的笔迹：『名字，被潮水推前三格记下了。』\n——保险箱认的，就是这四个字母还原之后的那个英文词。\n\n◈ 接下来： <a data-arg-link=\"去开保险箱\">→ 去开保险箱</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
       }
     },
     {
@@ -1333,6 +1351,14 @@
     }
   ],
   "edges": [
+    {
+      "from": "node_prologue",
+      "to": "node_desktop",
+      "port": "开始调查",
+      "label": "[ 开始调查 → ]",
+      "icon": "",
+      "desc": ""
+    },
     {
       "from": "node_desktop",
       "to": "node_intro_letter",
@@ -2607,5 +2633,5 @@
     }
   ],
   "customTemplates": [],
-  "selected": "node_desktop"
+  "selected": "node_prologue"
 }
