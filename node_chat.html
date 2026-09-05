@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>潮声通讯 · 端到端加密</title>
+<style>* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--arg-bg-color, #f0f2f5);
+  font-family: var(--arg-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft YaHei", sans-serif);
+  height: 100vh;
+  overflow: hidden;
+}
+.chat-app.wechat-theme {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff;
+}
+.chat-nav {
+  width: 60px;
+  background: #2e2e2e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.chat-nav-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+  transition: all 0.15s;
+}
+.chat-nav-item.active, .chat-nav-item:hover {
+  background: rgba(255,255,255,0.15);
+  color: #07c160;
+}
+.chat-sidebar {
+  width: 250px;
+  background: #f7f7f7;
+  border-right: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.chat-sidebar-header {
+  padding: 14px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+}
+.chat-search-bar {
+  display: flex;
+  align-items: center;
+  background: #e9e9e9;
+  border-radius: 4px;
+  padding: 4px 8px;
+  gap: 6px;
+}
+.chat-search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  width: 100%;
+  color: #333;
+}
+.chat-contacts-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+  position: relative;
+}
+.contact-item:hover {
+  background: #ebebeb;
+}
+.contact-item.active {
+  background: #c8e6c9;
+}
+.contact-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.contact-info {
+  flex: 1;
+  min-width: 0;
+}
+.contact-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-last-msg {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contact-badge {
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 10px;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-weight: bold;
+}
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+.chat-header {
+  height: 52px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-header-info {
+  display: flex;
+  align-items: center;
+}
+.chat-title-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  margin-right: 8px;
+}
+.chat-title-bio {
+  font-size: 12px;
+  color: #888;
+}
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chat-header-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.chat-header-back-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+  border-color: #9ca3af;
+}
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.msg-time-divider {
+  text-align: center;
+  font-size: 11px;
+  color: #b2b2b2;
+  margin: 4px 0;
+}
+.msg-row {
+  display: flex;
+  gap: 10px;
+  max-width: 75%;
+}
+.msg-row.received, .msg-row.msg-npc {
+  align-self: flex-start;
+  margin-right: auto;
+}
+.msg-row.sent, .msg-row.msg-user {
+  align-self: flex-end;
+  margin-left: auto;
+  flex-direction: row;
+}
+.msg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.msg-bubble {
+  padding: 9px 13px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word;
+  position: relative;
+}
+.msg-row.received .msg-bubble, .msg-row.msg-npc .msg-bubble {
+  background: #ffffff;
+  color: #1f1f1f;
+  border: 1px solid #e2e8f0;
+}
+.msg-row.sent .msg-bubble, .msg-row.msg-user .msg-bubble {
+  background: var(--arg-primary-color, #95ec69);
+  color: #000000;
+}
+.msg-bubble a, .msg-bubble .arg-link-item {
+  color: #07c160;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.chat-choices-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 18px;
+  background: #fbfbfb;
+  border-top: 1px dashed #e2e8f0;
+}
+.chat-choices-area:empty {
+  display: none;
+}
+.choice-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #ffffff;
+  border: 1px solid #07c160;
+  color: #07c160;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 2px 5px rgba(7, 193, 96, 0.1);
+}
+.choice-pill-btn:hover {
+  background: #07c160;
+  color: #ffffff;
+}
+.choice-pill-btn .pill-target {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-left: 6px;
+}
+.chat-input-area {
+  background: #ffffff;
+  border-top: 1px solid #e6e6e6;
+  padding: 10px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chat-toolbar {
+  display: flex;
+  gap: 12px;
+  color: #777;
+  font-size: 16px;
+}
+.tool-btn {
+  cursor: pointer;
+}
+.chat-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.chat-form input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+.chat-form input:focus {
+  border-color: #07c160;
+}
+.chat-send-btn {
+  padding: 8px 18px;
+  background: #e9e9e9;
+  color: #07c160;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chat-send-btn:hover {
+  background: #07c160;
+  color: #ffffff;
+}
+
+.contact-avatar img, .msg-avatar img, .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+    :root {
+      --arg-primary-color: #95ec69;
+      --arg-bg-color: #f4f6f9;
+      --arg-card-bg: #ffffff;
+      --arg-text-color: #222222;
+      --arg-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+    }
+    .arg-atmosphere-crt:before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 99999;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .arg-atmosphere-vignette:after {
+      content: " ";
+      display: block;
+      position: fixed;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 99998;
+    }
+    .arg-atmosphere-glitch {
+      animation: arg-glitch-flicker 4s infinite;
+    }
+    .arg-redacted {
+      color: transparent !important;
+      background: repeating-linear-gradient(45deg, #151515 0 3px, #555 3px 6px) !important;
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      cursor: help;
+    }
+    @keyframes arg-glitch-flicker {
+      0%, 95%, 100% { filter: none; }
+      96% { filter: hue-rotate(90deg) contrast(1.2); }
+      97% { filter: invert(0.1) saturate(1.4); }
+      98% { filter: none; }
+    }
+    
+  
+    
+    
+    
+  </style></head>
+<body>
+  <div class="chat-app wechat-theme" data-arg-component="chat">
+    <div class="chat-nav">
+      <div class="chat-nav-item active" title="消息">
+        <span class="nav-icon">💬</span>
+      </div>
+      <div class="chat-nav-item" title="通讯录">
+        <span class="nav-icon">👥</span>
+      </div>
+      <div role="button" tabindex="0" class="chat-nav-item chat-nav-back" data-arg-link="node_desktop" data-arg-port="返回电脑桌面" title="退出 / 返回电脑桌面" style="margin-top:auto;cursor:pointer;">
+        <span class="nav-icon">🔙</span>
+      </div>
+    </div>
+
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <div class="chat-search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="搜索联系人..." id="contactSearch">
+        </div>
+      </div>
+      <div class="chat-contacts-list" id="contactsList">
+        <!-- contacts rendered by runtime -->
+      </div>
+    </div>
+
+    <div class="chat-main" id="chatMain">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <span class="chat-title-name" id="currentContactName">潮声通讯 · 端到端加密</span>
+          <span class="chat-title-bio" id="currentContactBio"></span>
+        </div>
+        <div class="chat-header-actions">
+          <button type="button" class="chat-header-back-btn" data-arg-link="node_desktop" data-arg-port="返回电脑桌面" title="返回电脑桌面">
+            🖥️ 返回桌面
+          </button>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <!-- messages rendered by runtime -->
+      </div>
+
+      <div class="chat-choices-area" id="chatChoicesArea">
+        <!-- choice pills rendered by runtime -->
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-toolbar">
+          <span class="tool-btn" title="表情">😀</span>
+          <span class="tool-btn" title="发送图片">🖼️</span>
+          <span class="tool-btn" title="发送文件">📁</span>
+        </div>
+        <form class="chat-form" id="chatForm">
+          <input type="text" id="chatInput" placeholder="输入回复内容，或点击上方选项..." autocomplete="off">
+          <button type="submit" id="chatSendBtn" class="chat-send-btn">发送</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<script type="application/json" id="arg-config">{"nodeId":"node_chat","preview":false,"trackProgress":true,"files":{"node_desktop":"index.html","node_intro_letter":"node_intro_letter.html","node_chat":"node_chat.html","node_search":"node_search.html","node_forum":"node_forum.html","post_whitenoise":"post_whitenoise.html","post_ghostfm":"post_ghostfm.html","post_lighthouse":"post_lighthouse.html","post_tideclub":"post_tideclub.html","post_brother":"post_brother.html","post_45hz":"post_45hz.html","post_oath":"post_oath.html","post_reeled":"post_reeled.html","news_1999":"news_1999.html","news_2000":"news_2000.html","news_hanyang":"news_hanyang.html","news_lighthouse":"news_lighthouse.html","news_frequency":"news_frequency.html","news_missingpeople":"news_missingpeople.html","news_seawall":"news_seawall.html","news_orphan":"news_orphan.html","wiki_hub":"wiki_hub.html","wiki_tingchao":"wiki_tingchao.html","wiki_frequency":"wiki_frequency.html","wiki_shenyan":"wiki_shenyan.html","wiki_bluebay":"wiki_bluebay.html","wiki_hanyang":"wiki_hanyang.html","index_archive":"index_archive.html","doc_wreck_report":"doc_wreck_report.html","doc_ship_manifest":"doc_ship_manifest.html","doc_club_ledger":"doc_club_ledger.html","doc_experiment":"doc_experiment.html","doc_subsidy":"doc_subsidy.html","diary_shenyan":"diary_shenyan.html","diary_shenyan2":"diary_shenyan2.html","transcript_tape":"transcript_tape.html","police_report":"police_report.html","letter_covert":"letter_covert.html","audio_log":"audio_log.html","doc_tide_recruit":"doc_tide_recruit.html","surv_port":"surv_port.html","surv_studio":"surv_studio.html","node_login_safe":"node_login_safe.html","node_files_secret":"node_files_secret.html","node_login_station":"node_login_station.html","node_files_station":"node_files_station.html","node_login_police":"node_login_police.html","end_silence":"end_silence.html","end_partial":"end_partial.html","end_corp":"end_corp.html","end_wave":"end_wave.html","end_ninth":"end_ninth.html","end_true":"end_true.html"},"rules":{"search":{"1999":"news_1999","海难":"news_1999","1999海难":"news_1999","失踪":"news_missingpeople","失踪人口":"news_missingpeople","蓝湾失踪":"news_missingpeople","沈砚":"news_2000","潮声":"news_2000","主持人失踪":"news_2000","瀚洋":"news_hanyang","韩启昌":"news_hanyang","瀚洋集团":"news_hanyang","灯塔":"news_lighthouse","延盛灯塔":"news_lighthouse","延盛":"news_lighthouse","99.4":"news_frequency","停播":"news_frequency","频率":"news_frequency","广播站":"news_frequency","人墙":"news_seawall","渔港":"news_seawall","闹鬼":"news_seawall","福利院":"news_orphan","精神卫生中心":"news_orphan","转出":"news_orphan","听潮会":"wiki_tingchao","潮水会带走诚实的人":"wiki_tingchao","次声波":"wiki_frequency","4.5hz":"wiki_frequency","4.5":"wiki_frequency","白噪":"wiki_frequency","瀚洋7号":"doc_ship_manifest","名单":"doc_ship_manifest","manifest":"doc_ship_manifest","船员":"doc_ship_manifest","白噪计划":"doc_experiment","实验":"doc_experiment","声学实验":"doc_experiment","资助":"doc_subsidy","协议":"doc_subsidy","柯振":"doc_subsidy","调查报告":"doc_wreck_report","海事":"doc_wreck_report","lw-1999":"doc_wreck_report","第九夜":"transcript_tape","录音":"transcript_tape","潮声第九夜":"transcript_tape","日记":"diary_shenyan","检修":"audio_log","台呼":"audio_log","监控":"surv_port","报案":"police_report","举报":"letter_covert"}},"links":{"end_silence":"end_silence","结局·官方结论":"end_silence","向警方提交：结论为“3·14 意外海难”，结案。":"end_silence","end_partial":"end_partial","结局·一知半解":"end_partial","提交《1999 海难》海事调查：至少还失踪者一个“非自愿遇难”。":"end_partial","end_corp":"end_corp","结局·指认瀚洋":"end_corp","实名指控瀚洋集团与韩启昌：以慈善之名，行拐运之实。":"end_corp","end_wave":"end_wave","结局·频率之下":"end_wave","公开“白噪计划”：以 4.5Hz 次声波诱导服从的实验罪证。":"end_wave","end_ninth":"end_ninth","结局·第九夜":"end_ninth","还原“灯塔之夜”：以监控与日记锁定那晚到底发生了什么。":"end_ninth","end_true":"end_true","结局·把声音还给大海 (True End)":"end_true","把全部证据链交给《南方纪事》：让声音，还给大海。":"end_true","index_archive":"index_archive","蓝湾镇档案馆（公开目录）":"index_archive","打开加密聊天里的档案馆入口":"index_archive","node_search":"node_search","千禧搜索 · 全网线索检索":"node_search","去搜索引擎验证这些词":"node_search","node_forum":"node_forum","蓝湾潮声论坛":"node_forum","去论坛问问“听潮会”":"node_forum","news_lighthouse":"news_lighthouse","新闻·灯塔将拆":"news_lighthouse","检索“延盛灯塔”":"news_lighthouse","node_desktop":"node_desktop","沈砚遗留的主机":"node_desktop","回到桌面":"node_desktop"},"password":"","errorMessage":"❌ 密码错误，请重新输入！","loginTarget":"","notFoundText":"没有找到相关结果","typewriter":false,"atmosphere":"","contacts":[{"id":"c_jj","name":"明月如霜（《南方纪事》记者）","bio":"独立调查记者 · 你唯一能公开真相的出口","avatar":"🕯️","messages":[{"sender":"npc","text":"沈知微？我是明月如霜。你哥哥失踪前，最后联系的人是我。"},{"sender":"npc","text":"我一个人发稿会被压。但如果你能替我把证据链拼起来……"},{"sender":"npc","text":"记住：能提交什么结论，取决于你在机房、论坛、档案馆和保险箱里，真正挖到了哪几条线索。挖得越全，能说的话越重。"}],"choices":[{"text":"向警方提交：结论为“3·14 意外海难”，结案。","target":"end_silence","requires":"","reply":"……你确定不再往下查了？那就这样吧。卷宗盖上章，名字变成一行铅字。"},{"text":"提交《1999 海难》海事调查：至少还失踪者一个“非自愿遇难”。","target":"end_partial","requires":"news_1999,doc_wreck_report","reply":"你查到了 1999 年那次“同一种海难”。可幕后是谁、为什么，你还说不清。"},{"text":"实名指控瀚洋集团与韩启昌：以慈善之名，行拐运之实。","target":"end_corp","requires":"news_hanyang,doc_subsidy,wiki_tingchao","reply":"资金、协议、听潮会会员名册……你终于把“瀚洋”两个字钉在了案卷上。"},{"text":"公开“白噪计划”：以 4.5Hz 次声波诱导服从的实验罪证。","target":"end_wave","requires":"doc_experiment,transcript_tape,wiki_frequency","reply":"第九夜录音＋实验备忘录＋次声波原理——你证明了他们往人脑子里灌进了什么。"},{"text":"还原“灯塔之夜”：以监控与日记锁定那晚到底发生了什么。","target":"end_ninth","requires":"surv_port,surv_studio,diary_shenyan2","reply":"渔港监控、播音室最后画面、哥的前半本与后半本……那晚在你眼前重演了一遍。"},{"text":"把全部证据链交给《南方纪事》：让声音，还给大海。","target":"end_true","requires":"doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2","reply":"你手里是完整的链：资助→实验→招募→那一夜→名单。明天头版会印下所有名字。"}]},{"id":"c_zhou","name":"老周（广播站·退休技师）","bio":"IP 屏蔽中 · 只肯说半句","avatar":"🛠️","messages":[{"sender":"npc","text":"你哥那台机器啊……保险箱口令是他天天挂在嘴边的数。"},{"sender":"npc","text":"机房 BIOS 认台呼。《潮声》一共做了九期，最后一期他叫它“第九夜”。台呼拼音 you 记得：chaosheng9。"},{"sender":"player","text":"那内网警务系统呢？"},{"sender":"npc","text":"1999 那单有事故编号，蓝湾卷宗一律 LW 打头。你自己去翻。"}],"choices":[{"text":"打开加密聊天里的档案馆入口","target":"index_archive"},{"text":"去搜索引擎验证这些词","target":"node_search"}]},{"id":"c_anon","name":"未知号码 +0000-994","bio":"信号极弱 · 疑似来自海上","avatar":"📶","messages":[{"sender":"npc","text":"……别……听……白噪……"},{"sender":"npc","text":"延盛灯塔的灯，不是给船看的。他们照着海里。"},{"sender":"npc","text":"名单……瀚洋7号……_manifest……"}],"choices":[{"text":"去论坛问问“听潮会”","target":"node_forum"},{"text":"检索“延盛灯塔”","target":"news_lighthouse"}]},{"id":"c_yan","name":"沈砚（哥哥 · 离线？）","bio":"最后在线 2000-03-14","avatar":"🎙️","messages":[{"sender":"npc","text":"（自动回复）机主已离线。若您在收听，请打开保险箱，听完第九夜。"}],"choices":[{"text":"回到桌面","target":"node_desktop"}]}]}</script><script src="arg-runtime.js"></script></body>
+</html>

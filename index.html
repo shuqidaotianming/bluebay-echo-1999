@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>沈砚的旧机 (Windows XP Pro · 蓝湾)</title>
+<style>body {
+  margin: 0;
+  padding: 0;
+  background: var(--arg-bg-color, linear-gradient(180deg, #1b5cb8 0%, #4691e8 45%, #63b333 75%, #3c821b 100%));
+  background-size: cover;
+  font-family: var(--arg-font-family, Tahoma, "Segoe UI", sans-serif);
+  user-select: none;
+  overflow: hidden;
+  height: 100vh;
+}
+.winxp-desktop {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.desktop-main {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  position: relative;
+  overflow: auto;
+}
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 20px;
+  max-height: calc(100vh - 80px);
+}
+.desktop-icon {
+  width: 86px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.desktop-icon:active {
+  background: rgba(10, 70, 180, 0.6);
+}
+.icon-symbol {
+  font-size: 38px;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+.icon-title {
+  font-size: 11px;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  word-break: break-all;
+  line-height: 1.2;
+}
+.win-sticky-note {
+  width: 260px;
+  background: #fffb91;
+  border: 1px solid #d4ce46;
+  box-shadow: 4px 4px 14px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  color: #2b2b2b;
+  align-self: flex-start;
+}
+.win-sticky-note:empty {
+  display: none;
+}
+.note-titlebar {
+  background: #e3dc32;
+  color: #3b3700;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px 4px 0 0;
+}
+.note-body {
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.winxp-taskbar {
+  height: 32px;
+  background: var(--arg-taskbar-bg, linear-gradient(180deg, #245edb 0%, #1941a5 50%, #1e52c8 100%));
+  border-top: 1px solid #4a86f7;
+  display: flex;
+  align-items: center;
+  padding: 0 6px 0 0;
+  gap: 8px;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.25);
+  z-index: 100;
+}
+.xp-start-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 16px 0 12px;
+  background: linear-gradient(180deg, #388a1e 0%, #51b82e 45%, #2a6914 100%);
+  border-radius: 0 10px 10px 0;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  font-style: italic;
+  box-shadow: inset 1px 1px 1px rgba(255,255,255,0.4), 2px 0 4px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+.xp-start-btn:hover {
+  filter: brightness(1.1);
+}
+.taskbar-tasks {
+  flex: 1;
+  display: flex;
+  gap: 4px;
+}
+.xp-taskbar-item {
+  height: 24px;
+  padding: 0 12px;
+  background: linear-gradient(180deg, #1b4bbd 0%, #2f6de4 100%);
+  border: 1px solid #103387;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px rgba(255,255,255,0.3);
+}
+.winxp-tray {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #0c82d4 0%, #0959a3 100%);
+  border-left: 1px solid #1693e8;
+  color: #fff;
+  font-size: 11px;
+}
+
+.desktop-icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 4px;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+}
+
+    :root {
+      --arg-primary-color: #000080;
+      --arg-bg-color: linear-gradient(180deg,#0b1a3a 0%,#16335f 45%,#2b5a3a 78%,#123018 100%);
+      --arg-card-bg: #c0c0c0;
+      --arg-text-color: #ffffff;
+      --arg-font-family: "MS Sans Serif", "SimSun", "宋体", sans-serif;
+    }
+    .arg-atmosphere-crt:before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 99999;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .arg-atmosphere-vignette:after {
+      content: " ";
+      display: block;
+      position: fixed;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 99998;
+    }
+    .arg-atmosphere-glitch {
+      animation: arg-glitch-flicker 4s infinite;
+    }
+    .arg-redacted {
+      color: transparent !important;
+      background: repeating-linear-gradient(45deg, #151515 0 3px, #555 3px 6px) !important;
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      cursor: help;
+    }
+    @keyframes arg-glitch-flicker {
+      0%, 95%, 100% { filter: none; }
+      96% { filter: hue-rotate(90deg) contrast(1.2); }
+      97% { filter: invert(0.1) saturate(1.4); }
+      98% { filter: none; }
+    }
+    
+  
+    
+    
+    
+  </style></head>
+<body>
+  <div class="winxp-desktop">
+    <div class="desktop-main">
+      <div class="desktop-icons" data-arg-slot="icons">
+        <a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="一封未寄出的信.txt" title="一封未寄出的信.txt"><div class="icon-symbol">📄</div><div class="icon-title">一封未寄出的信.txt</div></a>
+<a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="潮声通讯.exe" title="加密聊天 · 潮声通讯"><div class="icon-symbol">💬</div><div class="icon-title">加密聊天 · 潮声通讯</div></a>
+<a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="蓝湾潮声论坛" title="蓝湾潮声论坛"><div class="icon-symbol">🌐</div><div class="icon-title">蓝湾潮声论坛</div></a>
+<a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="千禧搜索.exe" title="千禧搜索"><div class="icon-symbol">🔍</div><div class="icon-title">千禧搜索</div></a>
+<a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="🔐保险箱" title="加密档案保险箱"><div class="icon-symbol">🔐</div><div class="icon-title">加密档案保险箱</div></a>
+<a href="javascript:void(0)" role="button" tabindex="0" class="desktop-icon arg-link-item" data-arg-link="蓝湾镇档案馆" title="蓝湾镇档案馆"><div class="icon-symbol">🗂️</div><div class="icon-title">蓝湾镇档案馆</div></a>
+      </div>
+      <div class="desktop-widgets">
+        <div class="win-sticky-note" data-arg-slot="stickyNote">
+          <div class="note-titlebar">📌 便签 (Sticky Note)</div>
+          <div class="note-body">哥哥的备忘录（字迹被水渍洇开）：<br>1. 别只信通报里的“海难”。<br>2. 保险箱口令＝我守了七年的那个频率。<br>3. 台呼第九夜，潮声会把名字念完。<br>4. 查：瀚洋、听潮会、次声波、灯塔、LW-1999。<br>5. 若你听到那段白噪——来找我。</div>
+        </div>
+      </div>
+    </div>
+    <div class="winxp-taskbar">
+      <div class="xp-start-btn">
+        <span>❖</span>
+        <span data-arg-slot="startTitle">开始</span>
+      </div>
+      <div class="taskbar-tasks">
+        <div class="xp-taskbar-item">
+          <span>💻 沈砚的旧机 (Windows XP Pro · 蓝湾)</span>
+        </div>
+      </div>
+      <div class="winxp-tray">
+        <span class="tray-icon">🔊</span>
+        <span class="tray-time" data-arg-slot="time">2003-11-17 02:47</span>
+      </div>
+    </div>
+  </div>
+<script type="application/json" id="arg-config">{"nodeId":"node_desktop","preview":false,"trackProgress":true,"files":{"node_desktop":"index.html","node_intro_letter":"node_intro_letter.html","node_chat":"node_chat.html","node_search":"node_search.html","node_forum":"node_forum.html","post_whitenoise":"post_whitenoise.html","post_ghostfm":"post_ghostfm.html","post_lighthouse":"post_lighthouse.html","post_tideclub":"post_tideclub.html","post_brother":"post_brother.html","post_45hz":"post_45hz.html","post_oath":"post_oath.html","post_reeled":"post_reeled.html","news_1999":"news_1999.html","news_2000":"news_2000.html","news_hanyang":"news_hanyang.html","news_lighthouse":"news_lighthouse.html","news_frequency":"news_frequency.html","news_missingpeople":"news_missingpeople.html","news_seawall":"news_seawall.html","news_orphan":"news_orphan.html","wiki_hub":"wiki_hub.html","wiki_tingchao":"wiki_tingchao.html","wiki_frequency":"wiki_frequency.html","wiki_shenyan":"wiki_shenyan.html","wiki_bluebay":"wiki_bluebay.html","wiki_hanyang":"wiki_hanyang.html","index_archive":"index_archive.html","doc_wreck_report":"doc_wreck_report.html","doc_ship_manifest":"doc_ship_manifest.html","doc_club_ledger":"doc_club_ledger.html","doc_experiment":"doc_experiment.html","doc_subsidy":"doc_subsidy.html","diary_shenyan":"diary_shenyan.html","diary_shenyan2":"diary_shenyan2.html","transcript_tape":"transcript_tape.html","police_report":"police_report.html","letter_covert":"letter_covert.html","audio_log":"audio_log.html","doc_tide_recruit":"doc_tide_recruit.html","surv_port":"surv_port.html","surv_studio":"surv_studio.html","node_login_safe":"node_login_safe.html","node_files_secret":"node_files_secret.html","node_login_station":"node_login_station.html","node_files_station":"node_files_station.html","node_login_police":"node_login_police.html","end_silence":"end_silence.html","end_partial":"end_partial.html","end_corp":"end_corp.html","end_wave":"end_wave.html","end_ninth":"end_ninth.html","end_true":"end_true.html"},"rules":{"search":{"1999":"news_1999","海难":"news_1999","1999海难":"news_1999","失踪":"news_missingpeople","失踪人口":"news_missingpeople","蓝湾失踪":"news_missingpeople","沈砚":"news_2000","潮声":"news_2000","主持人失踪":"news_2000","瀚洋":"news_hanyang","韩启昌":"news_hanyang","瀚洋集团":"news_hanyang","灯塔":"news_lighthouse","延盛灯塔":"news_lighthouse","延盛":"news_lighthouse","99.4":"news_frequency","停播":"news_frequency","频率":"news_frequency","广播站":"news_frequency","人墙":"news_seawall","渔港":"news_seawall","闹鬼":"news_seawall","福利院":"news_orphan","精神卫生中心":"news_orphan","转出":"news_orphan","听潮会":"wiki_tingchao","潮水会带走诚实的人":"wiki_tingchao","次声波":"wiki_frequency","4.5hz":"wiki_frequency","4.5":"wiki_frequency","白噪":"wiki_frequency","瀚洋7号":"doc_ship_manifest","名单":"doc_ship_manifest","manifest":"doc_ship_manifest","船员":"doc_ship_manifest","白噪计划":"doc_experiment","实验":"doc_experiment","声学实验":"doc_experiment","资助":"doc_subsidy","协议":"doc_subsidy","柯振":"doc_subsidy","调查报告":"doc_wreck_report","海事":"doc_wreck_report","lw-1999":"doc_wreck_report","第九夜":"transcript_tape","录音":"transcript_tape","潮声第九夜":"transcript_tape","日记":"diary_shenyan","检修":"audio_log","台呼":"audio_log","监控":"surv_port","报案":"police_report","举报":"letter_covert"}},"links":{"一封未寄出的信.txt":"node_intro_letter","沈砚未寄出的信":"node_intro_letter","node_intro_letter":"node_intro_letter","node_intro_letter.html":"node_intro_letter","潮声通讯.exe":"node_chat","加密聊天 · 潮声通讯":"node_chat","node_chat":"node_chat","node_chat.html":"node_chat","蓝湾潮声论坛":"node_forum","node_forum":"node_forum","node_forum.html":"node_forum","千禧搜索.exe":"node_search","千禧搜索":"node_search","千禧搜索 · 全网线索检索":"node_search","node_search":"node_search","node_search.html":"node_search","🔐保险箱":"node_login_safe","加密档案保险箱":"node_login_safe","node_login_safe":"node_login_safe","node_login_safe.html":"node_login_safe","蓝湾镇档案馆":"index_archive","蓝湾镇档案馆（公开目录）":"index_archive","index_archive":"index_archive","index_archive.html":"index_archive"},"password":"","errorMessage":"❌ 密码错误，请重新输入！","loginTarget":"node_intro_letter","notFoundText":"没有找到相关结果","typewriter":false,"atmosphere":"","contacts":[]}</script><script src="arg-runtime.js"></script></body>
+</html>

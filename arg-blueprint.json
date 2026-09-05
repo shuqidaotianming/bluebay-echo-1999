@@ -1,0 +1,2490 @@
+{
+  "version": "1.0.0",
+  "title": "白噪 · 1999 蓝湾镇回声事件",
+  "startId": "node_desktop",
+  "nodes": [
+    {
+      "id": "node_desktop",
+      "name": "沈砚遗留的主机",
+      "type": "Desktop",
+      "template": "Windows XP 桌面",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "systemName": "沈砚的旧机 (Windows XP Pro · 蓝湾)",
+        "time": "2003-11-17 02:47",
+        "stickyNote": "哥哥的备忘录（字迹被水渍洇开）：\n1. 别只信通报里的“海难”。\n2. 保险箱口令＝我守了七年的那个频率。\n3. 台呼第九夜，潮声会把名字念完。\n4. 查：瀚洋、听潮会、次声波、灯塔、LW-1999。\n5. 若你听到那段白噪——来找我。",
+        "startTitle": "开始",
+        "primaryColor": "#000080",
+        "bgColor": "linear-gradient(180deg,#0b1a3a 0%,#16335f 45%,#2b5a3a 78%,#123018 100%)"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": true
+    },
+    {
+      "id": "node_intro_letter",
+      "name": "沈砚未寄出的信",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 310,
+      "y": 80,
+      "fields": {
+        "title": "致 知微（若我没能回来）",
+        "date": "2000-03-14 深夜",
+        "author": "沈砚",
+        "body": "知微：\n如果你读到这封信，说明我已经“出海遇难”了。\n那晚没有台风，海很平。是有人把整条船的人，连同我的麦克风，一起按进了水里。\nFM 99.4——那是我七年夜夜守着、也骗了无数人的频率。听潮会说“潮水会带走诚实的人”，他们说到做到。\n保险箱里，是我最后一次《潮声》。听完第九夜，替我把声音还给大海。\n\n别信“陆上无尸即无事”。别信韩启昌。别信柯振师傅。\n—— 哥\n\n◈ 接下来： <a data-arg-link=\"打开保险箱\">用 99.4 打开保险箱</a> ｜ <a data-arg-link=\"联系记者\">联系明月如霜</a> ｜ <a data-arg-link=\"去搜索这些词\">去搜索哥哥留下的词</a> ｜ <a data-arg-link=\"返回桌面\">← 返回桌面</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_chat",
+      "name": "加密聊天 · 潮声通讯",
+      "type": "Chat",
+      "template": "微信 UI 风格",
+      "x": 540,
+      "y": 80,
+      "fields": {
+        "siteName": "潮声通讯 · 端到端加密"
+      },
+      "rules": [],
+      "contacts": [
+        {
+          "id": "c_jj",
+          "name": "明月如霜（《南方纪事》记者）",
+          "bio": "独立调查记者 · 你唯一能公开真相的出口",
+          "avatar": "🕯️",
+          "messages": [
+            {
+              "sender": "npc",
+              "text": "沈知微？我是明月如霜。你哥哥失踪前，最后联系的人是我。"
+            },
+            {
+              "sender": "npc",
+              "text": "我一个人发稿会被压。但如果你能替我把证据链拼起来……"
+            },
+            {
+              "sender": "npc",
+              "text": "记住：能提交什么结论，取决于你在机房、论坛、档案馆和保险箱里，真正挖到了哪几条线索。挖得越全，能说的话越重。"
+            }
+          ],
+          "choices": [
+            {
+              "text": "向警方提交：结论为“3·14 意外海难”，结案。",
+              "target": "end_silence",
+              "requires": "",
+              "reply": "……你确定不再往下查了？那就这样吧。卷宗盖上章，名字变成一行铅字。"
+            },
+            {
+              "text": "提交《1999 海难》海事调查：至少还失踪者一个“非自愿遇难”。",
+              "target": "end_partial",
+              "requires": "news_1999,doc_wreck_report",
+              "reply": "你查到了 1999 年那次“同一种海难”。可幕后是谁、为什么，你还说不清。"
+            },
+            {
+              "text": "实名指控瀚洋集团与韩启昌：以慈善之名，行拐运之实。",
+              "target": "end_corp",
+              "requires": "news_hanyang,doc_subsidy,wiki_tingchao",
+              "reply": "资金、协议、听潮会会员名册……你终于把“瀚洋”两个字钉在了案卷上。"
+            },
+            {
+              "text": "公开“白噪计划”：以 4.5Hz 次声波诱导服从的实验罪证。",
+              "target": "end_wave",
+              "requires": "doc_experiment,transcript_tape,wiki_frequency",
+              "reply": "第九夜录音＋实验备忘录＋次声波原理——你证明了他们往人脑子里灌进了什么。"
+            },
+            {
+              "text": "还原“灯塔之夜”：以监控与日记锁定那晚到底发生了什么。",
+              "target": "end_ninth",
+              "requires": "surv_port,surv_studio,diary_shenyan2",
+              "reply": "渔港监控、播音室最后画面、哥的前半本与后半本……那晚在你眼前重演了一遍。"
+            },
+            {
+              "text": "把全部证据链交给《南方纪事》：让声音，还给大海。",
+              "target": "end_true",
+              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2",
+              "reply": "你手里是完整的链：资助→实验→招募→那一夜→名单。明天头版会印下所有名字。"
+            }
+          ]
+        },
+        {
+          "id": "c_zhou",
+          "name": "老周（广播站·退休技师）",
+          "bio": "IP 屏蔽中 · 只肯说半句",
+          "avatar": "🛠️",
+          "messages": [
+            {
+              "sender": "npc",
+              "text": "你哥那台机器啊……保险箱口令是他天天挂在嘴边的数。"
+            },
+            {
+              "sender": "npc",
+              "text": "机房 BIOS 认台呼。《潮声》一共做了九期，最后一期他叫它“第九夜”。台呼拼音 you 记得：chaosheng9。"
+            },
+            {
+              "sender": "player",
+              "text": "那内网警务系统呢？"
+            },
+            {
+              "sender": "npc",
+              "text": "1999 那单有事故编号，蓝湾卷宗一律 LW 打头。你自己去翻。"
+            }
+          ],
+          "choices": [
+            {
+              "text": "打开加密聊天里的档案馆入口",
+              "target": "index_archive"
+            },
+            {
+              "text": "去搜索引擎验证这些词",
+              "target": "node_search"
+            }
+          ]
+        },
+        {
+          "id": "c_anon",
+          "name": "未知号码 +0000-994",
+          "bio": "信号极弱 · 疑似来自海上",
+          "avatar": "📶",
+          "messages": [
+            {
+              "sender": "npc",
+              "text": "……别……听……白噪……"
+            },
+            {
+              "sender": "npc",
+              "text": "延盛灯塔的灯，不是给船看的。他们照着海里。"
+            },
+            {
+              "sender": "npc",
+              "text": "名单……瀚洋7号……_manifest……"
+            }
+          ],
+          "choices": [
+            {
+              "text": "去论坛问问“听潮会”",
+              "target": "node_forum"
+            },
+            {
+              "text": "检索“延盛灯塔”",
+              "target": "news_lighthouse"
+            }
+          ]
+        },
+        {
+          "id": "c_yan",
+          "name": "沈砚（哥哥 · 离线？）",
+          "bio": "最后在线 2000-03-14",
+          "avatar": "🎙️",
+          "messages": [
+            {
+              "sender": "npc",
+              "text": "（自动回复）机主已离线。若您在收听，请打开保险箱，听完第九夜。"
+            }
+          ],
+          "choices": [
+            {
+              "text": "回到桌面",
+              "target": "node_desktop"
+            }
+          ]
+        }
+      ],
+      "isStart": false
+    },
+    {
+      "id": "node_search",
+      "name": "千禧搜索 · 全网线索检索",
+      "type": "Search",
+      "template": "1999 门户搜索",
+      "x": 770,
+      "y": 80,
+      "fields": {
+        "siteName": "千禧搜索 · Search BlueBay",
+        "subtitle": "输入案件编号 / 人名 / 案由检索线索",
+        "notice": "💡 试试：1999海难、失踪、瀚洋、韩启昌、听潮会、次声波、4.5Hz、灯塔、第九夜、名单、LW-1999、停播、白噪计划",
+        "placeholder": "请输入关键词……",
+        "buttonText": "检索档案"
+      },
+      "rules": [
+        {
+          "keyword": "1999",
+          "target": "news_1999"
+        },
+        {
+          "keyword": "海难",
+          "target": "news_1999"
+        },
+        {
+          "keyword": "1999海难",
+          "target": "news_1999"
+        },
+        {
+          "keyword": "失踪",
+          "target": "news_missingpeople"
+        },
+        {
+          "keyword": "失踪人口",
+          "target": "news_missingpeople"
+        },
+        {
+          "keyword": "蓝湾失踪",
+          "target": "news_missingpeople"
+        },
+        {
+          "keyword": "沈砚",
+          "target": "news_2000"
+        },
+        {
+          "keyword": "潮声",
+          "target": "news_2000"
+        },
+        {
+          "keyword": "主持人失踪",
+          "target": "news_2000"
+        },
+        {
+          "keyword": "瀚洋",
+          "target": "news_hanyang"
+        },
+        {
+          "keyword": "韩启昌",
+          "target": "news_hanyang"
+        },
+        {
+          "keyword": "瀚洋集团",
+          "target": "news_hanyang"
+        },
+        {
+          "keyword": "灯塔",
+          "target": "news_lighthouse"
+        },
+        {
+          "keyword": "延盛灯塔",
+          "target": "news_lighthouse"
+        },
+        {
+          "keyword": "延盛",
+          "target": "news_lighthouse"
+        },
+        {
+          "keyword": "99.4",
+          "target": "news_frequency"
+        },
+        {
+          "keyword": "停播",
+          "target": "news_frequency"
+        },
+        {
+          "keyword": "频率",
+          "target": "news_frequency"
+        },
+        {
+          "keyword": "广播站",
+          "target": "news_frequency"
+        },
+        {
+          "keyword": "人墙",
+          "target": "news_seawall"
+        },
+        {
+          "keyword": "渔港",
+          "target": "news_seawall"
+        },
+        {
+          "keyword": "闹鬼",
+          "target": "news_seawall"
+        },
+        {
+          "keyword": "福利院",
+          "target": "news_orphan"
+        },
+        {
+          "keyword": "精神卫生中心",
+          "target": "news_orphan"
+        },
+        {
+          "keyword": "转出",
+          "target": "news_orphan"
+        },
+        {
+          "keyword": "听潮会",
+          "target": "wiki_tingchao"
+        },
+        {
+          "keyword": "潮水会带走诚实的人",
+          "target": "wiki_tingchao"
+        },
+        {
+          "keyword": "次声波",
+          "target": "wiki_frequency"
+        },
+        {
+          "keyword": "4.5hz",
+          "target": "wiki_frequency"
+        },
+        {
+          "keyword": "4.5",
+          "target": "wiki_frequency"
+        },
+        {
+          "keyword": "白噪",
+          "target": "wiki_frequency"
+        },
+        {
+          "keyword": "瀚洋7号",
+          "target": "doc_ship_manifest"
+        },
+        {
+          "keyword": "名单",
+          "target": "doc_ship_manifest"
+        },
+        {
+          "keyword": "manifest",
+          "target": "doc_ship_manifest"
+        },
+        {
+          "keyword": "船员",
+          "target": "doc_ship_manifest"
+        },
+        {
+          "keyword": "白噪计划",
+          "target": "doc_experiment"
+        },
+        {
+          "keyword": "实验",
+          "target": "doc_experiment"
+        },
+        {
+          "keyword": "声学实验",
+          "target": "doc_experiment"
+        },
+        {
+          "keyword": "资助",
+          "target": "doc_subsidy"
+        },
+        {
+          "keyword": "协议",
+          "target": "doc_subsidy"
+        },
+        {
+          "keyword": "柯振",
+          "target": "doc_subsidy"
+        },
+        {
+          "keyword": "调查报告",
+          "target": "doc_wreck_report"
+        },
+        {
+          "keyword": "海事",
+          "target": "doc_wreck_report"
+        },
+        {
+          "keyword": "lw-1999",
+          "target": "doc_wreck_report"
+        },
+        {
+          "keyword": "LW-1999",
+          "target": "doc_wreck_report"
+        },
+        {
+          "keyword": "第九夜",
+          "target": "transcript_tape"
+        },
+        {
+          "keyword": "录音",
+          "target": "transcript_tape"
+        },
+        {
+          "keyword": "潮声第九夜",
+          "target": "transcript_tape"
+        },
+        {
+          "keyword": "日记",
+          "target": "diary_shenyan"
+        },
+        {
+          "keyword": "检修",
+          "target": "audio_log"
+        },
+        {
+          "keyword": "台呼",
+          "target": "audio_log"
+        },
+        {
+          "keyword": "监控",
+          "target": "surv_port"
+        },
+        {
+          "keyword": "报案",
+          "target": "police_report"
+        },
+        {
+          "keyword": "举报",
+          "target": "letter_covert"
+        }
+      ],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_forum",
+      "name": "蓝湾潮声论坛",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1000,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛 · 深夜版（BBS）",
+        "title": "【置顶】本版近期异常与老坛友提醒",
+        "date": "2003-11-16",
+        "author": "版主 · 雾港守夜人",
+        "forumName": "蓝湾异闻 / 深夜实录",
+        "username": "知微 (Lv.1 新人)",
+        "time": "2003-11-17 02:50",
+        "body": "欢迎回到蓝湾潮声论坛。注册虽关闭，旧帖仍在。\n近期大量账号“头像变灰”，最后发帖时间都停在 03:14。请勿公开谈论“引渡”二字——版务里有他们的眼线。\n\n本区热帖：次声波、灯塔的灯、被介绍去渔港“上班”的人、听潮会誓词、潮声第九期。",
+        "replies": "落潮：又有人半夜听到白噪了对吧\n雾港守夜人：别问，删帖警告\nsmile1999：我哥就是那年被“介绍”去港口的"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_whitenoise",
+      "name": "帖子·半夜白噪",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "【求助】你们半夜也听到白噪了吗？",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "一到 03:00，收音机没人开也会“沙沙”响，像有人在很远的地方念名字。\n念着念着，人就特别困、特别听话，第二天想不起夜里做过什么。",
+        "replies": "潮汐恐惧症：别调频到 99.4\n匿名：那不是杂音，是“信号”"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_ghostfm",
+      "name": "帖子·潮声第九期",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 310,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "有人听过《潮声》的“第九期”吗？",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "官方说《潮声》只做了八期。可我表哥留着第九期的卡带，标签是“chaosheng9 · 别外传”。\n里面前半段是白噪，最后三秒我听见有人报了一串数字和船名。",
+        "replies": "守夜人：那期是事故以后补录的\n雾港人：机房的 BIOS 认这个台呼"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_lighthouse",
+      "name": "帖子·灯塔的灯",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 540,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "延盛灯塔的灯，晚上根本不照航道",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "我开货运的。延盛灯塔那盏大功率灯，从不照礁石，一到暴风雨夜就把光往内海打。\n像是在给谁“指路”——不是给船看的，是给岸上那批人看的。",
+        "replies": "老海狼：那灯塔早该拆了\n匿名：3·14 那晚灯亮了一整夜"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_tideclub",
+      "name": "帖子·听潮会",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 770,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "有没有人知道“听潮会”是什么组织？",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "镇上孤儿院、精神卫生中心、还有欠了高利贷的，都被“介绍”参加过。名义是互助、祈福，实则是给他们做一次“净化仪式”。\n交完入会费，人就变得很安静。",
+        "replies": "知情者：会员名册在暗账里\n版主：删了别怪我"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_brother",
+      "name": "帖子·沈砚最后一期",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1000,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "主持人沈砚失踪前，那期节目说漏了嘴",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "重听八千晚的录音：他最后说“他们要把诚实的人交给潮水，可我留了一份给明天”。\n第二天就传出“私自出海遇难”。海况通报当天：微风，浪 0.6 米。",
+        "replies": "守夜人：0.6米浪会淹死一个老船员？\n匿名：他保险箱里还有东西"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_45hz",
+      "name": "帖子·4.5Hz次声波",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1230,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "科普帖：4.5 赫兹，能让活人“自愿听话”",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "极低频声(约 7Hz 以下)会引起眼球共振、恶心、莫名恐惧与顺从。长期定向照射，可让人在不清醒状态下“自愿”跟随指令。\n有人把它做进了广播，用夜里最安静的时段循环播放。",
+        "replies": "物理老师：需要持续、定向、高功率\n匿名：白噪计划就是这个"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_oath",
+      "name": "帖子·听潮会誓词",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 80,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "曝光：听潮会的入会誓词",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "“潮水会带走诚实的人，留下顺从的人。”\n入会须交一件“旧物”做抵押，并签一份《自愿移居与随船劳务同意书》。那份同意书的抬头，是瀚洋水产。",
+        "replies": "退会者：签完人就傻了\n版主：这是要出事的帖子"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "post_reeled",
+      "name": "帖子·被介绍去港口",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 310,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "我哥就是那年被“介绍”去渔港上班的人",
+        "date": "2003-11-14",
+        "author": "匿名",
+        "forumName": "蓝湾异闻",
+        "username": "深夜来客",
+        "time": "03:14",
+        "body": "家里穷，听潮会说“随船劳务、包吃包住、一个月顶两年”。去了“瀚洋 7 号”，两个月没消息，回来的名单上根本没有我哥。\n官方说法：遇海难，尸骨无存。",
+        "replies": "同样失去儿子的大姐：我信了当年\n守夜人：查船员名单"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_1999",
+      "name": "新闻·1999蓝湾海难",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾日报 · 1999 年 8 月",
+        "title": "“瀚洋 7 号”渔船倾覆 六十六人下落不明",
+        "date": "1999-08-14",
+        "author": "本报记者 罗岸",
+        "body": "1999 年 8 月，随船劳务船“瀚洋 7 号”于延盛以南海域倾覆，船上船员与“随船劳务人员”共 66 人失联。海事通报事故编号【LW-1999】。\n瀚洋水产董事长韩启昌称“天灾所致”，并宣布抚恤。\n（注：出港当日气象记录，后被人从台账中撕去。）"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_2000",
+      "name": "新闻·沈砚失踪",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 310,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾在线 · 快讯",
+        "title": "《潮声》主持人沈砚“出海失联” 电台深夜时段将停播",
+        "date": "2000-03-15",
+        "author": "编辑 林深",
+        "body": "知名深夜电台主持人沈砚于 3 月 14 日夜间“私自出海”失联，当局按意外海难处理。FM99.4《潮声》节目暂停。\n家属质疑当日并无台风，警方以“陆上无尸”不予并案。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_hanyang",
+      "name": "新闻·瀚洋专访",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 540,
+      "y": 80,
+      "fields": {
+        "siteName": "沿海商报 · 封面人物",
+        "title": "韩启昌：瀚洋从渔村作坊到“蓝色经济”龙头",
+        "date": "2003-05-10",
+        "author": "财经主笔 高见",
+        "body": "瀚洋集团连续七年冠名“听潮会”与蓝湾广播站设备升级。韩启昌笑称：“我们给迷路的人一盏灯，给他们一个方向。”\n有分析指，瀚洋对广播站的“技术赞助”远超同行，去向不明。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_lighthouse",
+      "name": "新闻·灯塔将拆",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 770,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾晚报 · 民生",
+        "title": "荒废二十年的延盛灯塔列入拆除计划",
+        "date": "2003-09-02",
+        "author": "记者 阿帆",
+        "body": "延盛灯塔自 1999 年后停用，大功率主灯去向成谜。文物爱好者反对拆除，理由是“灯还在，只是被谁按着开关”。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_frequency",
+      "name": "新闻·99.4停播",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 1000,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾广电通告",
+        "title": "关于 FM99.4 夜间时段技术性停播的通告",
+        "date": "2000-03-20",
+        "author": "广电局办公室",
+        "body": "因“设备检修与声学指标调整”，FM99.4 自 3 月 14 日 03:14 起停止深夜广播。\n（该时间点即《潮声》最后一次播出。）保险箱、录音、频率 99.4——请把数字连起来看。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_missingpeople",
+      "name": "新闻·失踪统计",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 1230,
+      "y": 80,
+      "fields": {
+        "siteName": "南方纪事 · 数据新闻",
+        "title": "一座小镇的空白：2000 年前后蓝湾失踪人口清点",
+        "date": "2003-06-18",
+        "author": "记者 明月如霜",
+        "body": "本文整理 1999—2001 年蓝湾非正常失踪 41 人，多为孤儿、精神康复者、负债务工者，且几乎都“自愿随船”。全部按“海难/走失”结案。\n作者注：如果你手上有“名单”，这 41 个名字会全部复活。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_seawall",
+      "name": "新闻·人墙传闻",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 80,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾社区报",
+        "title": "老渔民说：暴风雨夜的渔港“站满了不动的人”",
+        "date": "2001-11-11",
+        "author": "通讯员 老潮",
+        "body": "多名渔民称 1999 与 2000 年两次风暴夜，延盛港防波堤上“黑压压站了一排人，一动不动，面朝海”。\n第二天，人没了，船也没了。海警说法：围观落水者。可——那晚根本没人落水。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "news_orphan",
+      "name": "新闻·人口转出",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 310,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾民政通报",
+        "title": "关于“福利与康复人员随船劳务安置”的工作通报",
+        "date": "1999-07-30",
+        "author": "民政局（存根）",
+        "body": "为“减轻供养负担”，本镇福利院、精神卫生中心共 63 人列入“随船劳务安置”名单，承办方为瀚洋水产及“听潮会”。\n家属仅签一份《自愿移居与随船劳务同意书》。回执地址：延盛灯塔。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_hub",
+      "name": "维基 · 蓝湾异闻百科",
+      "type": "Index",
+      "template": "维基档案百科",
+      "x": 1230,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾异闻 · 维基百科",
+        "categoryTitle": "词条索引 / 快捷入口",
+        "navigation": "首页 词条 档案 搜索"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_tingchao",
+      "name": "词条·听潮会",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "听潮会（民间互助 / 争议组织）",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "成立年份不详，挂靠瀚洋水产与蓝湾广播站。公开活动为“祭潮”“净化仪式”，实际负责为“随船劳务”筛选、招募与“镇静”对象。\n核心教义一句话：潮水会带走诚实的人，留下顺从的人。\n词条被反复删改，编辑战集中在“会员名册”一节。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"会员名册\">查：会员名册（暗账）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_frequency",
+      "name": "词条·次声波",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "次声波与 4.5Hz：看不见的支配",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "频率低于 20Hz 的声波，人耳听不见却能共振内脏与眼球；约 7Hz 附近可诱发恐惧、恶心与判断力下降，7—4Hz 的持续定向照射会显著提高“顺从性”。\n军用/研究用途受限。若在深夜广播中循环植入，普通人只会感到“很困、很平静、想睡”。\n相关内部代号：白噪计划。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"白噪计划\">查：白噪计划备忘录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_shenyan",
+      "name": "词条·沈砚",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "沈砚（1968—失踪 2000）",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "蓝湾广播站《潮声》主持人，声音温润，常年收到海边失踪者家属来信。据同事回忆，失踪前一个月他反复重录某期未播出的节目。\n官方结论为“3·14 意外海难”。遗物：一台旧主机、一只加密保险箱。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"沈砚的信\">看：沈砚未寄出的信</a> ｜ <a data-arg-link=\"返回论坛\">返回论坛</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_bluebay",
+      "name": "词条·蓝湾镇",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1230,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "蓝湾镇：两次“海难”之间的二十年",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "沿海小镇，因渔业衰退与“蓝色经济”转型而空心化。1999 与 2000 年各发生一次造成大量“自愿随船者”失踪的海难。\n共同点：风暴夜、延盛灯塔、瀚洋船只、事故编号以 LW 开头、皆无陆上遗体。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"1999海难\">看：1999 蓝湾海难报道</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "wiki_hanyang",
+      "name": "词条·瀚洋集团",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 420,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "瀚洋集团：从水产到“蓝色经济”",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "董事长韩启昌。主营水产、劳务外派、海洋科考赞助。长期“技术资助”蓝湾广播站，并独家承办本镇“随船劳务安置”。\n公开资料刻意隐去 1999—2000 年两份随船名单。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"资助协议\">查：对广播站的资助协议</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "index_archive",
+      "name": "蓝湾镇档案馆（公开目录）",
+      "type": "Index",
+      "template": "档案目录",
+      "x": 80,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾镇档案馆",
+        "categoryTitle": "公开卷宗目录 / 调档入口",
+        "navigation": "目录 卷宗 检索 桌面"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_wreck_report",
+      "name": "LW-1999 海事调查报告",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 540,
+      "y": 250,
+      "fields": {
+        "siteName": "海事局 · 事故调查（编号 LW-1999）",
+        "title": "“瀚洋7号”倾覆事故初步调查报告",
+        "date": "1999-09-01",
+        "author": "调查组（结论页缺失）",
+        "body": "结论（存疑）：遇强对流天气倾覆。然而出港气象站记录“浪 0.6m、风力 3 级”，且离港前救生衣清点数量与登记不符。\n附件B-船员及随船劳务名单：【已调阅，见 doc 名单】。\n备注：本卷宗 2000 年 3 月后与《潮声》案“并案归档”指令被撤销，原因：上级电话。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"船员名单\">调阅：瀚洋7号 名单</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_ship_manifest",
+      "name": "瀚洋7号 名单",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 250,
+      "fields": {
+        "siteName": "瀚洋水产 · 随船劳务登记（复印）",
+        "title": "“瀚洋7号”船员及随船劳务人员名册",
+        "date": "1999-08-12 出港",
+        "author": "抄送：听潮会 / 广播站",
+        "body": "共 66 名：正式船员 11 人，随船劳务 55 人（多为福利院、精神康复、负债务工者，旁注“镇静后签字”）。\n第 55 行：沈砚，备注“自愿随船 · 携带录音设备”。\n关键旁注（柯振字迹）：“声源已装船，99.4 中继可覆盖甲板。”\n——这不是海难乘客名单，是一份被点名的“实验样本清单”。\n\n◈ 接下来： <a data-arg-link=\"返回论坛帖\">← 论坛“被介绍去港口”帖</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"交给记者\">把名单交给明月如霜</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_club_ledger",
+      "name": "听潮会暗账名册",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 1000,
+      "y": 250,
+      "fields": {
+        "siteName": "泄露数据 · tideclub_ledger.dump",
+        "title": "听潮会内部名册与“旧物抵押”台账（节选）",
+        "date": "1999—2000",
+        "author": "来源：脱敏爬虫",
+        "body": "每人条目：姓名 / 来源机构 / 抵押旧物 / “镇静剂量” / 移交日期。\n大量“抵押旧物”是录音带、旧照片、怀表——“声源锚点”。\n移交对象一栏反复出现：延盛灯塔 → 瀚洋7号。\n末行：沈砚 状态“已清除 · 例外（留声）”。\n\n◈ 接下来： <a data-arg-link=\"返回论坛\">← 返回论坛</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"维基听潮会\">看维基：听潮会</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_experiment",
+      "name": "白噪计划备忘录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1230,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾广播站 · 技术部绝密",
+        "title": "关于“白噪计划”声学诱导的阶段性备忘录",
+        "date": "1999-06",
+        "author": "柯振 / 抄送：瀚洋 韩启昌",
+        "body": "目标：以 FM99.4 深夜时段，定向、持续植入 4.5Hz 声底，配合“祭潮”仪式话术，取得对象“自愿随船”之服从。\n经费来源：瀚洋“技术赞助”（见资助协议）。\n风险：主持人沈砚察觉，私自录制第九期未播内容。建议：纳入随船名单，“陆上不留声”。\n（本页为真结局关键证据链之一。）\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"机房文件\">去机房文件柜核对</a> ｜ <a data-arg-link=\"交给记者\">交给明月如霜</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_subsidy",
+      "name": "对广播站资助协议",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 80,
+      "y": 420,
+      "fields": {
+        "siteName": "合同 · 归档(瀚洋/广播站)",
+        "title": "“深夜广播技术升级”资助协议（2000 修订）",
+        "date": "2000-01-09",
+        "author": "甲方：瀚洋 乙方：蓝湾广播站",
+        "body": "甲方向乙方提供大功率低频发射模块与“中继甲板覆盖”改装，年费远超同业。\n附加条款三：乙方配合甲方“随船劳务人员之心理安置与广播引导”。乙方签署人：柯振。\n甲方联系人：韩启昌。——商业犯罪的钱，就是从这一页流进声音里的。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"瀚洋专访\">看：韩启昌专访</a> ｜ <a data-arg-link=\"交给记者\">交给明月如霜</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "diary_shenyan",
+      "name": "沈砚日记（前半）",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "title": "潮水之前 · 沈砚手记",
+        "date": "2000-01",
+        "author": "沈砚",
+        "body": "新年。柯师傅把我领进机房，让我听那台新装的“低频模块”，说这是给深夜失眠的人做的安眠台。\n可我一听就犯困，心里发慌，像被人按着往海里走。\n我开始留个心眼，把每一期都存一份带子。\n\n◈ 接下来： <a data-arg-link=\"翻到后半\">翻到日记（后半）→</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "diary_shenyan2",
+      "name": "沈砚日记（后半）",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 310,
+      "y": 80,
+      "fields": {
+        "title": "潮水之后 · 沈砚手记",
+        "date": "2000-03-14",
+        "author": "沈砚",
+        "body": "我终于明白 99.4 夜夜在做什么——不是安眠，是把人“叫”走。\n名单上有孤儿、有病人、有还不起债的，还有我自己。他们说“陆上不留声”。\n我把最重的那盘带子锁进保险箱，口令是我守了七年的频率。\n今晚他们来接我出海。天，是晴的。\n（若你在读：听完第九夜，看那两路监控，把声音还给大海。）\n\n◈ 接下来： <a data-arg-link=\"去听第九夜\">去看：第九夜录音稿</a> ｜ <a data-arg-link=\"播音室监控\">看：播音室最后画面</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "transcript_tape",
+      "name": "潮声第九夜录音稿",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 80,
+      "fields": {
+        "siteName": "《潮声》未播 · 第九期",
+        "title": "《潮声 · 第九夜》录音文字稿（沈砚 亲录）",
+        "date": "2000-03-14 03:14",
+        "author": "沈砚",
+        "body": "[00:00 白噪循环 4.5Hz] ……你能听到吗？听不到的那部分，正在替你决定你要去哪。\n[02:41] 我叫沈砚。今晚，我是名单上第 55 个人。机房低频模块是柯振装的，钱是瀚洋的，灯，在延盛灯塔。\n[03:02 报号] 台呼 chaosheng9 · 事故 LW-1999 · 船 瀚洋7号……\n[03:14 电流声 · 中断]。\n\n◈ 接下来： <a data-arg-link=\"去机房\">用 chaosheng9 开广播站机房</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"交给记者\">交给明月如霜</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "police_report",
+      "name": "被压下的报案回执",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 770,
+      "y": 80,
+      "fields": {
+        "siteName": "蓝湾派出所 · 接处警存根",
+        "title": "关于“听潮会涉嫌非法拘禁”的报案回执",
+        "date": "2000-02-27",
+        "author": "接警：编号 0717",
+        "body": "报案人：陆某。事由：其弟参加“听潮会”后失联，怀疑被强行送上“随船”。\n处理：证据不足，不予立案。附“上级口头指令：涉瀚洋项目，暂缓”。\n经办备注（铅笔）：同月，主持人沈砚亦曾来电询问同一名单。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "letter_covert",
+      "name": "给沈砚的匿名举报信",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 1000,
+      "y": 80,
+      "fields": {
+        "title": "一封寄给主持人的匿名信",
+        "date": "2000-03-08",
+        "author": "（无署名）",
+        "body": "沈老师：您节目里那段“安眠的沙沙声”，是我侄女被叫走前听到的最后一点声音。\n他们管那叫“声源锚点”——抵押旧物，是为了让人的魂跟着响。\n您要是还敢播真话，就把这份名单听下去：瀚洋7号，第 55 行，是您自己。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"沈砚日记\">看：沈砚日记（前半）</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "audio_log",
+      "name": "机房台呼与检修日志",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 1230,
+      "y": 80,
+      "fields": {
+        "siteName": "broadcast_tech.log · 节选",
+        "title": "蓝湾广播站 机房台呼 / 检修日志（泄露）",
+        "date": "2000-03",
+        "author": "sys@fm99.4",
+        "body": "> BIOS 认证口令（台呼制）：chaosheng9（第九期 / 潮声9）\n> 2000-02-11 加装 大功率 4.5Hz 低频模块，甲方：瀚洋；经手：柯振\n> 2000-03-14 03:14 《潮声》停播，低频模块未关，转为“甲板中继”\n> 日志被人手动撕去两页：03-14 之后 → 见监控。\n\n◈ 接下来： <a data-arg-link=\"进机房\">用 chaosheng9 进入机房</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "doc_tide_recruit",
+      "name": "听潮会招募传单",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 250,
+      "fields": {
+        "siteName": "听潮会 · 招募（复印）",
+        "title": "“随船劳务 · 一个月顶两年” 招募传单",
+        "date": "1999",
+        "author": "主办：听潮会 / 瀚洋水产",
+        "body": "面向福利院、康复中心、负债务工者：包食宿、高日结、行前净化仪式。\n须签《自愿移居与随船劳务同意书》，并交一件“旧物”作信物。\n回执与集合地点：延盛灯塔。落款电话区号，正是 +0000-994。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"维基听潮会\">看维基：听潮会</a>"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "surv_port",
+      "name": "延盛渔港监控（风暴夜）",
+      "type": "Browse",
+      "template": "监控室观察记录 (CRT)",
+      "x": 310,
+      "y": 250,
+      "fields": {
+        "siteName": "延盛港 CCTV-02",
+        "title": "延盛渔港 监控回放 · 2000-03-14 03:14",
+        "date": "2000-03-14",
+        "time": "03:14:22",
+        "cam": "CAM-02 / 防波堤",
+        "signature": "系统时钟漂移 +00:03:14",
+        "body": "画面：暴雨夜。防波堤上，数十人一字排开，面朝海，几乎不动，随灯塔主灯摆动“同步”转身。\n一艘无灯货轮贴岸接人。放大船舷：【瀚洋7号】。\n第 03:14 帧，队末一人回头，胸前挂着记者证——沈砚。\n（关键：真结局与“第九夜”结局都需你看到这段监控。）"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "surv_studio",
+      "name": "广播站播音室监控",
+      "type": "Browse",
+      "template": "监控室观察记录 (CRT)",
+      "x": 540,
+      "y": 250,
+      "fields": {
+        "siteName": "蓝湾广播站 CCTV-01",
+        "title": "播音室 监控回放 · 停播前最后六分钟",
+        "date": "2000-03-14",
+        "time": "03:08:00",
+        "cam": "CAM-01 / 直播间",
+        "signature": "低频读数：4.5Hz · 满格",
+        "body": "画面：沈砚把一盘带塞进录音机，对着话筒只说了一句“潮水会带走诚实的人——我把第九夜留给明天”。\n两名男子进入，切断话筒。03:14，低频读数满格，沈砚起身，神情平静得像“自愿”。\n镜头最后定格在机房那盏“给海里照”的开关上。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_login_safe",
+      "name": "加密档案保险箱",
+      "type": "Login",
+      "template": "后台登录",
+      "x": 770,
+      "y": 250,
+      "fields": {
+        "systemName": "沈砚的加密档案保险箱",
+        "password": "99.4,994,九十九点四",
+        "errorMessage": "❌ 口令错误。提示：哥哥守了七年的那个频率。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_files_secret",
+      "name": "保险箱 · 沈砚档案",
+      "type": "Files",
+      "template": "Windows 文件夹",
+      "x": 1000,
+      "y": 250,
+      "fields": {
+        "path": "D:\\沈砚\\保险箱\\潮声第九夜\\"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_login_station",
+      "name": "广播站机房 BIOS",
+      "type": "Login",
+      "template": "BIOS 开机验证",
+      "x": 1230,
+      "y": 250,
+      "fields": {
+        "systemName": "蓝湾广播站 · 机房终端（台呼认证）",
+        "password": "chaosheng9,cs9,潮声9",
+        "errorMessage": "❌ 台呼不符。提示：《潮声》最后一期，是第几期？"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_files_station",
+      "name": "机房 · 技术文件柜",
+      "type": "Files",
+      "template": "Windows 文件夹",
+      "x": 80,
+      "y": 420,
+      "fields": {
+        "path": "C:\\FM99.4\\机房\\技术档案\\"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "node_login_police",
+      "name": "警务内网 · 终端登录",
+      "type": "Login",
+      "template": "后台登录",
+      "x": 310,
+      "y": 420,
+      "fields": {
+        "systemName": "蓝湾警务内网 · 卷宗调阅",
+        "password": "lw1999,lw-1999,蓝湾1999",
+        "errorMessage": "❌ 口令错误。提示：1999 那单，事故编号 LW 打头。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_silence",
+      "name": "结局·官方结论",
+      "type": "Ending",
+      "template": "案件结案判定书",
+      "x": 80,
+      "y": 80,
+      "fields": {
+        "message": "【结局一 · 盖棺】\n你向警方提交了“3·14 意外海难”，卷宗归档。\nFM99.4 永久停播，延盛灯塔按计划拆除，瀚洋的“蓝色经济”剪彩如期举行。\n你偶尔还会在梦里听到那段白噪，可你已经不想知道它是什么了。\n—— 线索不足时的默认结局。（共 6 结局，此为最浅）"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_partial",
+      "name": "结局·一知半解",
+      "type": "Ending",
+      "template": "报纸头版通报",
+      "x": 310,
+      "y": 80,
+      "fields": {
+        "message": "【结局二 · 半截的真相】\n你查清了 1999“同一种海难”，为失踪者争到“非自愿遇难”的重新表述。\n但你没能点出资金、实验与那一夜的全貌。韩启昌在新闻发布会上说：“个别历史遗留，与我们无关。”\n你知道了很多，还不够多。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_corp",
+      "name": "结局·指认瀚洋",
+      "type": "Ending",
+      "template": "报纸头版通报",
+      "x": 540,
+      "y": 80,
+      "fields": {
+        "message": "【结局三 · 商战落幕】\n你与《南方纪事》实名指控瀚洋与韩启昌：借慈善与“随船劳务”拐运人口。集团股价震荡、多名高管被查。\n可“白噪计划”的核心、4.5Hz 如何操控、灯塔那一夜的影像，你没能补齐——他们把声音的罪，切成了经济的罪。柯振“因病出境”。\n正义到了一半。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_wave",
+      "name": "结局·频率之下",
+      "type": "Ending",
+      "template": "案件结案判定书",
+      "x": 770,
+      "y": 80,
+      "fields": {
+        "message": "【结局四 · 揭开声底】\n你公开了“白噪计划”：以 4.5Hz 次声波与深夜广播实施精神支配的铁证震动学界与舆论，“听潮会”被取缔。\n但你没有资金链、没有那一夜名单的完整指向，主犯仍以“技术事故”脱身。\n你证明了他们灌进人脑里的东西，却没能让它变成量刑。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_ninth",
+      "name": "结局·第九夜",
+      "type": "Ending",
+      "template": "CRT 黑屏",
+      "x": 1000,
+      "y": 80,
+      "fields": {
+        "message": "【结局五 · 潮水带走的】\n你还原了“灯塔之夜”：监控、播音室最后画面、哥哥两本日记，把 2000-03-14 03:14 钉在了时间线上。\n沈砚被判定为“因调查遇害”。可背后的钱与实验装置，你还差证据链一环——船没被拦下，人没被救回。\n第九夜你听懂了，但故事停在了这一夜。"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    },
+    {
+      "id": "end_true",
+      "name": "结局·把声音还给大海 (True End)",
+      "type": "Ending",
+      "template": "案件结案判定书",
+      "x": 1230,
+      "y": 80,
+      "fields": {
+        "message": "【真结局 · 把声音还给大海】\n你交出了完整的链：瀚洋资助 → 白噪实验 → 听潮会招募 → 灯塔之夜监控 → 船员名单第 55 行 → 沈砚日记与《第九夜》。\n《南方纪事》头版印下全部 66 个名字。FM99.4 最后一次响起，播的不是白噪，是沈砚的嗓音：“潮水带不走诚实的人。”\n韩启昌、柯振被公诉，随船受害者得以重新清点。你关掉收音机，海很平，天亮了。\n\n—— 全部线索到手，全线通关。感谢游玩 ——"
+      },
+      "rules": [],
+      "contacts": [],
+      "isStart": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "node_desktop",
+      "to": "node_intro_letter",
+      "port": "一封未寄出的信.txt",
+      "label": "一封未寄出的信.txt",
+      "icon": "📄",
+      "desc": "随主机一起寄来的信"
+    },
+    {
+      "from": "node_desktop",
+      "to": "node_chat",
+      "port": "潮声通讯.exe",
+      "label": "加密聊天 · 潮声通讯",
+      "icon": "💬",
+      "desc": "哥哥的加密聊天软件"
+    },
+    {
+      "from": "node_desktop",
+      "to": "node_forum",
+      "port": "蓝湾潮声论坛",
+      "label": "蓝湾潮声论坛",
+      "icon": "🌐",
+      "desc": "镇上人的深夜论坛"
+    },
+    {
+      "from": "node_desktop",
+      "to": "node_search",
+      "port": "千禧搜索.exe",
+      "label": "千禧搜索",
+      "icon": "🔍",
+      "desc": "全网线索检索"
+    },
+    {
+      "from": "node_desktop",
+      "to": "node_login_safe",
+      "port": "🔐保险箱",
+      "label": "加密档案保险箱",
+      "icon": "🔐",
+      "desc": "需要口令"
+    },
+    {
+      "from": "node_desktop",
+      "to": "index_archive",
+      "port": "蓝湾镇档案馆",
+      "label": "蓝湾镇档案馆",
+      "icon": "🗂️",
+      "desc": "公开档案目录"
+    },
+    {
+      "from": "node_intro_letter",
+      "to": "node_login_safe",
+      "port": "打开保险箱",
+      "label": "用 99.4 打开保险箱",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_intro_letter",
+      "to": "node_chat",
+      "port": "联系记者",
+      "label": "联系明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_intro_letter",
+      "to": "node_search",
+      "port": "去搜索这些词",
+      "label": "去搜索哥哥留下的词",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_intro_letter",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "← 返回桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_search",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回电脑桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_search",
+      "to": "node_forum",
+      "port": "蓝湾潮声论坛",
+      "label": "进入蓝湾潮声论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_whitenoise",
+      "port": "你半夜也听到白噪了吗",
+      "label": "你半夜也听到白噪了吗？",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_ghostfm",
+      "port": "有人听过潮声第九期吗",
+      "label": "有人听过《潮声》第九期吗",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_lighthouse",
+      "port": "灯塔的灯不是给船看的",
+      "label": "延盛灯塔的灯不是给船看的",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_tideclub",
+      "port": "有人知道听潮会吗",
+      "label": "有人知道“听潮会”吗",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_brother",
+      "port": "沈砚最后一期",
+      "label": "主持人沈砚失踪前最后一期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_45hz",
+      "port": "4.5赫兹能让活人听话",
+      "label": "4.5Hz：能让活人听话的次声波",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_oath",
+      "port": "听潮会入会誓词",
+      "label": "听潮会入会誓词曝光",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_reeled",
+      "port": "被介绍去渔港上班",
+      "label": "被“介绍”去渔港上班的人",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "wiki_hub",
+      "port": "维基档案",
+      "label": "维基 · 蓝湾异闻百科",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "node_search",
+      "port": "千禧搜索.exe",
+      "label": "用千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回电脑桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_whitenoise",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_whitenoise",
+      "to": "wiki_frequency",
+      "port": "维基·次声波",
+      "label": "看维基：次声波",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_whitenoise",
+      "to": "post_45hz",
+      "port": "4.5赫兹帖子",
+      "label": "看另一帖：4.5Hz",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_ghostfm",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_ghostfm",
+      "to": "transcript_tape",
+      "port": "第九夜录音稿",
+      "label": "看：第九夜录音文字稿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_ghostfm",
+      "to": "audio_log",
+      "port": "机房检修日志",
+      "label": "看：机房台呼/检修日志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_lighthouse",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_lighthouse",
+      "to": "news_lighthouse",
+      "port": "灯塔拆除报道",
+      "label": "看新闻：延盛灯塔将拆除",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_lighthouse",
+      "to": "surv_port",
+      "port": "渔港监控",
+      "label": "看：延盛渔港监控",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tideclub",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tideclub",
+      "to": "wiki_tingchao",
+      "port": "维基·听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tideclub",
+      "to": "doc_club_ledger",
+      "port": "会员名册",
+      "label": "看：听潮会会员名册",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_brother",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_brother",
+      "to": "news_2000",
+      "port": "沈砚失踪报道",
+      "label": "看新闻：沈砚失踪",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_brother",
+      "to": "diary_shenyan2",
+      "port": "沈砚日记后",
+      "label": "看：沈砚日记（后半）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_45hz",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_45hz",
+      "to": "wiki_frequency",
+      "port": "维基·次声波",
+      "label": "看维基：次声波",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_45hz",
+      "to": "doc_experiment",
+      "port": "白噪计划备忘录",
+      "label": "看内部：白噪计划备忘录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_oath",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_oath",
+      "to": "wiki_tingchao",
+      "port": "维基·听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_oath",
+      "to": "doc_tide_recruit",
+      "port": "听潮会传单",
+      "label": "看：听潮会招募传单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_reeled",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_reeled",
+      "to": "doc_ship_manifest",
+      "port": "船员乘客名单",
+      "label": "看：瀚洋7号 名单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_reeled",
+      "to": "news_missingpeople",
+      "port": "失踪统计报道",
+      "label": "看新闻：蓝湾失踪人口",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_1999",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_1999",
+      "to": "doc_wreck_report",
+      "port": "海事调查报告",
+      "label": "查：1999 海事调查报告",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_1999",
+      "to": "wiki_bluebay",
+      "port": "维基·蓝湾",
+      "label": "查：维基 · 蓝湾镇",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_2000",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_2000",
+      "to": "news_frequency",
+      "port": "停播通知",
+      "label": "看：99.4 停播通知",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_2000",
+      "to": "diary_shenyan",
+      "port": "沈砚日记",
+      "label": "查：沈砚日记（前半）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_hanyang",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_hanyang",
+      "to": "doc_subsidy",
+      "port": "资助协议",
+      "label": "查：对广播站的资助协议",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_hanyang",
+      "to": "wiki_tingchao",
+      "port": "维基·听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "surv_port",
+      "port": "渔港监控",
+      "label": "看：延盛渔港监控记录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "node_forum",
+      "port": "返回论坛",
+      "label": "回到蓝湾潮声论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_frequency",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_frequency",
+      "to": "node_login_safe",
+      "port": "保险箱",
+      "label": "用 99.4 试开保险箱",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_frequency",
+      "to": "audio_log",
+      "port": "检修日志",
+      "label": "看：机房检修日志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_missingpeople",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_missingpeople",
+      "to": "doc_ship_manifest",
+      "port": "船员名单",
+      "label": "查：瀚洋7号 名单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_missingpeople",
+      "to": "node_chat",
+      "port": "联系记者",
+      "label": "联系明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_seawall",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_seawall",
+      "to": "surv_port",
+      "port": "渔港监控",
+      "label": "看：延盛渔港监控",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_seawall",
+      "to": "post_reeled",
+      "port": "被介绍去港口",
+      "label": "去论坛看“被介绍去港口”",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_orphan",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_orphan",
+      "to": "wiki_tingchao",
+      "port": "维基·听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_orphan",
+      "to": "doc_tide_recruit",
+      "port": "招募传单",
+      "label": "看：听潮会招募传单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_tingchao",
+      "port": "听潮会",
+      "label": "词条：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_frequency",
+      "port": "次声波",
+      "label": "词条：4.5Hz 次声波与白噪",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_shenyan",
+      "port": "沈砚",
+      "label": "词条：沈砚与《潮声》",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_bluebay",
+      "port": "蓝湾镇",
+      "label": "词条：蓝湾镇与两次海难",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_hanyang",
+      "port": "瀚洋集团",
+      "label": "词条：瀚洋集团",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "node_forum",
+      "port": "返回论坛",
+      "label": "← 返回蓝湾潮声论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "node_search",
+      "port": "千禧搜索.exe",
+      "label": "去千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_tingchao",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_tingchao",
+      "to": "doc_club_ledger",
+      "port": "会员名册",
+      "label": "查：会员名册（暗账）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_tingchao",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_frequency",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_frequency",
+      "to": "doc_experiment",
+      "port": "白噪计划",
+      "label": "查：白噪计划备忘录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_frequency",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_shenyan",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_shenyan",
+      "to": "node_intro_letter",
+      "port": "沈砚的信",
+      "label": "看：沈砚未寄出的信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_shenyan",
+      "to": "node_forum",
+      "port": "返回论坛",
+      "label": "返回论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_bluebay",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_bluebay",
+      "to": "news_1999",
+      "port": "1999海难",
+      "label": "看：1999 蓝湾海难报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_bluebay",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hanyang",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hanyang",
+      "to": "doc_subsidy",
+      "port": "资助协议",
+      "label": "查：对广播站的资助协议",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hanyang",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "news_1999",
+      "port": "1999海难报道",
+      "label": "《瀚洋7号倾覆》1999 报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "doc_wreck_report",
+      "port": "海事调查报告",
+      "label": "LW-1999 海事调查报告",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "news_missingpeople",
+      "port": "失踪统计报道",
+      "label": "蓝湾失踪人口清点",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "police_report",
+      "port": "报案回执",
+      "label": "一起“听潮会”报案回执（被压下）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "node_login_police",
+      "port": "警务内网",
+      "label": "调阅 · 警务内网（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "← 返回电脑桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_wreck_report",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_wreck_report",
+      "to": "doc_ship_manifest",
+      "port": "船员名单",
+      "label": "调阅：瀚洋7号 名单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_wreck_report",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_ship_manifest",
+      "to": "post_reeled",
+      "port": "返回论坛帖",
+      "label": "← 论坛“被介绍去港口”帖",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_ship_manifest",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_ship_manifest",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "把名单交给明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_club_ledger",
+      "to": "node_forum",
+      "port": "返回论坛",
+      "label": "← 返回论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_club_ledger",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_club_ledger",
+      "to": "wiki_tingchao",
+      "port": "维基听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_experiment",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_experiment",
+      "to": "node_files_station",
+      "port": "机房文件",
+      "label": "去机房文件柜核对",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_experiment",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "交给明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_subsidy",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_subsidy",
+      "to": "news_hanyang",
+      "port": "瀚洋专访",
+      "label": "看：韩启昌专访",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_subsidy",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "交给明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "diary_shenyan",
+      "to": "diary_shenyan2",
+      "port": "翻到后半",
+      "label": "翻到日记（后半）→",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "diary_shenyan",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "diary_shenyan2",
+      "to": "transcript_tape",
+      "port": "去听第九夜",
+      "label": "去看：第九夜录音稿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "diary_shenyan2",
+      "to": "surv_studio",
+      "port": "播音室监控",
+      "label": "看：播音室最后画面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "diary_shenyan2",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "transcript_tape",
+      "to": "node_login_station",
+      "port": "去机房",
+      "label": "用 chaosheng9 开广播站机房",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "transcript_tape",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "transcript_tape",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "交给明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "police_report",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "police_report",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "letter_covert",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "letter_covert",
+      "to": "diary_shenyan",
+      "port": "沈砚日记",
+      "label": "看：沈砚日记（前半）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "audio_log",
+      "to": "node_login_station",
+      "port": "进机房",
+      "label": "用 chaosheng9 进入机房",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "audio_log",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_tide_recruit",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_tide_recruit",
+      "to": "wiki_tingchao",
+      "port": "维基听潮会",
+      "label": "看维基：听潮会",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "surv_port",
+      "to": "surv_studio",
+      "port": "播音室监控",
+      "label": "→ 播音室最后画面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "surv_port",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "surv_port",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "交给明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "surv_studio",
+      "to": "node_login_station",
+      "port": "进机房",
+      "label": "→ 进入机房文件柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "surv_studio",
+      "to": "surv_port",
+      "port": "渔港监控",
+      "label": "看：渔港监控",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_login_safe",
+      "to": "node_files_secret",
+      "port": "解锁保险箱",
+      "label": "进入保险箱档案",
+      "icon": "",
+      "desc": "口令：99.4"
+    },
+    {
+      "from": "node_files_secret",
+      "to": "transcript_tape",
+      "port": "第九夜录音稿.doc",
+      "label": "潮声第九夜·录音稿.doc",
+      "icon": "🎙️",
+      "desc": ""
+    },
+    {
+      "from": "node_files_secret",
+      "to": "diary_shenyan2",
+      "port": "沈砚日记（后半）.txt",
+      "label": "沈砚日记（后半）.txt",
+      "icon": "📄",
+      "desc": ""
+    },
+    {
+      "from": "node_files_secret",
+      "to": "doc_ship_manifest",
+      "port": "名单.pdf",
+      "label": "瀚洋7号·名单.pdf",
+      "icon": "📋",
+      "desc": ""
+    },
+    {
+      "from": "node_files_secret",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回桌面",
+      "icon": "🖥️",
+      "desc": ""
+    },
+    {
+      "from": "node_login_station",
+      "to": "node_files_station",
+      "port": "进入机房",
+      "label": "进入机房文件柜",
+      "icon": "",
+      "desc": "台呼：chaosheng9"
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_experiment",
+      "port": "白噪计划备忘录.doc",
+      "label": "白噪计划·备忘录.doc",
+      "icon": "🧪",
+      "desc": ""
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_subsidy",
+      "port": "资助协议.pdf",
+      "label": "对广播站资助协议.pdf",
+      "icon": "💰",
+      "desc": ""
+    },
+    {
+      "from": "node_files_station",
+      "to": "surv_port",
+      "port": "渔港监控.exe",
+      "label": "延盛港监控.exe",
+      "icon": "📷",
+      "desc": ""
+    },
+    {
+      "from": "node_files_station",
+      "to": "surv_studio",
+      "port": "播音室监控.exe",
+      "label": "播音室监控.exe",
+      "icon": "📹",
+      "desc": ""
+    },
+    {
+      "from": "node_files_station",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回桌面",
+      "icon": "🖥️",
+      "desc": ""
+    },
+    {
+      "from": "node_login_police",
+      "to": "police_report",
+      "port": "进入内网",
+      "label": "进入警务内网",
+      "icon": "",
+      "desc": "口令：LW-1999"
+    }
+  ],
+  "customTemplates": [],
+  "exportedAt": "2026-09-05T06:53:38.410Z"
+}

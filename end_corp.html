@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日早报 · 特别号外</title>
+<style>body {
+  margin: 0; padding: 24px; background: var(--arg-bg-color, #e8e2cf);
+  font-family: var(--arg-font-family, "SimSun", "宋体", "KaiTi", serif); color: #222;
+}
+.news-page {
+  max-width: 720px; margin: 0 auto; background: var(--arg-card-bg, #fbf8eb);
+  border: 1px solid #c4b998; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.news-masthead { text-align: center; margin-bottom: 20px; }
+.masthead-top {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-size: 12px; color: #666; font-weight: bold;
+}
+.masthead-title { font-size: 38px; font-weight: 900; letter-spacing: 6px; color: #1a1a1a; }
+.masthead-line { border-bottom: 3px double #333; margin-top: 8px; }
+.news-headline-card {
+  border: 2px solid #222; padding: 24px; background: #ffffff; text-align: center; margin: 20px 0;
+}
+.breaking-tag {
+  display: inline-block; background: #990000; color: #fff; font-size: 13px; font-weight: bold;
+  padding: 4px 14px; margin-bottom: 18px; letter-spacing: 2px;
+}
+.news-message {
+  font-size: 18px; line-height: 1.8; color: #111; font-weight: bold; white-space: pre-wrap;
+}
+.news-footer {
+  border-top: 1px solid #aaa; padding-top: 12px; text-align: center; font-size: 12px; color: #777;
+}
+
+    :root {
+      --arg-primary-color: #174a8b;
+      --arg-bg-color: #f4f6f9;
+      --arg-card-bg: #ffffff;
+      --arg-text-color: #222222;
+      --arg-font-family: "SimSun", "宋体", serif;
+    }
+    .arg-atmosphere-crt:before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 99999;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .arg-atmosphere-vignette:after {
+      content: " ";
+      display: block;
+      position: fixed;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 99998;
+    }
+    .arg-atmosphere-glitch {
+      animation: arg-glitch-flicker 4s infinite;
+    }
+    .arg-redacted {
+      color: transparent !important;
+      background: repeating-linear-gradient(45deg, #151515 0 3px, #555 3px 6px) !important;
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      cursor: help;
+    }
+    @keyframes arg-glitch-flicker {
+      0%, 95%, 100% { filter: none; }
+      96% { filter: hue-rotate(90deg) contrast(1.2); }
+      97% { filter: invert(0.1) saturate(1.4); }
+      98% { filter: none; }
+    }
+    
+  
+    
+    
+    
+  </style></head>
+<body>
+  <div class="news-page">
+    <div class="news-masthead">
+      <div class="masthead-top">
+        <span>第 10842 期</span>
+        <span class="masthead-title">临 江 早 报</span>
+        <span>特 别 号 外</span>
+      </div>
+      <div class="masthead-line"></div>
+    </div>
+
+    <div class="news-headline-card">
+      <div class="breaking-tag">⚡ 案件全线告破 · 终局报道 ⚡</div>
+      <div class="news-message" data-arg-slot="message">
+        【结局三 · 商战落幕】<br>你与《南方纪事》实名指控瀚洋与韩启昌：借慈善与“随船劳务”拐运人口。集团股价震荡、多名高管被查。<br>可“白噪计划”的核心、4.5Hz 如何操控、灯塔那一夜的影像，你没能补齐——他们把声音的罪，切成了经济的罪。柯振“因病出境”。<br>正义到了一半。
+      </div>
+    </div>
+
+    <div class="news-footer">
+      <span>临江日报社出版 · 感谢参与本次调查</span>
+    </div>
+  </div>
+<script type="application/json" id="arg-config">{"nodeId":"end_corp","preview":false,"trackProgress":true,"files":{"node_desktop":"index.html","node_intro_letter":"node_intro_letter.html","node_chat":"node_chat.html","node_search":"node_search.html","node_forum":"node_forum.html","post_whitenoise":"post_whitenoise.html","post_ghostfm":"post_ghostfm.html","post_lighthouse":"post_lighthouse.html","post_tideclub":"post_tideclub.html","post_brother":"post_brother.html","post_45hz":"post_45hz.html","post_oath":"post_oath.html","post_reeled":"post_reeled.html","news_1999":"news_1999.html","news_2000":"news_2000.html","news_hanyang":"news_hanyang.html","news_lighthouse":"news_lighthouse.html","news_frequency":"news_frequency.html","news_missingpeople":"news_missingpeople.html","news_seawall":"news_seawall.html","news_orphan":"news_orphan.html","wiki_hub":"wiki_hub.html","wiki_tingchao":"wiki_tingchao.html","wiki_frequency":"wiki_frequency.html","wiki_shenyan":"wiki_shenyan.html","wiki_bluebay":"wiki_bluebay.html","wiki_hanyang":"wiki_hanyang.html","index_archive":"index_archive.html","doc_wreck_report":"doc_wreck_report.html","doc_ship_manifest":"doc_ship_manifest.html","doc_club_ledger":"doc_club_ledger.html","doc_experiment":"doc_experiment.html","doc_subsidy":"doc_subsidy.html","diary_shenyan":"diary_shenyan.html","diary_shenyan2":"diary_shenyan2.html","transcript_tape":"transcript_tape.html","police_report":"police_report.html","letter_covert":"letter_covert.html","audio_log":"audio_log.html","doc_tide_recruit":"doc_tide_recruit.html","surv_port":"surv_port.html","surv_studio":"surv_studio.html","node_login_safe":"node_login_safe.html","node_files_secret":"node_files_secret.html","node_login_station":"node_login_station.html","node_files_station":"node_files_station.html","node_login_police":"node_login_police.html","end_silence":"end_silence.html","end_partial":"end_partial.html","end_corp":"end_corp.html","end_wave":"end_wave.html","end_ninth":"end_ninth.html","end_true":"end_true.html"},"rules":{"search":{"1999":"news_1999","海难":"news_1999","1999海难":"news_1999","失踪":"news_missingpeople","失踪人口":"news_missingpeople","蓝湾失踪":"news_missingpeople","沈砚":"news_2000","潮声":"news_2000","主持人失踪":"news_2000","瀚洋":"news_hanyang","韩启昌":"news_hanyang","瀚洋集团":"news_hanyang","灯塔":"news_lighthouse","延盛灯塔":"news_lighthouse","延盛":"news_lighthouse","99.4":"news_frequency","停播":"news_frequency","频率":"news_frequency","广播站":"news_frequency","人墙":"news_seawall","渔港":"news_seawall","闹鬼":"news_seawall","福利院":"news_orphan","精神卫生中心":"news_orphan","转出":"news_orphan","听潮会":"wiki_tingchao","潮水会带走诚实的人":"wiki_tingchao","次声波":"wiki_frequency","4.5hz":"wiki_frequency","4.5":"wiki_frequency","白噪":"wiki_frequency","瀚洋7号":"doc_ship_manifest","名单":"doc_ship_manifest","manifest":"doc_ship_manifest","船员":"doc_ship_manifest","白噪计划":"doc_experiment","实验":"doc_experiment","声学实验":"doc_experiment","资助":"doc_subsidy","协议":"doc_subsidy","柯振":"doc_subsidy","调查报告":"doc_wreck_report","海事":"doc_wreck_report","lw-1999":"doc_wreck_report","第九夜":"transcript_tape","录音":"transcript_tape","潮声第九夜":"transcript_tape","日记":"diary_shenyan","检修":"audio_log","台呼":"audio_log","监控":"surv_port","报案":"police_report","举报":"letter_covert"}},"links":{},"password":"","errorMessage":"❌ 密码错误，请重新输入！","loginTarget":"","notFoundText":"没有找到相关结果","typewriter":false,"atmosphere":"","contacts":[]}</script><script src="arg-runtime.js"></script></body>
+</html>
