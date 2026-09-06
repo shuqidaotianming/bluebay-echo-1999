@@ -160,9 +160,8 @@
   // ==================== 进度角标 / 重置入口 ====================
   function ensureProgressPill(){
     if (!config.trackProgress || config.preview || document.getElementById('arg-progress-pill')) return;
-    var total = Object.keys(config.files || {}).length;
     var el = document.createElement('div'); el.id = 'arg-progress-pill';
-    el.innerHTML = '线索 <b id="arg-pv-num">0</b>/' + total + ' <span id="arg-pv-reset" title="重置调查进度">⟳</span>';
+    el.innerHTML = '线索 <b id="arg-pv-num">0</b>/? <span id="arg-pv-reset" title="重置调查进度">⟳</span>';
     document.body.appendChild(el);
     var st = document.createElement('style');
     st.textContent = '#arg-progress-pill{position:fixed;right:10px;bottom:10px;z-index:99990;font-size:11px;color:#cbd5e1;background:rgba(10,14,22,.55);border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:3px 9px;opacity:.55;pointer-events:auto;font-family:inherit}#arg-progress-pill:hover{opacity:.9}#arg-pv-reset{cursor:pointer;margin-left:4px;opacity:.7}#arg-pv-reset:hover{opacity:1;color:#f87171}';

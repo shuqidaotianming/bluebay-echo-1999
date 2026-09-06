@@ -95,6 +95,18 @@
               "reply": "你把“守夜人”交了出去。可他是唯一在暗中替失踪者留证据的人。你冤枉了好人，真凶仍在海上。"
             },
             {
+              "text": "采信那份“不在场证明”，反咬韩氏司机周某是灭口的人。",
+              "target": "end_wrong",
+              "requires": "doc_forged_alibi",
+              "reply": "你把周某推了出去。可那份证明的时间戳，撞上了当晚全市监控停电——纸是真的，内容是假的。真凶在法庭外笑了。"
+            },
+            {
+              "text": "公开那本塞在门缝里的“守夜人手记”，指认版主是内鬼。",
+              "target": "end_wrong",
+              "requires": "doc_fake_diary",
+              "reply": "手记是伪造的。笔迹可以模仿。你亲手放走了唯一还在替死者存证据的人。"
+            },
+            {
               "text": "只能证明“这是同一类海难”（1999 与 2000 手法同源）。",
               "target": "end_partial",
               "requires": "news_1999,doc_wreck_report",
@@ -119,16 +131,26 @@
               "reply": "那一夜重演了，可钱与实验装置，你还差一环。"
             },
             {
-              "text": "指认真凶——总工程师柯振：是他装的模块、签的字、切的话筒。",
+              "text": "（推演·手法）不是风浪，是 4.5Hz 加一盏照向海里的灯。",
+              "requires": "doc_experiment,doc_raw_data,doc_radio_log",
+              "reply": "明月如霜（很久没说话）：……把这套讲给陪审团，他们才听得懂那晚的人为什么“自愿”。继续。"
+            },
+            {
+              "text": "（推演·动机）不是仪式，是“筛选”——杀人是为了省钱省事。",
+              "requires": "doc_hanyang_speech,doc_ship_inspection",
+              "reply": "明月如霜：“筛选”……他们杀的不是命，是麻烦。这一条，值一版头条。继续。"
+            },
+            {
+              "text": "指认真凶——总工程师柯振：他装的模块、签的字、开的灯、切的话筒。",
               "target": "end_true",
-              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2",
-              "reply": "机房签名＋切断话筒的监控＋名单第 55 行……你指着柯振：灯，是你开的。明天头版印下所有名字。"
+              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,doc_keeper_log,doc_raw_data,doc_weather_log",
+              "reply": "守塔人日志＋切断话筒的监控＋原始声学数据＋被涂改的气象簿……你指着柯振：灯，是你开的。明天头版印下所有名字。"
             },
             {
               "text": "追问那个“仍在闪的浮标信标”。",
               "target": "end_secret",
-              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,clue_buoy",
-              "reply": "你循着那段还在发报的浮标信号去了延盛外海……也许，海没有带走所有人。"
+              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,doc_keeper_log,doc_raw_data,doc_weather_log,clue_buoy,clue_undertow",
+              "reply": "你循着浮标信标与暗流回卷的记录去了延盛外海……也许，海没有带走所有人。"
             }
           ]
         },
@@ -227,6 +249,7 @@
         "siteName": "千禧搜索 · Search BlueBay",
         "subtitle": "输入案件编号 / 人名 / 案由检索线索",
         "notice": "提示：把你在信件、聊天与档案里读到的“人名、机构、编号、暗号”当成关键词来搜。有些词，要你自己解出来才念得出。",
+        "notFoundText": "—— 没有回音。海不回答猜错的问题。",
         "placeholder": "请输入关键词……",
         "buttonText": "检索档案"
       },
@@ -240,19 +263,7 @@
           "target": "news_1999"
         },
         {
-          "keyword": "1999海难",
-          "target": "news_1999"
-        },
-        {
           "keyword": "失踪",
-          "target": "news_missingpeople"
-        },
-        {
-          "keyword": "失踪人口",
-          "target": "news_missingpeople"
-        },
-        {
-          "keyword": "蓝湾失踪",
           "target": "news_missingpeople"
         },
         {
@@ -264,19 +275,11 @@
           "target": "news_2000"
         },
         {
-          "keyword": "主持人失踪",
-          "target": "news_2000"
-        },
-        {
           "keyword": "瀚洋",
           "target": "news_hanyang"
         },
         {
           "keyword": "韩启昌",
-          "target": "news_hanyang"
-        },
-        {
-          "keyword": "瀚洋集团",
           "target": "news_hanyang"
         },
         {
@@ -288,23 +291,11 @@
           "target": "news_lighthouse"
         },
         {
-          "keyword": "延盛",
-          "target": "news_lighthouse"
-        },
-        {
           "keyword": "99.4",
           "target": "news_frequency"
         },
         {
           "keyword": "停播",
-          "target": "news_frequency"
-        },
-        {
-          "keyword": "频率",
-          "target": "news_frequency"
-        },
-        {
-          "keyword": "广播站",
           "target": "news_frequency"
         },
         {
@@ -316,27 +307,15 @@
           "target": "news_seawall"
         },
         {
-          "keyword": "闹鬼",
-          "target": "news_seawall"
-        },
-        {
           "keyword": "福利院",
           "target": "news_orphan"
         },
         {
-          "keyword": "精神卫生中心",
-          "target": "news_orphan"
-        },
-        {
-          "keyword": "转出",
-          "target": "news_orphan"
+          "keyword": "孤儿院",
+          "target": "doc_orphan_registry"
         },
         {
           "keyword": "听潮会",
-          "target": "wiki_tingchao"
-        },
-        {
-          "keyword": "潮水会带走诚实的人",
           "target": "wiki_tingchao"
         },
         {
@@ -344,27 +323,11 @@
           "target": "wiki_frequency"
         },
         {
-          "keyword": "4.5hz",
-          "target": "wiki_frequency"
-        },
-        {
-          "keyword": "4.5",
-          "target": "wiki_frequency"
-        },
-        {
           "keyword": "白噪",
           "target": "wiki_frequency"
         },
         {
-          "keyword": "瀚洋7号",
-          "target": "node_login_safe"
-        },
-        {
           "keyword": "名单",
-          "target": "node_login_safe"
-        },
-        {
-          "keyword": "manifest",
           "target": "node_login_safe"
         },
         {
@@ -380,15 +343,7 @@
           "target": "node_login_station"
         },
         {
-          "keyword": "声学实验",
-          "target": "node_login_station"
-        },
-        {
           "keyword": "资助",
-          "target": "node_login_station"
-        },
-        {
-          "keyword": "协议",
           "target": "node_login_station"
         },
         {
@@ -404,23 +359,11 @@
           "target": "doc_wreck_report"
         },
         {
-          "keyword": "lw-1999",
-          "target": "doc_wreck_report"
-        },
-        {
-          "keyword": "LW-1999",
-          "target": "doc_wreck_report"
-        },
-        {
           "keyword": "第九夜",
           "target": "node_login_safe"
         },
         {
           "keyword": "录音",
-          "target": "node_login_safe"
-        },
-        {
-          "keyword": "潮声第九夜",
           "target": "node_login_safe"
         },
         {
@@ -452,15 +395,7 @@
           "target": "clue_cassette_label"
         },
         {
-          "keyword": "密文",
-          "target": "clue_cassette_label"
-        },
-        {
           "keyword": "磁带",
-          "target": "clue_cassette_label"
-        },
-        {
-          "keyword": "wlgh",
           "target": "clue_cassette_label"
         },
         {
@@ -472,14 +407,6 @@
           "target": "clue_engineer_note"
         },
         {
-          "keyword": "编码",
-          "target": "clue_engineer_note"
-        },
-        {
-          "keyword": "base64",
-          "target": "clue_engineer_note"
-        },
-        {
           "keyword": "接线员",
           "target": "clue_morse"
         },
@@ -488,32 +415,104 @@
           "target": "clue_morse"
         },
         {
-          "keyword": "摩斯",
-          "target": "clue_morse"
-        },
-        {
-          "keyword": "点划",
-          "target": "clue_morse"
-        },
-        {
           "keyword": "stillhere",
-          "target": "clue_buoy"
-        },
-        {
-          "keyword": "we are still here",
-          "target": "clue_buoy"
-        },
-        {
-          "keyword": "浮标",
-          "target": "clue_buoy"
-        },
-        {
-          "keyword": "信标",
           "target": "clue_buoy"
         },
         {
           "keyword": "994stats",
           "target": "node_stats"
+        },
+        {
+          "keyword": "994starts",
+          "target": "node_stats"
+        },
+        {
+          "keyword": "铭牌",
+          "target": "clue_tower_plaque"
+        },
+        {
+          "keyword": "塔铭",
+          "target": "clue_tower_plaque"
+        },
+        {
+          "keyword": "顶层",
+          "target": "node_login_light"
+        },
+        {
+          "keyword": "登塔",
+          "target": "node_login_light"
+        },
+        {
+          "keyword": "undertow",
+          "target": "clue_undertow"
+        },
+        {
+          "keyword": "剪彩",
+          "target": "news_ceremony"
+        },
+        {
+          "keyword": "产业园",
+          "target": "news_ceremony"
+        },
+        {
+          "keyword": "名册",
+          "target": "doc_orphan_registry"
+        },
+        {
+          "keyword": "船厂",
+          "target": "doc_shipyard"
+        },
+        {
+          "keyword": "维修",
+          "target": "doc_shipyard"
+        },
+        {
+          "keyword": "演讲",
+          "target": "doc_hanyang_speech"
+        },
+        {
+          "keyword": "内刊",
+          "target": "doc_hanyang_speech"
+        },
+        {
+          "keyword": "联名",
+          "target": "doc_petition"
+        },
+        {
+          "keyword": "家属",
+          "target": "doc_petition"
+        },
+        {
+          "keyword": "潮汐",
+          "target": "clue_tide_table"
+        },
+        {
+          "keyword": "气象",
+          "target": "doc_weather_log"
+        },
+        {
+          "keyword": "通话记录",
+          "target": "doc_radio_log"
+        },
+        {
+          "keyword": "海岸电台",
+          "target": "doc_radio_log"
+        },
+        {
+          "keyword": "船检",
+          "target": "doc_ship_inspection"
+        },
+        {
+          "keyword": "来信",
+          "target": "post_listeners"
+        },
+        {
+          "keyword": "倒放",
+          "target": "post_tape_b"
+        },
+        {
+          "keyword": "来电",
+          "target": "post_missing_call"
         }
       ]
     },
@@ -848,7 +847,7 @@
         "title": "次声波与 4.5Hz：看不见的支配",
         "date": "词条",
         "author": "多方协作",
-        "body": "频率低于 20Hz 的声波，人耳听不见却能共振内脏与眼球；约 7Hz 附近可诱发恐惧、恶心与判断力下降，7—4Hz 的持续定向照射会显著提高“顺从性”。\n军用/研究用途受限。若在深夜广播中循环植入，普通人只会感到“很困、很平静、想睡”。\n相关内部代号：白噪计划。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索在机房里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "频率低于 20Hz 的声波，人耳听不见却能共振内脏与眼球；约 7Hz 附近可诱发恐惧、恶心与判断力下降，7—4Hz 的持续定向照射会显著提高“顺从性”。\n军用/研究用途受限。若在深夜广播中循环植入，普通人只会感到“很困、很平静、想睡”。\n相关内部代号：白噪计划。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -893,7 +892,7 @@
         "title": "瀚洋集团：从水产到“蓝色经济”",
         "date": "词条",
         "author": "多方协作",
-        "body": "董事长韩启昌。主营水产、劳务外派、海洋科考赞助。长期“技术资助”蓝湾广播站，并独家承办本镇“随船劳务安置”。\n公开资料刻意隐去 1999—2000 年两份随船名单。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索在机房里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "董事长韩启昌。主营水产、劳务外派、海洋科考赞助。长期“技术资助”蓝湾广播站，并独家承办本镇“随船劳务安置”。\n公开资料刻意隐去 1999—2000 年两份随船名单。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -921,7 +920,7 @@
         "title": "“瀚洋7号”倾覆事故初步调查报告",
         "date": "1999-09-01",
         "author": "调查组（结论页缺失）",
-        "body": "结论（存疑）：遇强对流天气倾覆。然而出港气象站记录“浪 0.6m、风力 3 级”，且离港前救生衣清点数量与登记不符。\n附件B-船员及随船劳务名单：【已调阅，见 doc 名单】。\n备注：本卷宗 2000 年 3 月后与《潮声》案“并案归档”指令被撤销，原因：上级电话。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"上锁的档案柜\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "结论（存疑）：遇强对流天气倾覆。然而出港气象站记录“浪 0.6m、风力 3 级”，且离港前救生衣清点数量与登记不符。\n附件B-船员及随船劳务名单：【已调阅，见 doc 名单】。\n备注：本卷宗 2000 年 3 月后与《潮声》案“并案归档”指令被撤销，原因：上级电话。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"船检底档\">调阅：出港前船检底档</a> ｜ <a data-arg-link=\"船厂工单\">调阅：船厂加改装工单</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -995,7 +994,7 @@
         "title": "潮水之前 · 沈砚手记",
         "date": "2000-01",
         "author": "沈砚",
-        "body": "新年。柯师傅把我领进机房，让我听那台新装的“低频模块”，说这是给深夜失眠的人做的安眠台。\n可我一听就犯困，心里发慌，像被人按着往海里走。\n我开始留个心眼，把每一期都存一份带子。\n\n◈ 接下来： <a data-arg-link=\"上锁的档案柜\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+        "body": "新年。柯师傅把我领进机房，让我听那台新装的“低频模块”，说这是给深夜失眠的人做的安眠台。\n可我一听就犯困，心里发慌，像被人按着往海里走。\n我开始留个心眼，把每一期都存一份带子。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
       }
     },
     {
@@ -1009,7 +1008,7 @@
         "title": "潮水之后 · 沈砚手记",
         "date": "2000-03-14",
         "author": "沈砚",
-        "body": "我终于明白 99.4 夜夜在做什么——不是安眠，是把人“叫”走。\n名单上有孤儿、有病人、有还不起债的，还有我自己。他们说“陆上不留声”。\n我把最重的那盘带子锁进保险箱。保险箱不认数字，认一个被潮水推前三格才见得到的名字。\n今晚他们来接我出海。天，是晴的。\n（若你在读：听完第九夜，看那两路监控，把声音还给大海。）\n\n◈ 接下来： <a data-arg-link=\"去听第九夜\">去看：第九夜录音稿</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索在机房里（需口令）</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+        "body": "我终于明白 99.4 夜夜在做什么——不是安眠，是把人“叫”走。\n名单上有孤儿、有病人、有还不起债的，还有我自己。他们说“陆上不留声”。\n我把最重的那盘带子锁进保险箱。保险箱不认数字，认一个被潮水推前三格才见得到的名字。\n今晚他们来接我出海。天，是晴的。\n（若你在读：听完第九夜，看那两路监控，把声音还给大海。）\n\n◈ 接下来： <a data-arg-link=\"去听第九夜\">去看：第九夜录音稿</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
       }
     },
     {
@@ -1272,6 +1271,356 @@
         "author": "系统",
         "stats": true,
         "body": "> 权限确认：守夜人。\n> 本终端只做一件事——记录有多少人，听见过这片海。\n> 数据由远端信标实时回传。\n\n◈ 接下来： <a data-arg-link=\"离开终端\">← 离开终端</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "clue_tower_plaque",
+      "name": "灯塔铭牌",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 590,
+      "fields": {
+        "siteName": "延盛灯塔 · 门廊",
+        "title": "一块被海盐蚀了一半的青铜铭牌",
+        "date": "1962 铸",
+        "author": "（无名）",
+        "body": "铭牌正文：延盛灯塔，生于一九六二年。主灯功率三千瓦，射程十四海里。\n下面一行小字只剩一半：『塔只认两样东西——它出生的年份，和那个被潮水推出来的词。』\n门廊的灰尘里，有很多双鞋印。都不新。\n\n◈ 接下来： <a data-arg-link=\"登塔\">→ 登塔（顶层有门禁）</a> ｜ <a data-arg-link=\"返回\">← 返回灯塔报道</a>"
+      }
+    },
+    {
+      "id": "node_login_light",
+      "name": "灯塔顶层门禁",
+      "type": "Login",
+      "template": "后台登录",
+      "x": 770,
+      "y": 590,
+      "fields": {
+        "systemName": "延盛灯塔 · 顶层门禁",
+        "password": "1962tide,tide1962",
+        "errorMessage": "❌ 门未开。塔认得它的生年，也认得那个被潮水推出来的词。",
+        "customCss": ".vault-hint-box{display:none!important} .vault-input-wrapper input::placeholder{color:transparent}"
+      }
+    },
+    {
+      "id": "node_files_light",
+      "name": "灯塔顶层 · 密室",
+      "type": "Files",
+      "template": "Windows 文件夹",
+      "x": 1000,
+      "y": 590,
+      "fields": {
+        "path": "D:\\延盛灯塔\\顶层\\不上锁的抽屉\\"
+      }
+    },
+    {
+      "id": "doc_keeper_log",
+      "name": "守塔人日志",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1230,
+      "y": 590,
+      "fields": {
+        "siteName": "延盛灯塔 · 值守记录（抄件）",
+        "title": "守塔人 陈伯 手记（1999—2000 节选）",
+        "date": "2000-03-15",
+        "author": "陈伯",
+        "body": "1999-08-13 韩先生带人上来改装主灯。装了一套我不认得的柜子，说是“照海”。我问他照哪片海，他没答。\n2000-03-14 我被临时换班。夜里我爬上来一趟——主灯是手动启动的，机房钥匙只有两个人有：我，和柯工程师。灯下站着三个人，穿雨衣。\n03:14 灯灭了。海上很静。静得不像有六十六个人刚离开。\n（备注：本页原稿在 2000-04 “失窃”。）\n\n◈ 接下来： <a data-arg-link=\"返回顶层\">← 返回顶层</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_raw_data",
+      "name": "原始声学数据",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 80,
+      "y": 760,
+      "fields": {
+        "siteName": "acoustic_raw.log",
+        "title": "4.5Hz 声源 · 原始功率记录",
+        "date": "2000-03-14",
+        "author": "（设备自动写盘）",
+        "body": "> 03:08:00 低频模块 上电 · 4.5Hz · 满功率\n> 03:08:11 — 03:14:02 持续照射 · 覆盖扇区：码头甲板\n> 03:14:02 停止。写入工单：瀚洋水产 · 代签：柯\n> 异常：本时段采样对象计数 = 66。设计容量 = 20。\n\n◈ 接下来： <a data-arg-link=\"返回顶层\">← 返回顶层</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "clue_vigenere",
+      "name": "没署名的信",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 760,
+      "fields": {
+        "siteName": "顶层 · 不上锁的抽屉",
+        "title": "一封没有署名的信",
+        "date": "2000-02",
+        "author": "（无）",
+        "body": "信纸上只有一行大写：NVGIKBRA\n落款处压着半枚灯塔徽章，和一句话：『钥匙，还是他推潮水的那个词。』\n\n◈ 接下来： <a data-arg-link=\"去搜索\">→ 千禧搜索</a> ｜ <a data-arg-link=\"返回顶层\">← 返回顶层</a>"
+      }
+    },
+    {
+      "id": "clue_undertow",
+      "name": "暗流记录",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 540,
+      "y": 760,
+      "fields": {
+        "siteName": "undertow.log",
+        "title": "延盛外海 · 暗流回卷记录",
+        "date": "2000-03-15",
+        "author": "（水文站内部）",
+        "body": "> 03:40—04:20 暗流回卷，三名落水者被浪推回礁石区，被渔民救起。\n> 但移交清单上没有他们。有人在码头，把他们又带回了船上。\n> 名字被海水泡开了。只剩三个圈。\n\n◈ 接下来： <a data-arg-link=\"交给记者\">→ 回聊天找明月如霜</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_forged_alibi",
+      "name": "不在场证明（伪造）",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 770,
+      "y": 760,
+      "fields": {
+        "siteName": "周某 · 辩护材料（泄露）",
+        "title": "韩氏集团司机周某的不在场证明",
+        "date": "2000-04-02",
+        "author": "律师函附件",
+        "body": "材料称：3 月 14 日 23:00—次日 05:00，司机周某全程陪同韩启昌在市区酒店，有“监控截图”为证。\n疑点：截图右上角时间戳 03:14，而当晚全市监控自 23:00 起停电检修——根本不可能有画面。\n这张纸是真的，内容是假的。\n\n◈ 接下来： <a data-arg-link=\"返回顶层\">← 返回顶层</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_fake_diary",
+      "name": "“守夜人手记”（伪造）",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 1000,
+      "y": 760,
+      "fields": {
+        "title": "一本塞在我门缝里的“守夜人手记”",
+        "date": "2003-11-15",
+        "author": "（模仿笔迹）",
+        "body": "我是守夜人。名单是我交给他们的。\n条件只有一个：换我弟弟下船。\n对不起，每一个名字。……对不起。\n\n◈ 接下来： <a data-arg-link=\"回论坛\">← 回论坛</a> ｜ <a data-arg-link=\"返回桌面\">返回桌面</a>"
+      }
+    },
+    {
+      "id": "doc_weather_log",
+      "name": "出港夜气象原始记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1230,
+      "y": 760,
+      "fields": {
+        "siteName": "蓝湾气象站 · 原始簿（未删节）",
+        "title": "2000-03-14 夜间观测记录",
+        "date": "2000-03-14",
+        "author": "值班员（签章被涂改）",
+        "body": "20:00 风力 3 级，浪 0.6m，能见度良好。\n23:00 无变化。00:00 无变化。04:00 微涌。\n页脚有一行被橡皮擦过又显出来的铅笔字：有人下午来要过“坏天气”的版本。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_radio_log",
+      "name": "海岸电台通话记录",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 80,
+      "y": 930,
+      "fields": {
+        "siteName": "coast_radio.log",
+        "title": "蓝湾海岸电台 · 通话与设备日志（节选）",
+        "date": "2000-03-14",
+        "author": "值守员",
+        "body": "> 03:02:41 沈砚 ↔ 陆某 · 通话 37 秒（内容未录音）\n> 03:11:20 延盛主灯 · 手动启动（该时段无值守申请）\n> 03:14:00 《潮声》停播\n> ——一个 03:02 还在岸上打电话的人，03:14 已经“在海上遇难”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a>"
+      }
+    },
+    {
+      "id": "doc_ship_inspection",
+      "name": "船检记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 930,
+      "fields": {
+        "siteName": "海事船检 · 底档",
+        "title": "“瀚洋7号”出港前检修与配员复核",
+        "date": "1999-08-11",
+        "author": "验船师（已故）",
+        "body": "救生筏 配额 12 → 实载 4；EPIRB 应急示位标 · 拆除。\n领用签字：柯振（代）。\n备注：验船师于 2000-01 车祸身故，底档自此无人复核。\n\n◈ 接下来： <a data-arg-link=\"返回事故报告\">← 返回海事调查报告</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "wiki_lighthouse",
+      "name": "词条·延盛灯塔",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 930,
+      "fields": {
+        "siteName": "蓝湾异闻·维基",
+        "title": "延盛灯塔（1962— ）",
+        "date": "词条",
+        "author": "多方协作",
+        "body": "1962 年建成，主灯三千瓦。塔身铭牌立于门廊。\n争议：官方档案称主灯为“自动光控”，但港口设备的启动日志显示 1999 年后多次“手动启动”，且多发生在深夜。\n编辑战集中在“谁有顶层钥匙”。\n\n◈ 接下来： <a data-arg-link=\"返回维基\">← 返回维基首页</a> ｜ <a data-arg-link=\"门廊铭牌\">看：门廊那块铭牌</a> ｜ <a data-arg-link=\"建塔合影\">看：1962 建塔合影</a>"
+      }
+    },
+    {
+      "id": "photo_nanhai",
+      "name": "1962建塔合影",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 930,
+      "fields": {
+        "siteName": "市档案馆 · 影像",
+        "title": "延盛灯塔落成合影（1962）",
+        "date": "1962-05-01",
+        "author": "摄影：佚名",
+        "body": "黑白照片：四十七个人站在塔基下，神情疲惫又骄傲。\n背面钢笔字：一九六二·五一·延盛。\n最左边那个年轻人，后来成了广播站的第一任台长——沈砚的师父。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回灯塔词条</a> ｜ <a data-arg-link=\"登塔\">→ 登塔</a>"
+      }
+    },
+    {
+      "id": "post_listeners",
+      "name": "帖子·听众来信",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1000,
+      "y": 930,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "《潮声》收到的听众来信，有人整理了一部分",
+        "date": "2003-11-10",
+        "author": "拾贝人",
+        "forumName": "蓝湾异闻",
+        "username": "拾贝人",
+        "time": "01:02",
+        "body": "整理了十几封没拆的信。最扎心的一封只有一句：\n“我给我妈点过一首歌。后来她‘随船’走了。歌没人播。”\n下面回帖都在问：这些信现在在哪。",
+        "replies": "守夜人：在机房第三个柜子\n版务：删"
+      }
+    },
+    {
+      "id": "news_ceremony",
+      "name": "新闻·产业园奠基",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 1230,
+      "y": 930,
+      "fields": {
+        "siteName": "沿海商报",
+        "title": "瀚洋“蓝色经济”产业园奠基 韩启昌：给迷路的人一盏灯",
+        "date": "2003-10-01",
+        "author": "本报记者",
+        "body": "奠基礼上鸣炮二十一响。韩启昌致辞：“我们给迷路的人一盏灯，给他们一个方向。”\n台下第一排，有一个空座位，摆着一束白菊。没人认领。"
+      }
+    },
+    {
+      "id": "doc_orphan_registry",
+      "name": "福利院名册",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 1100,
+      "fields": {
+        "siteName": "蓝湾福利院 · 内部名册",
+        "title": "“随船劳务”人员内部名册（存根）",
+        "date": "1999-07",
+        "author": "（抄录）",
+        "body": "共 63 人。年龄最小 14 岁。\n第 55 行旁有一个红笔圈，圈里两个字：留声。\n——和瀚洋7号名单第 55 行，是同一个人。\n\n◈ 接下来： <a data-arg-link=\"返回通报\">← 返回人口转出通报</a> ｜ <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a>"
+      }
+    },
+    {
+      "id": "doc_shipyard",
+      "name": "船厂维修记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 1100,
+      "fields": {
+        "siteName": "红旗船厂 · 工单底联",
+        "title": "“瀚洋7号”加改装工单",
+        "date": "1999-07-22",
+        "author": "工单编号 H-0722",
+        "body": "施工项：甲板广播中继 1 套 · 电缆沿桅敷设 · 功放两台。\n委托方：瀚洋水产；技术对接：蓝湾广播站（联系人：柯）。\n验收人签名那一栏，盖的是广播站的章。\n\n◈ 接下来： <a data-arg-link=\"返回事故报告\">← 返回海事调查报告</a> ｜ <a data-arg-link=\"对照检修日志\">对照：机房检修日志</a>"
+      }
+    },
+    {
+      "id": "doc_petition",
+      "name": "家属联名信",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 540,
+      "y": 1100,
+      "fields": {
+        "title": "一封被退回三次的联名信",
+        "date": "2001-04-04",
+        "author": "四十一名家属",
+        "body": "我们不是要钱。我们要一个说法：人怎么没的，船去哪了，名单在哪。\n三次都被退回。第二次的批注只有四个字：不予受理。\n第三次，连批注都没有了。\n\n◈ 接下来： <a data-arg-link=\"返回报道\">← 返回失踪统计报道</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "post_tape_b",
+      "name": "帖子·卡带B面",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 770,
+      "y": 1100,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "把《潮声》的卡带倒放，你会听见……",
+        "date": "2003-11-12",
+        "author": "深夜调频",
+        "forumName": "蓝湾异闻",
+        "username": "深夜调频",
+        "time": "02:58",
+        "body": "别急着说玄学。我把第八期的 B 面倒过来放，白噪里有一段很规整的间隔——不像海，像有人在很远的地方呼气。\n我把音频发给了三个人。三个人现在都不回我了。",
+        "replies": "守夜人：别发了\n匿名：我也听过，是呼吸"
+      }
+    },
+    {
+      "id": "doc_hanyang_speech",
+      "name": "韩启昌内刊演讲",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 1100,
+      "fields": {
+        "siteName": "瀚洋内刊《潮声报》",
+        "title": "韩启昌在中层会议上的讲话（内部，勿外传）",
+        "date": "2002-09",
+        "author": "整理：总裁办",
+        "body": "……海上生意的成本，七成在“人”。人要用得省，用得听话。\n筛选，是我们最重要的公益。\n——各位，“筛选”这个词，是他自己说的。\n\n◈ 接下来： <a data-arg-link=\"返回专访\">← 返回韩启昌专访</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "post_missing_call",
+      "name": "帖子·深夜来电",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1230,
+      "y": 1100,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "昨晚有人打进电台点播《潮声》，号码是 +0000-994",
+        "date": "2003-11-16",
+        "author": "接线的",
+        "forumName": "蓝湾异闻",
+        "username": "接线的",
+        "time": "03:20",
+        "body": "夜里三点，导播间电话响了。对方不说话，背景是水声。\n导播问点什么歌，那头隔了很久，说：点给“第 55 行”。\n然后是忙音。号码查不到归属地。",
+        "replies": "守夜人：+0000-994 又出现了\n匿名：第55行是谁"
+      }
+    },
+    {
+      "id": "clue_tide_table",
+      "name": "潮汐表",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 1270,
+      "fields": {
+        "siteName": "蓝湾港务 · 张贴版",
+        "title": "蓝湾港潮汐表（2000 年 3 月）",
+        "date": "2000-03",
+        "author": "港务处",
+        "body": "3 月 14 日：满潮 03:14，落潮 09:47。\n港务处的规矩：满潮夜，灯塔必须人工值守。\n——那晚的值守记录，缺了一页。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"对照气象记录\">对照：气象原始记录</a>"
       }
     },
     {
@@ -1542,6 +1891,38 @@
     },
     {
       "from": "node_forum",
+      "to": "post_listeners",
+      "port": "听众来信",
+      "label": "《潮声》收到的听众来信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_tape_b",
+      "port": "卡带B面",
+      "label": "把卡带倒放，你会听见……",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_missing_call",
+      "port": "深夜来电",
+      "label": "昨晚有人打进电台点播《潮声》",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "doc_fake_diary",
+      "port": "门缝里的手记",
+      "label": "一本塞在我门缝里的“守夜人手记”",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
       "to": "wiki_hub",
       "port": "维基档案",
       "label": "维基 · 蓝湾异闻百科",
@@ -1599,7 +1980,7 @@
     {
       "from": "post_ghostfm",
       "to": "node_login_safe",
-      "port": "上锁的档案柜",
+      "port": "上锁的保险箱",
       "label": "🔒 线索锁在保险箱里（需口令）",
       "icon": "",
       "desc": ""
@@ -1632,7 +2013,7 @@
       "from": "post_lighthouse",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -1679,7 +2060,7 @@
     {
       "from": "post_brother",
       "to": "node_login_safe",
-      "port": "上锁的档案柜",
+      "port": "上锁的保险箱",
       "label": "🔒 线索锁在保险箱里（需口令）",
       "icon": "",
       "desc": ""
@@ -1704,7 +2085,7 @@
       "from": "post_45hz",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -1743,7 +2124,7 @@
     {
       "from": "post_reeled",
       "to": "node_login_safe",
-      "port": "上锁的档案柜",
+      "port": "上锁的保险箱",
       "label": "🔒 线索锁在保险箱里（需口令）",
       "icon": "",
       "desc": ""
@@ -1816,7 +2197,15 @@
       "from": "news_hanyang",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_hanyang",
+      "to": "doc_hanyang_speech",
+      "port": "内刊演讲",
+      "label": "看：韩启昌内刊讲话",
       "icon": "",
       "desc": ""
     },
@@ -1840,7 +2229,23 @@
       "from": "news_lighthouse",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "clue_tower_plaque",
+      "port": "门廊铭牌",
+      "label": "看：门廊那块铭牌",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "node_login_light",
+      "port": "夜探灯塔",
+      "label": "→ 夜探灯塔（顶层有门禁）",
       "icon": "",
       "desc": ""
     },
@@ -1887,8 +2292,16 @@
     {
       "from": "news_missingpeople",
       "to": "node_login_safe",
-      "port": "上锁的档案柜",
+      "port": "上锁的保险箱",
       "label": "🔒 线索锁在保险箱里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_missingpeople",
+      "to": "doc_petition",
+      "port": "联名信",
+      "label": "看：家属联名信",
       "icon": "",
       "desc": ""
     },
@@ -1912,7 +2325,7 @@
       "from": "news_seawall",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -1945,6 +2358,14 @@
       "to": "doc_tide_recruit",
       "port": "招募传单",
       "label": "看：听潮会招募传单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_orphan",
+      "to": "doc_orphan_registry",
+      "port": "内部名册",
+      "label": "看：福利院内部名册",
       "icon": "",
       "desc": ""
     },
@@ -1985,6 +2406,14 @@
       "to": "wiki_hanyang",
       "port": "瀚洋集团",
       "label": "词条：瀚洋集团",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_hub",
+      "to": "wiki_lighthouse",
+      "port": "延盛灯塔",
+      "label": "词条：延盛灯塔",
       "icon": "",
       "desc": ""
     },
@@ -2040,7 +2469,7 @@
       "from": "wiki_frequency",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -2112,7 +2541,7 @@
       "from": "wiki_hanyang",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -2158,6 +2587,46 @@
     },
     {
       "from": "index_archive",
+      "to": "doc_weather_log",
+      "port": "气象原始记录",
+      "label": "3·14 夜间气象原始簿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "doc_radio_log",
+      "port": "海岸电台日志",
+      "label": "海岸电台通话/设备日志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "doc_ship_inspection",
+      "port": "船检底档",
+      "label": "“瀚洋7号”船检底档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "doc_petition",
+      "port": "家属联名信",
+      "label": "被退回三次的联名信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
+      "to": "news_ceremony",
+      "port": "奠基礼报道",
+      "label": "瀚洋产业园奠基礼",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive",
       "to": "node_login_police",
       "port": "警务内网",
       "label": "调阅 · 警务内网（需口令）",
@@ -2182,9 +2651,17 @@
     },
     {
       "from": "doc_wreck_report",
-      "to": "node_login_safe",
-      "port": "上锁的档案柜",
-      "label": "🔒 线索锁在保险箱里（需口令）",
+      "to": "doc_ship_inspection",
+      "port": "船检底档",
+      "label": "调阅：出港前船检底档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_wreck_report",
+      "to": "doc_shipyard",
+      "port": "船厂工单",
+      "label": "调阅：船厂加改装工单",
       "icon": "",
       "desc": ""
     },
@@ -2295,7 +2772,7 @@
     {
       "from": "diary_shenyan",
       "to": "node_login_safe",
-      "port": "上锁的档案柜",
+      "port": "上锁的保险箱",
       "label": "🔒 线索锁在保险箱里（需口令）",
       "icon": "",
       "desc": ""
@@ -2320,7 +2797,7 @@
       "from": "diary_shenyan2",
       "to": "node_login_station",
       "port": "上锁的机房",
-      "label": "🔒 线索在机房里（需口令）",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -2657,6 +3134,398 @@
       "to": "node_search",
       "port": "返回搜索",
       "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tower_plaque",
+      "to": "node_login_light",
+      "port": "登塔",
+      "label": "→ 登塔（顶层有门禁）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tower_plaque",
+      "to": "news_lighthouse",
+      "port": "返回",
+      "label": "← 返回灯塔报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_login_light",
+      "to": "node_files_light",
+      "port": "开门",
+      "label": "进入顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_light",
+      "to": "doc_keeper_log",
+      "port": "守塔人日志.doc",
+      "label": "守塔人日志.doc",
+      "icon": "📓",
+      "desc": ""
+    },
+    {
+      "from": "node_files_light",
+      "to": "doc_raw_data",
+      "port": "原始声学数据.csv",
+      "label": "原始声学数据.csv",
+      "icon": "📈",
+      "desc": ""
+    },
+    {
+      "from": "node_files_light",
+      "to": "clue_vigenere",
+      "port": "一封没有署名的信.pdf",
+      "label": "一封没有署名的信.pdf",
+      "icon": "✉️",
+      "desc": ""
+    },
+    {
+      "from": "node_files_light",
+      "to": "doc_forged_alibi",
+      "port": "不在场证明（复印件）.jpg",
+      "label": "不在场证明（复印件）.jpg",
+      "icon": "🖼️",
+      "desc": ""
+    },
+    {
+      "from": "node_files_light",
+      "to": "node_desktop",
+      "port": "下塔",
+      "label": "下塔",
+      "icon": "🖥️",
+      "desc": ""
+    },
+    {
+      "from": "doc_keeper_log",
+      "to": "node_files_light",
+      "port": "返回顶层",
+      "label": "← 返回顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_keeper_log",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_raw_data",
+      "to": "node_files_light",
+      "port": "返回顶层",
+      "label": "← 返回顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_raw_data",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_vigenere",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_vigenere",
+      "to": "node_files_light",
+      "port": "返回顶层",
+      "label": "← 返回顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_undertow",
+      "to": "node_chat",
+      "port": "交给记者",
+      "label": "→ 回聊天找明月如霜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_undertow",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_forged_alibi",
+      "to": "node_files_light",
+      "port": "返回顶层",
+      "label": "← 返回顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_forged_alibi",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_fake_diary",
+      "to": "node_forum",
+      "port": "回论坛",
+      "label": "← 回论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_fake_diary",
+      "to": "node_desktop",
+      "port": "返回桌面",
+      "label": "返回桌面",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_weather_log",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_weather_log",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_radio_log",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_radio_log",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_ship_inspection",
+      "to": "doc_wreck_report",
+      "port": "返回事故报告",
+      "label": "← 返回海事调查报告",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_ship_inspection",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_lighthouse",
+      "to": "wiki_hub",
+      "port": "返回维基",
+      "label": "← 返回维基首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_lighthouse",
+      "to": "clue_tower_plaque",
+      "port": "门廊铭牌",
+      "label": "看：门廊那块铭牌",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "wiki_lighthouse",
+      "to": "photo_nanhai",
+      "port": "建塔合影",
+      "label": "看：1962 建塔合影",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "photo_nanhai",
+      "to": "wiki_lighthouse",
+      "port": "返回词条",
+      "label": "← 返回灯塔词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "photo_nanhai",
+      "to": "node_login_light",
+      "port": "登塔",
+      "label": "→ 登塔",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_listeners",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_listeners",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_ceremony",
+      "to": "node_search",
+      "port": "返回千禧搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_ceremony",
+      "to": "news_hanyang",
+      "port": "瀚洋专访",
+      "label": "看：韩启昌专访",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_orphan_registry",
+      "to": "news_orphan",
+      "port": "返回通报",
+      "label": "← 返回人口转出通报",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_orphan_registry",
+      "to": "node_login_safe",
+      "port": "上锁的保险箱",
+      "label": "🔒 线索锁在保险箱里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_shipyard",
+      "to": "doc_wreck_report",
+      "port": "返回事故报告",
+      "label": "← 返回海事调查报告",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_shipyard",
+      "to": "audio_log",
+      "port": "对照检修日志",
+      "label": "对照：机房检修日志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_petition",
+      "to": "news_missingpeople",
+      "port": "返回报道",
+      "label": "← 返回失踪统计报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_petition",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tape_b",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tape_b",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_hanyang_speech",
+      "to": "news_hanyang",
+      "port": "返回专访",
+      "label": "← 返回韩启昌专访",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_hanyang_speech",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_missing_call",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_missing_call",
+      "to": "node_chat",
+      "port": "去聊天",
+      "label": "→ 潮声通讯",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tide_table",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tide_table",
+      "to": "doc_weather_log",
+      "port": "对照气象记录",
+      "label": "对照：气象原始记录",
       "icon": "",
       "desc": ""
     }

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蓝湾港潮汐表（2000 年 3 月） - 深度纪实</title>
+<style>* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--arg-bg-color, #eef2f8);
+  font-family: var(--arg-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "SimSun", "宋体", sans-serif);
+  color: var(--arg-text-color, #333333);
+  line-height: 1.6;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+.bbs-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bbs-top-bar {
+  background: #1e3a8a;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.bbs-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bbs-logo {
+  font-size: 20px;
+}
+
+.bbs-site-name {
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.bbs-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bbs-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.bbs-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.bbs-btn.primary {
+  background: #ffffff;
+  color: #1e3a8a;
+  border-color: #ffffff;
+  font-weight: bold;
+}
+
+.bbs-btn.primary:hover {
+  background: #f1f5f9;
+}
+
+.bbs-nav-path {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+}
+
+.bbs-nav-path a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.bbs-nav-path a:hover {
+  text-decoration: underline;
+}
+
+.current-thread-title {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.bbs-post-card {
+  background: var(--arg-card-bg, #ffffff);
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bbs-thread-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 20px;
+}
+
+.bbs-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.bbs-thread-meta {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bbs-tag {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.bbs-floor {
+  display: flex;
+  min-height: 280px;
+}
+
+.bbs-user-side {
+  width: 170px;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.bbs-avatar {
+  width: 64px;
+  height: 64px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 10px;
+  border: 2px solid #cbd5e1;
+}
+
+.bbs-username {
+  font-size: 13px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.bbs-user-badge {
+  font-size: 10px;
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.bbs-user-info {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.bbs-post-main {
+  flex: 1;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bbs-post-body {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1e293b;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bbs-post-body a, .bbs-post-body [data-arg-link] {
+  color: #2563eb;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bbs-post-body a:hover, .bbs-post-body [data-arg-link]:hover {
+  color: #1d4ed8;
+}
+
+.bbs-post-links {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.bbs-links-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.bbs-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arg-link-item {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 7px 12px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #1e293b;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.arg-link-item:hover {
+  background: #e0e7ff;
+  border-color: #818cf8;
+  color: #3730a3;
+  transform: translateY(-1px);
+}
+
+.arg-link-title {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.arg-link-desc {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.bbs-post-sig {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px dotted #e2e8f0;
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.bbs-replies-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bbs-replies-head {
+  background: #f1f5f9;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #334155;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bbs-reply-count {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.bbs-replies-list {
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #334155;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+    :root {
+      --arg-primary-color: #174a8b;
+      --arg-bg-color: #f4f6f9;
+      --arg-card-bg: #ffffff;
+      --arg-text-color: #222222;
+      --arg-font-family: "SimSun", "宋体", serif;
+    }
+    .arg-atmosphere-crt:before {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 99999;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .arg-atmosphere-vignette:after {
+      content: " ";
+      display: block;
+      position: fixed;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 99998;
+    }
+    .arg-atmosphere-glitch {
+      animation: arg-glitch-flicker 4s infinite;
+    }
+    .arg-redacted {
+      color: transparent !important;
+      background: repeating-linear-gradient(45deg, #151515 0 3px, #555 3px 6px) !important;
+      border-radius: 2px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      cursor: help;
+    }
+    @keyframes arg-glitch-flicker {
+      0%, 95%, 100% { filter: none; }
+      96% { filter: hue-rotate(90deg) contrast(1.2); }
+      97% { filter: invert(0.1) saturate(1.4); }
+      98% { filter: none; }
+    }
+    
+  
+    
+    
+    
+  </style></head>
+<body>
+  <div class="mag-container">
+    <header class="mag-header">
+      <div class="mag-brand" data-arg-slot="siteName">蓝湾港务 · 张贴版</div>
+      <div class="mag-category">INVESTIGATION · 深度调查特刊</div>
+    </header>
+
+    <main class="mag-article">
+      <h1 class="mag-title" data-arg-slot="title">蓝湾港潮汐表（2000 年 3 月）</h1>
+      
+      <div class="mag-meta">
+        <span class="mag-author">✍️ 文 / <strong data-arg-slot="author">港务处</strong></span>
+        <span class="mag-date">📅 <span data-arg-slot="date">2000-03</span></span>
+        <span class="mag-readtime">⏱️ 深度阅读 · 5 分钟</span>
+      </div>
+
+      <div class="mag-lead">
+        核心摘要：本篇记录涉及南鄣市与延盛岛不可公开之事件档案，已被列入重点线索观察名录。
+      </div>
+
+      <div class="mag-body" data-arg-slot="body">
+        3 月 14 日：满潮 03:14，落潮 09:47。<br>港务处的规矩：满潮夜，灯塔必须人工值守。<br>——那晚的值守记录，缺了一页。<br><br>◈ 接下来： <a data-arg-link="返回搜索">← 返回搜索</a> ｜ <a data-arg-link="对照气象记录">对照：气象原始记录</a>
+      </div>
+
+      <div class="mag-links" data-arg-links>
+        <!-- Dynamic Links -->
+      </div>
+    </main>
+
+    <footer class="mag-footer">
+      <div class="mag-copyright">© 蓝湾港务 · 张贴版 · 独立调查记录项目</div>
+    </footer>
+  </div>
+<script type="application/json" id="arg-config">{"nodeId":"clue_tide_table","preview":false,"trackProgress":true,"files":{"node_prologue":"index.html","node_desktop":"node_desktop.html","node_intro_letter":"node_intro_letter.html","node_chat":"node_chat.html","node_search":"node_search.html","node_forum":"node_forum.html","post_whitenoise":"post_whitenoise.html","post_ghostfm":"post_ghostfm.html","post_lighthouse":"post_lighthouse.html","post_tideclub":"post_tideclub.html","post_brother":"post_brother.html","post_45hz":"post_45hz.html","post_oath":"post_oath.html","post_reeled":"post_reeled.html","news_1999":"news_1999.html","news_2000":"news_2000.html","news_hanyang":"news_hanyang.html","news_lighthouse":"news_lighthouse.html","news_frequency":"news_frequency.html","news_missingpeople":"news_missingpeople.html","news_seawall":"news_seawall.html","news_orphan":"news_orphan.html","wiki_hub":"wiki_hub.html","wiki_tingchao":"wiki_tingchao.html","wiki_frequency":"wiki_frequency.html","wiki_shenyan":"wiki_shenyan.html","wiki_bluebay":"wiki_bluebay.html","wiki_hanyang":"wiki_hanyang.html","index_archive":"index_archive.html","doc_wreck_report":"doc_wreck_report.html","doc_ship_manifest":"doc_ship_manifest.html","doc_club_ledger":"doc_club_ledger.html","doc_experiment":"doc_experiment.html","doc_subsidy":"doc_subsidy.html","diary_shenyan":"diary_shenyan.html","diary_shenyan2":"diary_shenyan2.html","transcript_tape":"transcript_tape.html","police_report":"police_report.html","letter_covert":"letter_covert.html","audio_log":"audio_log.html","doc_tide_recruit":"doc_tide_recruit.html","surv_port":"surv_port.html","surv_studio":"surv_studio.html","node_login_safe":"node_login_safe.html","node_files_secret":"node_files_secret.html","node_login_station":"node_login_station.html","node_files_station":"node_files_station.html","node_login_police":"node_login_police.html","clue_cassette_label":"clue_cassette_label.html","clue_engineer_note":"clue_engineer_note.html","clue_morse":"clue_morse.html","clue_stego":"clue_stego.html","clue_buoy":"clue_buoy.html","node_stats":"node_stats.html","clue_tower_plaque":"clue_tower_plaque.html","node_login_light":"node_login_light.html","node_files_light":"node_files_light.html","doc_keeper_log":"doc_keeper_log.html","doc_raw_data":"doc_raw_data.html","clue_vigenere":"clue_vigenere.html","clue_undertow":"clue_undertow.html","doc_forged_alibi":"doc_forged_alibi.html","doc_fake_diary":"doc_fake_diary.html","doc_weather_log":"doc_weather_log.html","doc_radio_log":"doc_radio_log.html","doc_ship_inspection":"doc_ship_inspection.html","wiki_lighthouse":"wiki_lighthouse.html","photo_nanhai":"photo_nanhai.html","post_listeners":"post_listeners.html","news_ceremony":"news_ceremony.html","doc_orphan_registry":"doc_orphan_registry.html","doc_shipyard":"doc_shipyard.html","doc_petition":"doc_petition.html","post_tape_b":"post_tape_b.html","doc_hanyang_speech":"doc_hanyang_speech.html","post_missing_call":"post_missing_call.html","clue_tide_table":"clue_tide_table.html","end_silence":"end_silence.html","end_partial":"end_partial.html","end_corp":"end_corp.html","end_wave":"end_wave.html","end_ninth":"end_ninth.html","end_true":"end_true.html","end_wrong":"end_wrong.html","end_secret":"end_secret.html"},"rules":{"search":{"1999":"news_1999","海难":"news_1999","失踪":"news_missingpeople","沈砚":"news_2000","潮声":"news_2000","瀚洋":"news_hanyang","韩启昌":"news_hanyang","灯塔":"news_lighthouse","延盛灯塔":"news_lighthouse","99.4":"news_frequency","停播":"news_frequency","人墙":"news_seawall","渔港":"news_seawall","福利院":"news_orphan","孤儿院":"doc_orphan_registry","听潮会":"wiki_tingchao","次声波":"wiki_frequency","白噪":"wiki_frequency","名单":"node_login_safe","船员":"node_login_safe","白噪计划":"node_login_station","实验":"node_login_station","资助":"node_login_station","柯振":"node_login_station","调查报告":"doc_wreck_report","海事":"doc_wreck_report","第九夜":"node_login_safe","录音":"node_login_safe","日记":"diary_shenyan","检修":"audio_log","台呼":"audio_log","监控":"node_login_station","报案":"police_report","举报":"letter_covert","标签":"clue_cassette_label","磁带":"clue_cassette_label","便签":"clue_engineer_note","工程":"clue_engineer_note","接线员":"clue_morse","口哨":"clue_morse","stillhere":"clue_buoy","994stats":"node_stats","994starts":"node_stats","铭牌":"clue_tower_plaque","塔铭":"clue_tower_plaque","顶层":"node_login_light","登塔":"node_login_light","undertow":"clue_undertow","剪彩":"news_ceremony","产业园":"news_ceremony","名册":"doc_orphan_registry","船厂":"doc_shipyard","维修":"doc_shipyard","演讲":"doc_hanyang_speech","内刊":"doc_hanyang_speech","联名":"doc_petition","家属":"doc_petition","潮汐":"clue_tide_table","气象":"doc_weather_log","通话记录":"doc_radio_log","海岸电台":"doc_radio_log","船检":"doc_ship_inspection","来信":"post_listeners","倒放":"post_tape_b","来电":"post_missing_call"}},"links":{"返回搜索":"node_search","← 返回搜索":"node_search","千禧搜索 · 全网线索检索":"node_search","node_search":"node_search","node_search.html":"node_search","对照气象记录":"doc_weather_log","对照：气象原始记录":"doc_weather_log","出港夜气象原始记录":"doc_weather_log","doc_weather_log":"doc_weather_log","doc_weather_log.html":"doc_weather_log"},"password":"","errorMessage":"❌ 密码错误，请重新输入！","loginTarget":"node_search","notFoundText":"没有找到相关结果","typewriter":false,"drone":false,"stats":false,"atmosphere":"","contacts":[]}</script><script src="arg-runtime.js"></script></body>
+</html>
