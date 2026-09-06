@@ -217,7 +217,7 @@
       var t = droneCtx.currentTime;
       droneMaster.gain.cancelScheduledValues(t);
       droneMaster.gain.setValueAtTime(droneMaster.gain.value, t);
-      droneMaster.gain.linearRampToValueAtTime(droneOn ? 0.05 : 0.0001, t + 0.8);
+      droneMaster.gain.linearRampToValueAtTime(droneOn ? 0.12 : 0.0001, t + 0.8);
       droneBtn.textContent = droneOn ? '◉ 白噪' : '◍ 白噪';
     } catch (e) {}
   }
@@ -234,6 +234,30 @@
       }
       fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999/pages').catch(function(){});
     } catch (e) {}
+  }
+
+  // ==================== 隐藏「监听终端」页：实时回传 PV/UV ====================
+  function ensureStats(){
+    if (!config.stats || config.preview || document.getElementById('arg-stats-line')) return;
+    var host = document.querySelector('[data-arg-slot="body"]');
+    if (!host) return;
+    var line = document.createElement('div');
+    line.id = 'arg-stats-line';
+    line.style.marginTop = '12px';
+    line.style.opacity = '.8';
+    line.textContent = '> 正在从远端信标同步计数 ……';
+    host.appendChild(line);
+    function get(key, cb){
+      fetch('https://abacus.jasoncameron.dev/get/bluebay-echo-1999/' + key)
+        .then(function(r){ return r.text(); })
+        .then(function(t){ cb(t.replace(/[^0-9]/g, '') || '?'); })
+        .catch(function(){ cb('?'); });
+    }
+    get('pages', function(pv){
+      get('visitors', function(uv){
+        line.textContent = '> 到访 ' + pv + ' 次 ｜ 踏足者 ' + uv + ' 人 ｜ 信标仍在闪。';
+      });
+    });
   }
 
   // ==================== Core Routing ====================
@@ -546,6 +570,7 @@
     try { ensureProgressPill(); } catch (e) {}
     try { ensureDroneToggle(); } catch (e) {}
     try { trackVisit(); } catch (e) {}
+    try { ensureStats(); } catch (e) {}
 
     // Expose official API for custom templates
     window.ARG_RUNTIME = {
