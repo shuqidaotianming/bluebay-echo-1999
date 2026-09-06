@@ -318,11 +318,83 @@
     if (target) {
       playSynthSound('click');
       go(target);
+    } else if (config.isSearch && kind === 'search' && key) {
+      playSynthSound('click');
+      fallbackSearch(String(value || '').trim());
     } else {
       playSynthSound('error');
       result(config.notFoundText || '没有找到相关结果');
     }
   };
+
+  // ==================== 联网结果视图：未命中时展示 Bing 风格结果 + 真实外链 ====================
+  function fbEsc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  function ensureFbStyle(){
+    if (document.getElementById('arg-fb-style')) return;
+    const st = document.createElement('style'); st.id = 'arg-fb-style';
+    st.textContent = '#arg-fb{position:fixed;inset:0;z-index:100000;background:#fff;color:#1f2937;overflow:auto;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}#arg-fb .fb-top{position:sticky;top:0;background:#fff;border-bottom:1px solid #e5e7eb;padding:14px 24px;display:flex;gap:12px;align-items:center}#arg-fb .fb-logo{font-weight:800;font-size:20px;background:linear-gradient(90deg,#1f6fed,#00b7a2);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}#arg-fb .fb-box{flex:1;max-width:640px;border:2px solid #1f6fed;border-radius:999px;padding:9px 18px;font-size:15px;color:#111}#arg-fb .fb-close{margin-left:auto;cursor:pointer;color:#6b7280;font-size:13px;border:1px solid #e5e7eb;border-radius:999px;padding:6px 14px;background:#fff}#arg-fb .fb-close:hover{color:#111}#arg-fb .fb-body{max-width:720px;margin:22px auto;padding:0 24px}#arg-fb .fb-count{color:#6b7280;font-size:12.5px;margin-bottom:18px}#arg-fb .fb-item{margin-bottom:26px}#arg-fb .fb-item .t{color:#1a58d8;font-size:19px;cursor:pointer;line-height:1.35}#arg-fb .fb-item .t:hover{text-decoration:underline}#arg-fb .fb-item .u{color:#16803d;font-size:12.5px;margin:2px 0;word-break:break-all}#arg-fb .fb-item .s{color:#4b5563;font-size:14px;line-height:1.6}#arg-fb .fb-ext{margin:30px 0 60px;padding:16px 18px;background:#f3f6fb;border:1px solid #dbe4f0;border-radius:10px;font-size:14px;line-height:2}#arg-fb .fb-ext a{color:#1a58d8;font-weight:600;text-decoration:none;margin-right:14px}#arg-fb .fb-ext a:hover{text-decoration:underline}#arg-fb .fb-none{color:#6b7280;font-size:15px;margin-bottom:20px}';
+    document.head.appendChild(st);
+  }
+  function fallbackSearch(text){
+    ensureFbStyle();
+    const old = document.getElementById('arg-fb'); if (old) old.remove();
+    const p = document.createElement('div'); p.id = 'arg-fb';
+    const top = document.createElement('div'); top.className = 'fb-top';
+    const logo = document.createElement('div'); logo.className = 'fb-logo'; logo.textContent = '千禧搜索 · 联网';
+    const box = document.createElement('div'); box.className = 'fb-box'; box.textContent = text;
+    const close = document.createElement('div'); close.className = 'fb-close'; close.textContent = '✕ 返回档案';
+    close.addEventListener('click', function(){ p.remove(); });
+    top.appendChild(logo); top.appendChild(box); top.appendChild(close);
+    const bodyEl = document.createElement('div'); bodyEl.className = 'fb-body';
+    const res = document.createElement('div'); res.id = 'arg-fb-results';
+    res.textContent = '正在检索全网 ……';
+    bodyEl.appendChild(res);
+    p.appendChild(top); p.appendChild(bodyEl);
+    document.body.appendChild(p);
+    box.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && box.textContent.trim()) { const v = box.textContent.trim(); p.remove(); fallbackSearch(v); } });
+    const enc = encodeURIComponent(text);
+    function render(idx){
+      const q = text.toLowerCase();
+      const terms = q.split(/s+/).filter(Boolean);
+      const scored = idx.map(function(it){
+        const hay = (it.t + ' ' + it.s).toLowerCase(); let sc = 0;
+        terms.forEach(function(t){ const c = hay.split(t).length - 1; if (c > 0) sc += c + (it.t.toLowerCase().indexOf(t) !== -1 ? 5 : 0); });
+        return { it: it, sc: sc };
+      }).filter(function(x){ return x.sc > 0; }).sort(function(a, b){ return b.sc - a.sc; }).slice(0, 6);
+      res.innerHTML = '';
+      const count = document.createElement('div'); count.className = 'fb-count';
+      count.textContent = '联网结果 · 约 ' + (scored.length * 173 + 21) + ' 条（用时 0.' + (terms.length * 17 + 3) + ' 秒）';
+      res.appendChild(count);
+      if (!scored.length) {
+        const none = document.createElement('div'); none.className = 'fb-none';
+        none.textContent = '没有找到与「' + text + '」相关的站内网页。你仍可以在真实的互联网上继续查证 ↓';
+        res.appendChild(none);
+      }
+      scored.forEach(function(x){
+        const item = document.createElement('div'); item.className = 'fb-item';
+        const t = document.createElement('div'); t.className = 't'; t.textContent = x.it.t + ' _ 蓝湾档案';
+        t.addEventListener('click', function(){ p.remove(); playSynthSound('click'); go(x.it.id); });
+        const u = document.createElement('div'); u.className = 'u'; u.textContent = 'https://lanwan.archive.fm99.4/' + x.it.u;
+        const s = document.createElement('div'); s.className = 's'; s.textContent = x.it.s;
+        item.appendChild(t); item.appendChild(u); item.appendChild(s);
+        res.appendChild(item);
+      });
+      const ext = document.createElement('div'); ext.className = 'fb-ext';
+      ext.innerHTML = '在<b>真实的互联网</b>上继续查证「' + fbEsc(text) + '」：<br>';
+      const a1 = document.createElement('a'); a1.href = 'https://www.bing.com/search?q=' + enc; a1.target = '_blank'; a1.rel = 'noopener'; a1.textContent = '用必应搜索 ↗';
+      const a2 = document.createElement('a'); a2.href = 'https://www.baidu.com/s?wd=' + enc; a2.target = '_blank'; a2.rel = 'noopener'; a2.textContent = '用百度搜索 ↗';
+      const note = document.createElement('div'); note.className = 'fb-count'; note.textContent = '（真实联网 · 新窗口打开 · 不影响游戏进度）';
+      ext.appendChild(a1); ext.appendChild(a2); ext.appendChild(note);
+      res.appendChild(ext);
+    }
+    if (window.ARG_SEARCH_INDEX) render(window.ARG_SEARCH_INDEX);
+    else {
+      const s = document.createElement('script'); s.src = 'arg-search-index.js';
+      s.onload = function(){ render(window.ARG_SEARCH_INDEX || []); };
+      s.onerror = function(){ render([]); };
+      document.head.appendChild(s);
+    }
+  }
 
   const checkLink = (port) => {
     if (!port) return;
