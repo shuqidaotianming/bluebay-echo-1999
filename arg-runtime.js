@@ -277,6 +277,28 @@
     });
   }
 
+  // ==================== 「写给你的一页」：纪念站署名输入 ====================
+  function ensureNameInput(){
+    if (!config.nameInput || config.preview || document.getElementById('arg-name-input')) return;
+    const host = document.querySelector('[data-arg-slot="body"]');
+    if (!host) return;
+    const wrap = document.createElement('div');
+    wrap.style.marginTop = '14px';
+    wrap.innerHTML = '<input id="arg-name-field" placeholder="写下你的名字（会留在这台机器里）" style="width:70%;padding:6px 8px;background:#0a0e16;color:#e2e8f0;border:1px solid rgba(148,163,184,.4);font-family:inherit"> <button id="arg-name-save" style="padding:6px 12px;background:#16335f;color:#e2e8f0;border:1px solid rgba(148,163,184,.4);cursor:pointer;font-family:inherit">留下</button><div id="arg-name-line" style="margin-top:8px"></div>';
+    host.appendChild(wrap);
+    function render(){
+      let n = ''; try { n = localStorage.getItem('arg_your_name') || ''; } catch (e) {}
+      document.getElementById('arg-name-line').textContent = n ? ('> 本页献给调查者：' + n + '。海记住了。') : '';
+    }
+    document.getElementById('arg-name-save').addEventListener('click', function(){
+      const v = (document.getElementById('arg-name-field').value || '').trim().slice(0, 20);
+      if (!v) return;
+      try { localStorage.setItem('arg_your_name', v); } catch (e) {}
+      render();
+    });
+    render();
+  }
+
   // ==================== Core Routing ====================
   const go = (target) => {
     if (!target) return;
@@ -585,7 +607,11 @@
             replyText = contact.passphraseReply || '……对。就是这个。';
             if (contact.passphraseClue) triggerClue(contact.passphraseClue);
           } else {
-            replyText = '收到。请继续核查其他线索。';
+            // 角色化敷衍回复：轮换池（可用联系人自定义 fallbackReplies 覆盖）
+            const pool = (contact.fallbackReplies && contact.fallbackReplies.length) ? contact.fallbackReplies :
+              ['（对方沉默了很久。）', '（对方正在输入，又停下了。）', '（对方只回了一个句号。）', '（对方没有回复。海那头的信号，断断续续。）', '（对方把话头，轻轻收了回去。）'];
+            const logLen = (() => { try { return (readChatLog()[contact.id] || []).length; } catch (e) { return 0; } })();
+            replyText = pool[logLen % pool.length];
           }
           appendMessage('npc', replyText, contact?.avatar);
           logMsg(contact.id, 'npc', replyText);
@@ -642,6 +668,9 @@
     try { ensureDroneToggle(); } catch (e) {}
     try { trackVisit(); } catch (e) {}
     try { ensureStats(); } catch (e) {}
+    try { ensureNameInput(); } catch (e) {}
+    // ARG 彩蛋：控制台问候
+    try { console.log('%cFM 99.4 · 潮声%c ——还有人的名字，没有被念完。', 'color:#22d3ee;font-weight:bold', 'color:#94a3b8'); } catch (e) {}
 
     // Expose official API for custom templates
     window.ARG_RUNTIME = {
