@@ -117,7 +117,7 @@
         "title": "转发邮件 · 发件人：陆某（匿名）",
         "date": "1999-10-30",
         "author": "陆某",
-        "body": "沈记者：\n你说想听“活人的版本”。可以。但我不写信，我用电话——03:02 那通就是。\n我只想告诉你一件你查不到的事：黑鳍号上，有一个人的行李，至今没人来领。\n行李里是一件小孩的鞋。单只。\n\n◈ 接下来： <a data-arg-link=\"返回信箱\">← 返回信箱</a> ｜ <a data-arg-link=\"那只鞋\">看：遗物·一只鞋</a>"
+        "body": "沈记者：\n你说想听“活人的版本”。可以。但我不写信，我用电话——03:02 那通就是。\n我只想告诉你一件你查不到的事：黑鳍号上，有一个人的行李，至今没人来领。\n行李里是一件小孩的鞋。单只。\n\n◈ 接下来： <a data-arg-link=\"返回信箱\">← 返回信箱</a> ｜ <a data-arg-link=\"上锁的警务内网终端\">🔒 线索锁在警务内网终端里（需口令）</a>"
       }
     },
     {
@@ -970,28 +970,8 @@
           "target": "node_programs"
         },
         {
-          "keyword": "判决书",
-          "target": "doc_verdict_full"
-        },
-        {
           "keyword": "打捞",
           "target": "doc_salvage"
-        },
-        {
-          "keyword": "导播",
-          "target": "doc_director_diary"
-        },
-        {
-          "keyword": "点播",
-          "target": "doc_request_log"
-        },
-        {
-          "keyword": "发射机",
-          "target": "doc_transmitter_manual"
-        },
-        {
-          "keyword": "值机",
-          "target": "doc_duty_rules"
         },
         {
           "keyword": "应急",
@@ -1004,10 +984,6 @@
         {
           "keyword": "鬼船",
           "target": "post_rumor98"
-        },
-        {
-          "keyword": "母带",
-          "target": "doc_tape_donated"
         },
         {
           "keyword": "文字稿",
@@ -1026,28 +1002,12 @@
           "target": "tide_branch"
         },
         {
-          "keyword": "上诉",
-          "target": "court_appeal"
-        },
-        {
-          "keyword": "执行",
-          "target": "court_exec"
-        },
-        {
-          "keyword": "赔偿",
-          "target": "court_comp"
-        },
-        {
           "keyword": "阿灯",
           "target": "ns_qsl"
         },
         {
           "keyword": "节目补遗",
           "target": "node_programs2"
-        },
-        {
-          "keyword": "庭审",
-          "target": "node_court_index"
         },
         {
           "keyword": "镇志",
@@ -1074,10 +1034,6 @@
           "target": "doc_66_seconds"
         },
         {
-          "keyword": "名字索引",
-          "target": "node_names_index"
-        },
-        {
           "keyword": "白纸",
           "target": "b2_css"
         },
@@ -1102,14 +1058,6 @@
           "target": "clue_undertow"
         },
         {
-          "keyword": "剪彩",
-          "target": "news_ceremony"
-        },
-        {
-          "keyword": "产业园",
-          "target": "news_ceremony"
-        },
-        {
           "keyword": "名册",
           "target": "doc_orphan_registry"
         },
@@ -1130,32 +1078,8 @@
           "target": "doc_hanyang_speech"
         },
         {
-          "keyword": "联名",
-          "target": "doc_petition"
-        },
-        {
-          "keyword": "家属",
-          "target": "doc_petition"
-        },
-        {
           "keyword": "潮汐",
           "target": "clue_tide_table"
-        },
-        {
-          "keyword": "气象",
-          "target": "doc_weather_log"
-        },
-        {
-          "keyword": "通话记录",
-          "target": "doc_radio_log"
-        },
-        {
-          "keyword": "海岸电台",
-          "target": "doc_radio_log"
-        },
-        {
-          "keyword": "船检",
-          "target": "doc_ship_inspection"
         },
         {
           "keyword": "来信",
@@ -1575,7 +1499,7 @@
         "title": "“瀚洋7号”倾覆事故初步调查报告",
         "date": "1999-09-01",
         "author": "调查组（结论页缺失）",
-        "body": "结论（存疑）：遇强对流天气倾覆。然而出港气象站记录“浪 0.6m、风力 3 级”，且离港前救生衣清点数量与登记不符。\n附件B-船员及随船劳务名单：【已调阅，见 doc 名单】。\n备注：本卷宗 2000 年 3 月后与《潮声》案“并案归档”指令被撤销，原因：上级电话。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"船检底档\">调阅：出港前船检底档</a> ｜ <a data-arg-link=\"船厂工单\">调阅：船厂加改装工单</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "结论（存疑）：遇强对流天气倾覆。然而出港气象站记录“浪 0.6m、风力 3 级”，且离港前救生衣清点数量与登记不符。\n附件B-船员及随船劳务名单：【已调阅，见 doc 名单】。\n备注：本卷宗 2000 年 3 月后与《潮声》案“并案归档”指令被撤销，原因：上级电话。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"船厂工单\">调阅：船厂加改装工单</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -1821,6 +1745,19 @@
       "y": 420,
       "fields": {
         "path": "C:\\FM99.4\\机房\\技术档案\\"
+      }
+    },
+    {
+      "id": "index_archive_deep",
+      "name": "深层调阅目录",
+      "type": "Index",
+      "template": "档案目录",
+      "x": 1230,
+      "y": 3140,
+      "fields": {
+        "siteName": "警务内网 · 深层调阅",
+        "categoryTitle": "深层卷宗目录 / 未公开件",
+        "navigation": "报案回执 气象 电台 船检 联名 奠基 名字墙"
       }
     },
     {
@@ -2275,7 +2212,7 @@
         "title": "蓝湾港潮汐表（2000 年 3 月）",
         "date": "2000-03",
         "author": "港务处",
-        "body": "3 月 14 日：满潮 03:14，落潮 09:47。\n港务处的规矩：满潮夜，灯塔必须人工值守。\n——那晚的值守记录，缺了一页。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"对照气象记录\">对照：气象原始记录</a>"
+        "body": "3 月 14 日：满潮 03:14，落潮 09:47。\n港务处的规矩：满潮夜，灯塔必须人工值守。\n——那晚的值守记录，缺了一页。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a>"
       }
     },
     {
@@ -2437,7 +2374,7 @@
         "title": "2000-03-14 满潮（03:14）值守表",
         "date": "2000-03-14",
         "author": "港务处",
-        "body": "应到 6 人，实到 3 人。\n第 4 栏：请假（批准人：柯）。\n第 5 栏：空。\n第 6 栏被水洇开，只认得出一个姓：柯。\n——同一个人，签掉了两份“人不该在场的证明”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"对照气象记录\">对照：气象原始记录</a>"
+        "body": "应到 6 人，实到 3 人。\n第 4 栏：请假（批准人：柯）。\n第 5 栏：空。\n第 6 栏被水洇开，只认得出一个姓：柯。\n——同一个人，签掉了两份“人不该在场的证明”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -3005,7 +2942,7 @@
         "title": "第九夜母带上的计数器读数",
         "date": "2000-03-14",
         "author": "机房值班（转述）",
-        "body": "母带入仓时计数器读数：0153。\n有人最后动过它：0219。\n差 66。\n——磁带计数器的一个字，等于一“秒”。多出来的 66 秒是什么？\n\n◈ 接下来： <a data-arg-link=\"六十六秒\">看：多出来的六十六秒</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "母带入仓时计数器读数：0153。\n有人最后动过它：0219。\n差 66。\n——磁带计数器的一个字，等于一“秒”。多出来的 66 秒是什么？\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -3020,7 +2957,8 @@
         "title": "0153—0219：多出的 66 秒",
         "date": "2000-03-14",
         "author": "（推算）",
-        "body": "节目净时长之外，母带上多出 66 秒。\n66 秒，66 个人——每人一秒。\n他把整艘船的人，都录进了那六十六秒里。\n一秒一个名字。你听完第九夜就会明白，为什么那三分钟那么长。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "节目净时长之外，母带上多出 66 秒。\n66 秒，66 个人——每人一秒。\n他把整艘船的人，都录进了那六十六秒里。\n一秒一个名字。你听完第九夜就会明白，为什么那三分钟那么长。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>",
+        "late": true
       }
     },
     {
@@ -3078,8 +3016,7 @@
         "title": "03:00—04:00 · 逐分钟时间线（合成）",
         "date": "2000-03-14",
         "author": "沈知微 / 明月如霜",
-        "body": "03:02 沈砚 ↔ 陆某（37 秒）\n03:04 沈砚入直播间，塞入母带\n03:08 低频模块上电（4.5Hz 满功率）\n03:11 主灯手动启动（柯振到场）\n03:12 播音室两名男子进入\n03:14 停播＝满潮＝话筒被切\n03:40—04:20 暗流回卷，3 人获救\n04:31 无牌货车接走 3 人\n——每一分钟都有出处。拼完这一小时，谁也再说不了“不清楚”。\n\n◈ 接下来： <a data-arg-link=\"返回调查板\">← 返回调查板</a> ｜ <a data-arg-link=\"交给记者\">→ 回潮声通讯</a>",
-        "late": true
+        "body": "03:02 沈砚 ↔ 陆某（37 秒）\n03:04 沈砚入直播间，塞入母带\n03:08 低频模块上电（4.5Hz 满功率）\n03:11 主灯手动启动（柯振到场）\n03:12 播音室两名男子进入\n03:14 停播＝满潮＝话筒被切\n03:40—04:20 暗流回卷，3 人获救\n04:31 无牌货车接走 3 人\n——每一分钟都有出处。拼完这一小时，谁也再说不了“不清楚”。\n\n◈ 接下来： <a data-arg-link=\"返回调查板\">← 返回调查板</a> ｜ <a data-arg-link=\"交给记者\">→ 回潮声通讯</a>"
       }
     },
     {
@@ -3296,7 +3233,7 @@
         "title": "第三期 · 读信之夜",
         "date": "1993-04-19",
         "author": "沈砚",
-        "body": "本期的压轴，读了一封没有署名的信：\n“我想给厂里三号宿舍点一首歌。如果我没时间听，请替我听完。”\n——信的笔迹，后来被收录进《点播登记簿》。\n\n◈ 接下来： <a data-arg-link=\"对照点播单\">对照：没播出的点播单</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+        "body": "本期的压轴，读了一封没有署名的信：\n“我想给厂里三号宿舍点一首歌。如果我没时间听，请替我听完。”\n——信的笔迹，后来被收录进《点播登记簿》。\n\n◈ 接下来： <a data-arg-link=\"上锁的警务内网终端\">🔒 线索锁在警务内网终端里（需口令）</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
       }
     },
     {
@@ -3386,7 +3323,7 @@
         "title": "“黑鳍”离港船员名单（12 人）",
         "date": "1998-10",
         "author": "（抄件）",
-        "body": "12 人：轮机长、水手若干、厨工一名。\n第 9 行旁有一个红圈——和沈砚的笔迹一致。\n第 12 行旁，有一小片干了的酒渍——海爷的记事本压过这一页。\n\n◈ 接下来： <a data-arg-link=\"返回船籍档案\">← 返回黑鳍号船籍档案</a> ｜ <a data-arg-link=\"对照奖章\">对照：劳动奖章</a>"
+        "body": "12 人：轮机长、水手若干、厨工一名。\n第 9 行旁有一个红圈——和沈砚的笔迹一致。\n第 12 行旁，有一小片干了的酒渍——海爷的记事本压过这一页。\n\n◈ 接下来： <a data-arg-link=\"返回船籍档案\">← 返回黑鳍号船籍档案</a> ｜ <a data-arg-link=\"上锁的警务内网终端\">🔒 线索锁在警务内网终端里（需口令）</a>"
       }
     },
     {
@@ -3527,7 +3464,7 @@
         "title": "值机员守则（第七条加粗）",
         "date": "1995",
         "author": "蓝湾广播站",
-        "body": "第七条（加粗）：\n“播出期间，机房不得离人。”\n——3 月 14 日 03:08—03:14，机房离人。\n离人的钥匙，在柯振的裤兜里。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"对照发射机手册\">对照：发射机操作手册</a>"
+        "body": "第七条（加粗）：\n“播出期间，机房不得离人。”\n——3 月 14 日 03:08—03:14，机房离人。\n离人的钥匙，在柯振的裤兜里。\n\n◈ 接下来： <a data-arg-link=\"返回文件柜\">← 返回机房文件柜</a> ｜ <a data-arg-link=\"对照发射机手册\">对照：发射机操作手册</a>"
       }
     },
     {
@@ -3636,7 +3573,8 @@
         "title": "点播登记簿（1993—2000 · 摘录）",
         "date": "1993—2000",
         "author": "值班导播",
-        "body": "登记簿共 7 本，现存 5 本。\n缺的两本：1999 下半年、2000 年全年。\n——被删的从来不只是帖子。有人连“谁点过歌”都要抹掉。\n\n◈ 接下来： <a data-arg-link=\"返回来信帖\">← 返回听众来信帖</a> ｜ <a data-arg-link=\"导播日记\">看：导播日记</a>"
+        "body": "登记簿共 7 本，现存 5 本。\n缺的两本：1999 下半年、2000 年全年。\n——被删的从来不只是帖子。有人连“谁点过歌”都要抹掉。\n\n◈ 接下来： <a data-arg-link=\"返回来信帖\">← 返回听众来信帖</a> ｜ <a data-arg-link=\"导播日记\">看：导播日记</a>",
+        "late": true
       }
     },
     {
@@ -3650,7 +3588,8 @@
         "title": "导播日记（最后一页）",
         "date": "2000-03-14",
         "author": "值班导播",
-        "body": "今晚我不在场。我被调去跟一车“设备”。\n凌晨刷到推送：FM99.4 停播。\n我给台里打了七个电话。第七个，有人哭了。\n——导播，是第七个电话里哭的人。他后来成了证人名单上的第八个。\n\n◈ 接下来： <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a> ｜ <a data-arg-link=\"证人名单\">看：出庭证人名单</a>"
+        "body": "今晚我不在场。我被调去跟一车“设备”。\n凌晨刷到推送：FM99.4 停播。\n我给台里打了七个电话。第七个，有人哭了。\n——导播，是第七个电话里哭的人。他后来成了证人名单上的第八个。\n\n◈ 接下来： <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a> ｜ <a data-arg-link=\"证人名单\">看：出庭证人名单</a>",
+        "late": true
       }
     },
     {
@@ -3665,7 +3604,8 @@
         "title": "听众留言带（33 条，未播）",
         "date": "2000-02",
         "author": "（ collected by 沈砚）",
-        "body": "第 32 条留言：\n“主持人，如果有一天我打不进电话了，你就当我在听。”\n第 33 条留言只有背景音：海。\n——第 33 条的留言人栏写着：第 55 行。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a>"
+        "body": "第 32 条留言：\n“主持人，如果有一天我打不进电话了，你就当我在听。”\n第 33 条留言只有背景音：海。\n——第 33 条的留言人栏写着：第 55 行。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a>",
+        "late": true
       }
     },
     {
@@ -3787,7 +3727,7 @@
         "title": "福利院点名册（比民政版多两行）",
         "date": "1999-07",
         "author": "方老师",
-        "body": "民政的名册少了两行——两个“从未登记”的孩子，是院里悄悄收的，没户口。\n他们也上了船。\n其中一个，留了日记。就是那份停在“要上学，还是要走”的日记。\n——孩子没有名字，所以纪念站里，他们的灯没有牌。但灯亮着。\n\n◈ 接下来： <a data-arg-link=\"回到聊天\">← 回到潮声通讯</a> ｜ <a data-arg-link=\"孩子的日记\">对照：孩子的日记</a>"
+        "body": "民政的名册少了两行——两个“从未登记”的孩子，是院里悄悄收的，没户口。\n他们也上了船。\n其中一个，留了日记。就是那份停在“要上学，还是要走”的日记。\n——孩子没有名字，所以纪念站里，他们的灯没有牌。但灯亮着。\n\n◈ 接下来： <a data-arg-link=\"回到聊天\">← 回到潮声通讯</a> ｜ <a data-arg-link=\"上锁的警务内网终端\">🔒 线索锁在警务内网终端里（需口令）</a>"
       }
     },
     {
@@ -5124,7 +5064,8 @@
       "fields": {
         "siteName": "蓝湾案 · 庭审全集",
         "categoryTitle": "七日庭审 · 逐日记录与八位证人",
-        "navigation": "第一日 → 第七日"
+        "navigation": "第一日 → 第七日",
+        "late": true
       }
     },
     {
@@ -5139,7 +5080,8 @@
         "title": "第一日 · 开案陈词",
         "date": "2004-09-01",
         "author": "书记员（誊录）",
-        "body": "检方第一句话：\n“本案没有意外。只有流程。”\n旁听席的呼吸声，书记员记了三次‘哗然’。\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "检方第一句话：\n“本案没有意外。只有流程。”\n旁听席的呼吸声，书记员记了三次‘哗然’。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5154,7 +5096,8 @@
         "title": "第二日 · 物证展示",
         "date": "2004-09-02",
         "author": "书记员（誊录）",
-        "body": "41 份书证逐一过堂。轮到名单时，书记员请求加速，被审判长驳回：\n“一个字一个字念。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "41 份书证逐一过堂。轮到名单时，书记员请求加速，被审判长驳回：\n“一个字一个字念。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5169,7 +5112,8 @@
         "title": "第三日 · 声学重建",
         "date": "2004-09-03",
         "author": "书记员（誊录）",
-        "body": "4.5Hz 音频重建播放 66 秒。被告席举手要求暂停，被驳回。\n这 66 秒后来被称为“蓝湾的三分钟”。\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "4.5Hz 音频重建播放 66 秒。被告席举手要求暂停，被驳回。\n这 66 秒后来被称为“蓝湾的三分钟”。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5184,7 +5128,8 @@
         "title": "第四日 · 证人（一）",
         "date": "2004-09-04",
         "author": "书记员（誊录）",
-        "body": "知微出庭。她带了一台能播放 99.4 的收音机。\n法官允许她把它放在证人席上——全程没有打开。\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "知微出庭。她带了一台能播放 99.4 的收音机。\n法官允许她把它放在证人席上——全程没有打开。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5199,7 +5144,8 @@
         "title": "第五日 · 证人（二）",
         "date": "2004-09-05",
         "author": "书记员（誊录）",
-        "body": "陆医生、方老师、海爷、守夜人依次作证。\n守夜人最后说：我妹妹是第 14 行。今天，我替她坐在这里。\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "陆医生、方老师、海爷、守夜人依次作证。\n守夜人最后说：我妹妹是第 14 行。今天，我替她坐在这里。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5214,7 +5160,8 @@
         "title": "第六日 · 辩方质证",
         "date": "2004-09-06",
         "author": "书记员（誊录）",
-        "body": "辩方撤回了“不在场证明”，转而主张“技术事故”。\n检方出示应急预案涂黑页——“事故不需要预案”。\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "辩方撤回了“不在场证明”，转而主张“技术事故”。\n检方出示应急预案涂黑页——“事故不需要预案”。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5229,7 +5176,8 @@
         "title": "第七日 · 结案陈词",
         "date": "2004-09-07",
         "author": "书记员（誊录）",
-        "body": "检方最后一句：\n“他们签名了。签字的人，以为纸会替他们保密。\n今天，纸开口了。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "检方最后一句：\n“他们签名了。签字的人，以为纸会替他们保密。\n今天，纸开口了。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5242,7 +5190,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·沈知微",
-        "body": "“我不是学法律的。我是修声音的。你们听到的 66 秒，是我一秒一秒对出来的。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“我不是学法律的。我是修声音的。你们听到的 66 秒，是我一秒一秒对出来的。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5255,7 +5204,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·陆医生",
-        "body": "“他们指着自己的耳朵，再指海。这句话我写了四年，今天当庭再说一遍。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“他们指着自己的耳朵，再指海。这句话我写了四年，今天当庭再说一遍。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5268,7 +5218,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·方老师",
-        "body": "“最小的孩子把闹钟上满发条。他不是要走，他是想按时回来。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“最小的孩子把闹钟上满发条。他不是要走，他是想按时回来。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5281,7 +5232,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·海爷",
-        "body": "“我每年去撒一瓶酒。影子跟着船走了半海里。你们要是不信，我带你们去。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“我每年去撒一瓶酒。影子跟着船走了半海里。你们要是不信，我带你们去。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5294,7 +5246,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·守夜人",
-        "body": "“412 条被删的帖，我全打印了。删帖的人以为删掉就没了——纸会记账。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“412 条被删的帖，我全打印了。删帖的人以为删掉就没了——纸会记账。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5307,7 +5260,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·主编",
-        "body": "“我毙了自己的稿子，是为了让它活到今天。今天它活了。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“我毙了自己的稿子，是为了让它活到今天。今天它活了。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5320,7 +5274,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·排版员",
-        "body": "“头版那个‘等’字，是我打的。打了三年。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“头版那个‘等’字，是我打的。打了三年。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -5333,7 +5288,8 @@
       "fields": {
         "siteName": "蓝湾 · 存档",
         "title": "证言·导播",
-        "body": "“第七个电话里哭的人是我。我不羞。我等这一天等了四年。”\n\n◈ 接下来： <a data-arg-link=\"返回庭审全集\">← 返回庭审全集</a>"
+        "body": "“第七个电话里哭的人是我。我不羞。我等这一天等了四年。”\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>",
+        "late": true
       }
     },
     {
@@ -6006,7 +5962,7 @@
       "fields": {
         "siteName": "第九夜 · 逐秒对照",
         "title": "66 秒 × 66 人（对照表）",
-        "body": "第 1 秒：汽笛（陈阿海 · 轮机长）\n第 2 秒：水声（林秀娟 · 厨工）\n第 3 秒：很轻的口哨（郑水生）\n……\n第 55 秒：一句“对不起”（沈砚）\n第 56—66 秒：11 段空白——他们的声音，没能录上。\n空白，也是证词。\n\n◈ 接下来： <a data-arg-link=\"返回\">← 返回六十六秒</a> ｜ <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a>"
+        "body": "第 1 秒：汽笛（陈阿海 · 轮机长）\n第 2 秒：水声（林秀娟 · 厨工）\n第 3 秒：很轻的口哨（郑水生）\n……\n第 55 秒：一句“对不起”（沈砚）\n第 56—66 秒：11 段空白——他们的声音，没能录上。\n空白，也是证词。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a>"
       }
     },
     {
@@ -6911,9 +6867,9 @@
     },
     {
       "from": "mail_from_lu",
-      "to": "vic_shoe",
-      "port": "那只鞋",
-      "label": "看：遗物·一只鞋",
+      "to": "node_login_police",
+      "port": "上锁的警务内网终端",
+      "label": "🔒 线索锁在警务内网终端里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -7623,14 +7579,6 @@
     },
     {
       "from": "news_missingpeople",
-      "to": "doc_petition",
-      "port": "联名信",
-      "label": "看：家属联名信",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "news_missingpeople",
       "to": "node_chat",
       "port": "联系记者",
       "label": "联系明月如霜",
@@ -7911,46 +7859,6 @@
     },
     {
       "from": "index_archive",
-      "to": "doc_weather_log",
-      "port": "气象原始记录",
-      "label": "3·14 夜间气象原始簿",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "index_archive",
-      "to": "doc_radio_log",
-      "port": "海岸电台日志",
-      "label": "海岸电台通话/设备日志",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "index_archive",
-      "to": "doc_ship_inspection",
-      "port": "船检底档",
-      "label": "“瀚洋7号”船检底档",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "index_archive",
-      "to": "doc_petition",
-      "port": "家属联名信",
-      "label": "被退回三次的联名信",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "index_archive",
-      "to": "news_ceremony",
-      "port": "奠基礼报道",
-      "label": "瀚洋产业园奠基礼",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "index_archive",
       "to": "node_login_police",
       "port": "警务内网",
       "label": "调阅 · 警务内网（需口令）",
@@ -7970,14 +7878,6 @@
       "to": "index_archive",
       "port": "返回档案馆",
       "label": "← 返回档案馆目录",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "doc_wreck_report",
-      "to": "doc_ship_inspection",
-      "port": "船检底档",
-      "label": "调阅：出港前船检底档",
       "icon": "",
       "desc": ""
     },
@@ -8374,10 +8274,74 @@
       "desc": ""
     },
     {
-      "from": "node_login_police",
+      "from": "index_archive_deep",
       "to": "police_report",
-      "port": "进入内网",
-      "label": "进入警务内网",
+      "port": "报案回执",
+      "label": "被压下的报案回执",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "doc_weather_log",
+      "port": "气象原始记录",
+      "label": "3·14 夜间气象原始簿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "doc_radio_log",
+      "port": "海岸电台日志",
+      "label": "海岸电台通话/设备日志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "doc_ship_inspection",
+      "port": "船检底档",
+      "label": "“瀚洋7号”船检底档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "doc_petition",
+      "port": "家属联名信",
+      "label": "被退回三次的联名信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "news_ceremony",
+      "port": "奠基礼报道",
+      "label": "瀚洋产业园奠基礼",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "vic_shoe",
+      "port": "名字墙入口",
+      "label": "沿着名单往下走（名字墙入口）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "index_archive_deep",
+      "to": "node_desktop",
+      "port": "退出内网",
+      "label": "退出内网",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_login_police",
+      "to": "index_archive_deep",
+      "port": "进入深层调阅",
+      "label": "进入深层调阅目录",
       "icon": "",
       "desc": ""
     },
@@ -8918,14 +8882,6 @@
       "desc": ""
     },
     {
-      "from": "clue_tide_table",
-      "to": "doc_weather_log",
-      "port": "对照气象记录",
-      "label": "对照：气象原始记录",
-      "icon": "",
-      "desc": ""
-    },
-    {
       "from": "clue_frequency_note",
       "to": "node_search",
       "port": "返回搜索",
@@ -9078,14 +9034,6 @@
       "desc": ""
     },
     {
-      "from": "doc_last_tide",
-      "to": "doc_weather_log",
-      "port": "对照气象记录",
-      "label": "对照：气象原始记录",
-      "icon": "",
-      "desc": ""
-    },
-    {
       "from": "clue_mirror",
       "to": "node_search",
       "port": "去搜索",
@@ -9180,12 +9128,6 @@
       "label": "返回搜索",
       "icon": "",
       "desc": ""
-    },
-    {
-      "from": "index_archive",
-      "to": "vic_shoe",
-      "port": "名字的第一行",
-      "label": "沿着名单往下走（名字墙入口）"
     },
     {
       "from": "vic_shoe",
@@ -9601,9 +9543,9 @@
     },
     {
       "from": "clue_tape_counter",
-      "to": "doc_66s",
-      "port": "六十六秒",
-      "label": "看：多出来的六十六秒",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -9700,6 +9642,14 @@
       "to": "doc_tape_donated",
       "port": "母带入藏",
       "label": "看：《第九夜》母带入藏",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_one_year",
+      "to": "doc_request_log",
+      "port": "呈堂证物",
+      "label": "证物：点播登记簿（1993—2000）",
       "icon": "",
       "desc": ""
     },
@@ -9929,9 +9879,9 @@
     },
     {
       "from": "prog_3",
-      "to": "vic_song",
-      "port": "对照点播单",
-      "label": "对照：没播出的点播单",
+      "to": "node_login_police",
+      "port": "上锁的警务内网终端",
+      "label": "🔒 线索锁在警务内网终端里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -10025,9 +9975,9 @@
     },
     {
       "from": "doc_blackfin_crew",
-      "to": "vic_medal",
-      "port": "对照奖章",
-      "label": "对照：劳动奖章",
+      "to": "node_login_police",
+      "port": "上锁的警务内网终端",
+      "label": "🔒 线索锁在警务内网终端里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -10161,9 +10111,9 @@
     },
     {
       "from": "doc_duty_rules",
-      "to": "node_login_station",
-      "port": "上锁的机房",
-      "label": "🔒 线索锁在机房里（需口令）",
+      "to": "node_files_station",
+      "port": "返回文件柜",
+      "label": "← 返回机房文件柜",
       "icon": "",
       "desc": ""
     },
@@ -10441,9 +10391,9 @@
     },
     {
       "from": "doc_teacher_memo",
-      "to": "vic_kid_diary",
-      "port": "孩子的日记",
-      "label": "对照：孩子的日记",
+      "to": "node_login_police",
+      "port": "上锁的警务内网终端",
+      "label": "🔒 线索锁在警务内网终端里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -11781,121 +11731,121 @@
     },
     {
       "from": "trial_d1",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d2",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d3",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d4",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d5",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d6",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "trial_d7",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_zhiwei",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_lu",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_fang",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_hai",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_watchman",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_editor",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_typesetter",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
     {
       "from": "wit_director",
-      "to": "node_court_index",
-      "port": "返回庭审全集",
-      "label": "← 返回庭审全集",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -12605,9 +12555,9 @@
     },
     {
       "from": "doc_66_seconds",
-      "to": "doc_66s",
-      "port": "返回",
-      "label": "← 返回六十六秒",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -13135,14 +13085,6 @@
     },
     {
       "from": "node_front_hub",
-      "to": "doc_aftermath_bay",
-      "port": "2004",
-      "label": "2004 · 纪念馆（见一年后）",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "node_front_hub",
       "to": "node_search",
       "port": "返回搜索",
       "label": "返回搜索",
@@ -13553,9 +13495,9 @@
     },
     {
       "from": "post_listeners",
-      "to": "doc_request_log",
-      "port": "点播登记簿",
-      "label": "点播登记簿（1993—2000）"
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）"
     },
     {
       "from": "node_memorial",
@@ -13652,6 +13594,12 @@
       "to": "doc_full_script",
       "port": "三分钟全稿",
       "label": "第九夜 · 三分钟全稿"
+    },
+    {
+      "from": "doc_66s",
+      "to": "doc_66_table",
+      "port": "声纹对照",
+      "label": "名单 · 声纹对照表"
     },
     {
       "from": "doc_verdict_full",
