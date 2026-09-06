@@ -808,6 +808,40 @@
     try { trackVisit(); } catch (e) {}
     try { ensureStats(); } catch (e) {}
     try { ensureNameInput(); } catch (e) {}
+    // 维基模板侧栏：给「首页/最近更改/随机条目/绝密专题」真实功能
+    try {
+      const menu = document.querySelector('.wiki-menu');
+      if (menu && !menu.dataset.wired) {
+        menu.dataset.wired = '1';
+        const wst = document.createElement('style');
+        wst.textContent = '.wiki-menu-item{cursor:pointer;transition:all .15s}.wiki-menu-item:hover{color:#1a58d8;text-decoration:underline}';
+        document.head.appendChild(wst);
+        const WMAP = { '首页': 'node_desktop', '最近更改': 'node_timeline', '绝密专题': 'node_login_hard' };
+        menu.querySelectorAll('.wiki-menu-item').forEach(function(el){
+          const t = el.textContent.trim();
+          el.addEventListener('click', function(){
+            playSynthSound('click');
+            if (t === '随机条目') {
+              const jump = function(idx){
+                let pool = (idx && idx.length) ? idx : Object.keys(config.files || {}).map(function(k){ return { id: k }; });
+                pool = pool.filter(function(x){ return !/^end_/.test(x.id); });
+                if (!pool.length) return;
+                let pick = pool[Math.floor(Math.random() * pool.length)], guard = 0;
+                while (guard++ < 10 && pick.id === config.nodeId) pick = pool[Math.floor(Math.random() * pool.length)];
+                go(pick.id);
+              };
+              if (window.ARG_SEARCH_INDEX) jump(window.ARG_SEARCH_INDEX);
+              else {
+                const s = document.createElement('script'); s.src = 'arg-search-index.js?r=' + Date.now();
+                s.onload = function(){ jump(window.ARG_SEARCH_INDEX || []); };
+                s.onerror = function(){ jump([]); };
+                document.head.appendChild(s);
+              }
+            } else if (WMAP[t]) { go(WMAP[t]); }
+          });
+        });
+      }
+    } catch (e) {}
     // ARG 彩蛋：控制台问候
     try { console.log('%cFM 99.4 · 潮声%c ——还有人的名字，没有被念完。', 'color:#22d3ee;font-weight:bold', 'color:#94a3b8'); } catch (e) {}
 
