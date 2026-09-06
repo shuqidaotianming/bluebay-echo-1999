@@ -286,6 +286,75 @@
     document.head.appendChild(mv);
   }
 
+  // ==================== 移动端：强制横屏 + 分辨率检测 ====================
+  var ARG_DISPLAY = { w: 0, h: 0, dpr: 1, orient: '', forced: false };
+  function ensureLandscapeProbe(){
+    const st = document.createElement('style'); st.id = 'arg-land-style';
+    st.textContent = [
+      'html.arg-force-land{overflow:hidden}',
+      'html.arg-force-land body{position:absolute;top:0;left:100vw;width:100vh;width:100dvh;height:100vw!important;min-height:0!important;min-width:0!important;max-width:none;box-sizing:border-box!important;transform:rotate(90deg);transform-origin:0 0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:inherit}',
+      '#arg-display-chip{position:fixed;right:10px;top:10px;z-index:99992;font:11px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#9fb3c8;background:rgba(8,12,20,.74);border:1px solid rgba(148,163,184,.28);border-radius:6px;padding:3px 8px;letter-spacing:.5px;pointer-events:none;opacity:.9}',
+      '#arg-display-chip.fade{opacity:.26;transition:opacity 1.4s}',
+      '@media (pointer:fine){#arg-display-chip{display:none}}',
+      'html.arg-tiny .scp-card{padding:16px 12px!important}',
+      'html.arg-tiny .news-content{padding:14px 10px!important}',
+      'html.arg-tiny .mag-container{padding:18px 12px!important}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    function measure(){
+      const w = window.innerWidth, h = window.innerHeight;
+      ARG_DISPLAY.w = w; ARG_DISPLAY.h = h;
+      ARG_DISPLAY.dpr = Math.round((window.devicePixelRatio || 1) * 100) / 100;
+      const coarse = !!(window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+      const portrait = h > w;
+      const forced = portrait && coarse;
+      ARG_DISPLAY.orient = portrait ? 'portrait' : 'landscape';
+      ARG_DISPLAY.forced = forced;
+      window.ARG_DISPLAY = ARG_DISPLAY;
+      const root = document.documentElement;
+      root.classList.toggle('arg-force-land', forced);
+      root.classList.toggle('arg-tiny', Math.min(w, h) < 340);
+      let chip = document.getElementById('arg-display-chip');
+      if (!chip && coarse) { chip = document.createElement('div'); chip.id = 'arg-display-chip'; document.body.appendChild(chip); }
+      if (chip) {
+        chip.textContent = ARG_DISPLAY.w + '×' + ARG_DISPLAY.h + ' @' + ARG_DISPLAY.dpr + 'x · ' + (forced ? '横置锁定' : (portrait ? '竖屏' : '横屏'));
+        chip.classList.remove('fade');
+        clearTimeout(chip._fadeT);
+        chip._fadeT = setTimeout(function(){ chip.classList.add('fade'); }, 4200);
+      }
+      if (config.nodeId === 'node_prologue') {
+        let val = document.getElementById('arg-display-meta-val');
+        if (!val) {
+          const row = document.querySelector('.cyber-meta-row');
+          if (row) {
+            const sp = document.createElement('span'); sp.id = 'arg-display-meta';
+            sp.appendChild(document.createTextNode('DISPLAY: '));
+            val = document.createElement('strong'); val.id = 'arg-display-meta-val';
+            sp.appendChild(val); row.appendChild(sp);
+          }
+        }
+        if (val) val.textContent = ARG_DISPLAY.w + '×' + ARG_DISPLAY.h + '@' + ARG_DISPLAY.dpr + 'x ' + (forced ? 'LAND-FORCED' : (portrait ? 'PORTRAIT' : 'LANDSCAPE'));
+      }
+    }
+
+    function tryLock(){
+      try {
+        const so = window.screen && window.screen.orientation;
+        if (so && typeof so.lock === 'function') { const pr = so.lock('landscape'); if (pr && pr.catch) pr.catch(function(){}); }
+      } catch (e) {}
+    }
+    measure();
+    try {
+      console.log('%cDISPLAY %c' + ARG_DISPLAY.w + '×' + ARG_DISPLAY.h + ' @' + ARG_DISPLAY.dpr + 'x · ' + (ARG_DISPLAY.forced ? 'LAND-FORCED' : ARG_DISPLAY.orient.toUpperCase()),
+        'color:#38bdf8;font-weight:bold', 'color:#94a3b8');
+    } catch (e) {}
+    window.addEventListener('resize', measure);
+    window.addEventListener('orientationchange', function(){ setTimeout(measure, 120); setTimeout(measure, 620); });
+    document.addEventListener('pointerdown', function once(){ tryLock(); document.removeEventListener('pointerdown', once); });
+    tryLock();
+  }
+
   // ==================== 全局主题层：统一「蓝湾档案」美学 ====================
   function ensureGlobalSkin(){
     if (document.getElementById('arg-skin')) return;
@@ -961,6 +1030,7 @@
 
     // 进度角标/重置、4.5Hz 底噪开关、隐藏访问统计（均兜底，不影响游戏）
     try { ensureViewportMeta(); } catch (e) {}
+    try { ensureLandscapeProbe(); } catch (e) {}
     try { ensureProgressPill(); } catch (e) {}
     try { ensureDroneToggle(); } catch (e) {}
     try { trackVisit(); } catch (e) {}
