@@ -363,9 +363,29 @@
       count.textContent = '约 ' + (scored.length * 173 + 21) + ' 条结果（用时 0.' + (terms.length * 17 + 3) + ' 秒）· 检索范围：蓝湾档案库 + 外部引擎';
       res.appendChild(count);
       if (!scored.length) {
+        // 拼写建议：取与查询有公共片段的标题（模拟真引擎的“您是不是要找”）
+        const cands = idx.map(function(it){
+          const t = (it.t + ' ' + it.s).toLowerCase(); let best = 0;
+          for (let a = 0; a < q.length; a++) for (let len = 3; a + len <= q.length; len++) {
+            const seg = q.substr(a, len);
+            if (t.indexOf(seg) !== -1) best = Math.max(best, len);
+          }
+          return { it: it, best: best };
+        }).filter(function(x){ return x.best >= 3; }).sort(function(a, b){ return b.best - a.best; }).slice(0, 5);
         const none = document.createElement('div'); none.className = 'fb-none';
-        none.textContent = '站内没有找到与「' + text + '」直接相关的档案。你仍可以用外部引擎继续查证 ↓';
+        none.textContent = '站内没有找到与「' + text + '」直接相关的档案。';
         res.appendChild(none);
+        if (cands.length) {
+          const sug = document.createElement('div'); sug.className = 'fb-none';
+          sug.innerHTML = '您是不是要找：';
+          cands.forEach(function(x, i){
+            const s = document.createElement('span'); s.className = 'fb-clear'; s.textContent = x.it.t;
+            s.addEventListener('click', function(){ playSynthSound('click'); fallbackSearch(x.it.t); });
+            sug.appendChild(s);
+            if (i < cands.length - 1) sug.appendChild(document.createTextNode('　·　'));
+          });
+          res.appendChild(sug);
+        }
       }
       scored.forEach(function(x){
         const item = document.createElement('div'); item.className = 'fb-item';
