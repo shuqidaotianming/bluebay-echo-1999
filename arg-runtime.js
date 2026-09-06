@@ -277,6 +277,15 @@
     });
   }
 
+  // ==================== 移动端：viewport 兜底 ====================
+  function ensureViewportMeta(){
+    if (document.querySelector('meta[name="viewport"]')) return;
+    const mv = document.createElement('meta');
+    mv.setAttribute('name', 'viewport');
+    mv.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+    document.head.appendChild(mv);
+  }
+
   // ==================== 全局主题层：统一「蓝湾档案」美学 ====================
   function ensureGlobalSkin(){
     if (document.getElementById('arg-skin')) return;
@@ -369,7 +378,58 @@
 
     '/* —— 桌面 —— */',
     '.desktop-icons a,.mac-desktop-icons a,.cyber-icons a{text-shadow:0 1px 4px rgba(0,0,0,.65)!important}',
-    '.win-sticky-note,.dark-sticky-note,.mac-stickies{box-shadow:0 14px 34px -12px rgba(20,30,20,.5)!important}'
+    '.win-sticky-note,.dark-sticky-note,.mac-stickies{box-shadow:0 14px 34px -12px rgba(20,30,20,.5)!important}',
+
+    '/* —— 移动端适配（≤720px）—— */',
+    '@media (max-width:720px){',
+    '*{-webkit-tap-highlight-color:transparent}',
+    'body{overflow-x:hidden!important}',
+    'img{max-width:100%!important;height:auto!important}',
+    '#arg-pv-panel{max-width:calc(100vw - 20px)!important}',
+    '#arg-progress-pill,#arg-drone-toggle{font-size:13px!important;padding:6px 12px!important}',
+    '[data-arg-result]{max-width:100%!important;overflow-wrap:break-word!important}',
+    /* 容器统一收缩 */
+    '.archive-container,.portal,.wiki-container,.yahoo-container,.bbs-container,.cyber-container,.news-article,.news-content,.scp-page,.scp-card,.diary-notebook,.folder,.search-container,.term-container,.mag-container{width:auto!important;max-width:100%!important;box-sizing:border-box!important}',
+    '.archive-container,.portal,.folder{margin-left:10px!important;margin-right:10px!important}',
+    '.scp-card{padding:22px 16px!important}',
+    '.news-content{padding:20px 14px!important}',
+    '.yahoo-container{padding:14px!important}',
+    '.bbs-post-body,.scp-body,.news-content,.wiki-content{font-size:15px!important}',
+    '.diary-content{font-size:16.5px!important}',
+    /* 维基/索引：侧栏纵向堆叠 */
+    '.wiki-container{flex-direction:column!important}',
+    '.wiki-sidebar{width:auto!important;border-right:none!important;border-bottom:1px solid #a7d7f9!important}',
+    '.wiki-content{padding:18px 14px!important}',
+    '.wiki-toc{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}',
+    '.archive-list a{padding:10px 12px!important}',
+    '.archive-list a:hover{transform:none!important}',
+    /* 搜索 */
+    '.yahoo-directory{grid-template-columns:1fr!important}',
+    '.search-input-wrap,.search-input-box,.term-input-line{max-width:100%!important}',
+    /* 文件夹 */
+    '.folder{margin-top:20px!important;margin-bottom:20px!important}',
+    /* 聊天：侧栏变横向联系人条 */
+    '.chat-app{flex-direction:column!important}',
+    '.chat-sidebar{width:100%!important;max-width:100%!important;height:auto!important;max-height:132px!important;border-right:none!important;border-bottom:1px solid rgba(127,127,127,.35)!important}',
+    '.chat-sidebar-header{padding:6px 8px!important}',
+    '.chat-contacts-list{display:flex!important;flex-direction:row!important;overflow-x:auto!important;overflow-y:hidden!important;padding:4px 6px!important}',
+    '.contact-item{min-width:128px!important;flex:0 0 auto!important}',
+    '.chat-main{flex:1!important;min-height:0!important;width:100%!important}',
+    '.chat-messages{padding:10px!important}',
+    '.msg-bubble{max-width:86%!important}',
+    /* 桌面：图标横向换行，便签随流堆叠 */
+    '.desktop-icons,.mac-desktop-icons,.cyber-icons{flex-direction:row!important;flex-wrap:wrap!important;max-height:none!important;align-content:flex-start!important;gap:8px 4px!important}',
+    '.desktop-main,.mac-main-area{flex-direction:column!important;justify-content:flex-start!important;gap:16px!important}',
+    '.desktop-icon{width:72px!important}',
+    '.icon-symbol{font-size:30px!important}',
+    '.win-sticky-note,.dark-sticky-note,.mac-stickies{width:auto!important;max-width:100%!important}',
+    /* 黑客终端：长token强制断行 */
+    '.cyber-topbar{flex-wrap:wrap!important;gap:4px 10px!important}',
+    '.cyber-topbar span,.cyber-meta-row span{overflow-wrap:anywhere!important;white-space:normal!important}',
+    'pre{white-space:pre-wrap!important;overflow-wrap:anywhere!important}',
+    /* 长词兜底：词条/按钮/链接描述 */
+    '.wiki-links a,.hot-link-btn,.arg-link-desc,.bbs-tag{overflow-wrap:anywhere!important;white-space:normal!important}',
+    '}'
     ].join(String.fromCharCode(10));
     document.head.appendChild(st);
   }
@@ -900,6 +960,7 @@
     });
 
     // 进度角标/重置、4.5Hz 底噪开关、隐藏访问统计（均兜底，不影响游戏）
+    try { ensureViewportMeta(); } catch (e) {}
     try { ensureProgressPill(); } catch (e) {}
     try { ensureDroneToggle(); } catch (e) {}
     try { trackVisit(); } catch (e) {}

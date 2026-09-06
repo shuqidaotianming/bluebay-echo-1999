@@ -7058,6 +7058,38 @@
       "desc": ""
     },
     {
+      "from": "node_chat",
+      "to": "press_money",
+      "port": "发稿·资金链",
+      "label": "发稿·资金链",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_chat",
+      "to": "press_science",
+      "port": "发稿·实验罪证",
+      "label": "发稿·实验罪证",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_chat",
+      "to": "press_full",
+      "port": "发稿·全链头版",
+      "label": "发稿·全链头版",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_chat",
+      "to": "doc_timeline_full",
+      "port": "调查板·完整的一小时",
+      "label": "调查板·完整的一小时",
+      "icon": "",
+      "desc": ""
+    },
+    {
       "from": "node_search",
       "to": "node_desktop",
       "port": "返回桌面",
