@@ -277,6 +277,101 @@
     });
   }
 
+  // ==================== 全局主题层：统一「蓝湾档案」美学 ====================
+  function ensureGlobalSkin(){
+    if (document.getElementById('arg-skin')) return;
+    const st = document.createElement('style'); st.id = 'arg-skin';
+    st.textContent = [
+    '/* —— 全局排印 —— */',
+    'body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}',
+    '::selection{background:rgba(31,111,237,.22)}',
+    '::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(120,130,150,.35);border-radius:8px}::-webkit-scrollbar-track{background:transparent}',
+
+    '/* —— BBS 论坛 —— */',
+    '.bbs-container{max-width:860px!important;margin:0 auto!important}',
+    '.bbs-post-card,.bbs-replies-card{background:#fffdf9!important;border:1px solid #e2ddd0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(60,50,30,.09)!important}',
+    '.bbs-title{font-family:"Noto Serif SC","SimSun",serif!important;font-weight:900!important;letter-spacing:.5px!important}',
+    '.bbs-post-body{font-size:15.5px!important;line-height:2.05!important;color:#292524!important}',
+    '.bbs-floor{color:#a8a29e!important;font-size:12px!important}',
+    '.bbs-tag{background:#f0ede4!important;border:1px solid #e0d9c8!important;border-radius:999px!important;padding:2px 10px!important;font-size:11px!important}',
+    '.bbs-btn,.bbs-post-links a,.bbs-links-container a{border-radius:8px!important;transition:all .15s!important}',
+    '.bbs-btn:hover,.bbs-post-links a:hover,.bbs-links-container a:hover{transform:translateY(-1px)}',
+    '.bbs-user-badge{background:#0f766e!important;color:#fff!important;border-radius:4px!important;padding:1px 6px!important;font-size:10px!important}',
+
+    '/* —— 新闻 2001 —— */',
+    '.news-content,.news-article{background:#fffdf9!important;border:1px solid #e2ddd0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(60,50,30,.09)!important;padding:34px 38px!important}',
+    '.news-title{font-family:"Noto Serif SC","SimSun",serif!important;font-weight:900!important;line-height:1.5!important;letter-spacing:.5px!important}',
+    '.news-content{font-size:15.5px!important;line-height:2.05!important}',
+    '.news-divider{border-color:#eae4d5!important}',
+    '.news-links-list a{display:block!important;padding:8px 10px!important;border-bottom:1px dotted #e0d9c8!important;color:#0f766e!important;text-decoration:none!important;border-radius:6px!important;transition:all .15s!important}',
+    '.news-links-list a:hover{background:#f4f1e8!important;padding-left:16px!important}',
+    '.news-btn{border-radius:8px!important;transition:all .15s!important}.news-btn:hover{transform:translateY(-1px)}',
+
+    '/* —— SCP 卷宗 —— */',
+    '.scp-page{background:radial-gradient(900px 300px at 50% -5%,rgba(120,20,20,.05),transparent),#f4f2ec!important}',
+    '.scp-card{background:#fffef8!important;border:1px solid #d8d2c0!important;border-radius:6px!important;box-shadow:0 14px 40px -14px rgba(60,40,20,.25)!important;padding:38px 44px!important}',
+    '.scp-title{font-family:"Noto Serif SC","SimSun",serif!important;font-weight:900!important;letter-spacing:1px!important}',
+    '.scp-meta{display:flex!important;gap:10px!important;flex-wrap:wrap!important}',
+    '.scp-meta span{background:#efece0!important;border:1px solid #ddd6c2!important;border-radius:4px!important;padding:3px 10px!important;font-size:11.5px!important;color:#57534e!important}',
+    '.scp-body{font-size:15.5px!important;line-height:2.1!important;color:#292524!important}',
+    '.scp-warning-header{border-left:4px solid #b91c1c!important;padding-left:12px!important}',
+    '.scp-seal{opacity:.08!important}',
+
+    '/* —— 手写日记 —— */',
+    '.diary-notebook{background:repeating-linear-gradient(180deg,#fbf7ea 0 34px,#f3eedd 34px 35px)!important;border:1px solid #e5decb!important;border-radius:6px!important;box-shadow:0 16px 40px -16px rgba(80,60,20,.35)!important}',
+    '.diary-title,.diary-content,.diary-date,.diary-author{font-family:"KaiTi","楷体","Noto Serif SC",cursive!important}',
+    '.diary-title{font-size:26px!important;font-weight:700!important}',
+    '.diary-content{font-size:18px!important;line-height:2.3!important;color:#3f3a2e!important}',
+
+    '/* —— 黑客数据流 —— */',
+    '.cyber-terminal-card{border:1px solid rgba(0,255,170,.25)!important;box-shadow:0 0 0 1px rgba(0,255,170,.05),0 20px 60px -20px rgba(0,255,170,.15),inset 0 0 80px rgba(0,255,170,.03)!important}',
+    '.cyber-terminal-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}',
+    '.cyber-body{font-size:14.5px!important;line-height:2.1!important}',
+    '.cyber-title{letter-spacing:1px!important;text-shadow:0 0 14px rgba(0,255,170,.45)!important}',
+
+    '/* —— CRT 监控 —— */',
+    '.crt{position:relative!important}',
+    '.crt::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px),radial-gradient(120% 100% at 50% 50%,transparent 60%,rgba(0,0,0,.35))}',
+    '.crt .screen-title,.crt .log{text-shadow:0 0 8px rgba(120,255,180,.5)!important}',
+
+    '/* —— 索引枢纽 —— */',
+    '.archive-container{background:#fffdf9!important;border:1px solid #e2ddd0!important;border-radius:14px!important;box-shadow:0 10px 30px rgba(60,50,30,.10)!important}',
+    '.archive-title-bar{font-family:"Noto Serif SC",serif!important;font-weight:900!important}',
+    '.archive-list a{transition:all .15s!important;border-radius:8px!important}',
+    '.archive-list a:hover{background:#f4f1e8!important;padding-left:14px!important}',
+    '.wiki-content{font-size:15.5px!important;line-height:2.05!important}',
+    '.wiki-links a{display:block!important;padding:9px 12px!important;border:1px solid #e5decb!important;border-radius:8px!important;margin:6px 0!important;color:#0f766e!important;text-decoration:none!important;transition:all .15s!important;background:#fffdf9!important}',
+    '.wiki-links a:hover{border-color:#0f766e!important;padding-left:18px!important}',
+    '.portal-links a{transition:all .15s!important}',
+
+    '/* —— 结局 —— */',
+    '.news-masthead-title{font-family:"Noto Serif SC","SimSun",serif!important;font-weight:900!important}',
+    '.news-message{font-size:16px!important;line-height:2.1!important}',
+    '.verdict-body{font-size:16px!important;line-height:2.1!important}',
+    '.crt .screen,.crt .blink{text-shadow:0 0 10px rgba(120,255,180,.55)!important}',
+
+    '/* —— 登录 —— */',
+    '.safe-vault-card{box-shadow:0 24px 70px -20px rgba(10,20,40,.5)!important;border-radius:14px!important}',
+    '.vault-submit-btn{transition:all .15s!important}.vault-submit-btn:hover{transform:translateY(-1px)}',
+    '.bios-screen{text-shadow:0 0 6px rgba(120,255,180,.4)!important}',
+
+    '/* —— 文件夹 —— */',
+    '.folder a{transition:all .15s!important}',
+
+    '/* —— 聊天通用 —— */',
+    '.choice-btn{border-radius:10px!important;transition:all .15s!important;line-height:1.7!important}',
+    '.choice-btn:hover{transform:translateY(-1px)!important;filter:brightness(1.03)!important}',
+    '.msg-bubble{line-height:1.85!important}',
+    '.msg-time-divider{opacity:.65!important}',
+    '.contact-item{transition:background .15s!important}',
+
+    '/* —— 桌面 —— */',
+    '.desktop-icons a,.mac-desktop-icons a,.cyber-icons a{text-shadow:0 1px 4px rgba(0,0,0,.65)!important}',
+    '.win-sticky-note,.dark-sticky-note,.mac-stickies{box-shadow:0 14px 34px -12px rgba(20,30,20,.5)!important}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+  }
+
   // ==================== 「写给你的一页」：纪念站署名输入 ====================
   function ensureNameInput(){
     if (!config.nameInput || config.preview || document.getElementById('arg-name-input')) return;
@@ -808,6 +903,7 @@
     try { trackVisit(); } catch (e) {}
     try { ensureStats(); } catch (e) {}
     try { ensureNameInput(); } catch (e) {}
+    try { ensureGlobalSkin(); } catch (e) {}
     // 维基模板侧栏：给「首页/最近更改/随机条目/绝密专题」真实功能
     try {
       const menu = document.querySelector('.wiki-menu');
