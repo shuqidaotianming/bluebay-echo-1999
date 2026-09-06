@@ -20,6 +20,11 @@
         visited.push(currentPageId);
         writeVisited(visited);
       }
+      // ARG：地址栏 hash 谜题（如 #firstlight）——命中即记入线索
+      if (config.hashClue && config.hashValue &&
+          String(window.location.hash).toLowerCase() === String(config.hashValue).toLowerCase()) {
+        if (!visited.includes(config.hashClue)) { visited.push(config.hashClue); writeVisited(visited); }
+      }
     } catch (e) {}
   }
 

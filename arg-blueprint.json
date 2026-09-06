@@ -151,6 +151,12 @@
               "target": "end_secret",
               "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,doc_keeper_log,doc_raw_data,doc_weather_log,clue_buoy,clue_undertow",
               "reply": "你循着浮标信标与暗流回卷的记录去了延盛外海……也许，海没有带走所有人。"
+            },
+            {
+              "text": "把整台电台重新接回天线——用第九夜真正的开机频率，向全镇广播。",
+              "target": "end_signal",
+              "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,doc_keeper_log,doc_raw_data,doc_weather_log,clue_buoy,clue_undertow,clue_firstlight,clue_blackfin",
+              "reply": "你把天线重新架上塔顶，用 frequency_note 里那个只存在于地址栏的频率，接通了发射机。03:14，FM99.4 没有放白噪——放的是海，一整段海的呼吸。"
             }
           ]
         },
@@ -425,6 +431,66 @@
         {
           "keyword": "994starts",
           "target": "node_stats"
+        },
+        {
+          "keyword": "频率手记",
+          "target": "clue_frequency_note"
+        },
+        {
+          "keyword": "元素",
+          "target": "clue_elements"
+        },
+        {
+          "keyword": "blackfin",
+          "target": "doc_blackfin_registry"
+        },
+        {
+          "keyword": "坐标",
+          "target": "clue_coordinates"
+        },
+        {
+          "keyword": "呼号",
+          "target": "clue_callsign"
+        },
+        {
+          "keyword": "二进制",
+          "target": "clue_binary"
+        },
+        {
+          "keyword": "lasttide",
+          "target": "doc_last_tide"
+        },
+        {
+          "keyword": "镜子",
+          "target": "clue_mirror"
+        },
+        {
+          "keyword": "lighthousesings",
+          "target": "doc_singing_light"
+        },
+        {
+          "keyword": "试音",
+          "target": "doc_first_aircheck"
+        },
+        {
+          "keyword": "拆除",
+          "target": "news_dismantle"
+        },
+        {
+          "keyword": "遗物",
+          "target": "doc_victim_letters"
+        },
+        {
+          "keyword": "救护",
+          "target": "doc_rescue_list"
+        },
+        {
+          "keyword": "月相",
+          "target": "post_moon"
+        },
+        {
+          "keyword": "真假",
+          "target": "post_browser"
         },
         {
           "keyword": "铭牌",
@@ -1067,7 +1133,7 @@
         "title": "蓝湾广播站 机房台呼 / 检修日志（泄露）",
         "date": "2000-03",
         "author": "sys@fm99.4",
-        "body": "> BIOS 认台呼，但口令被编码了：明文我从不落纸，只留一串 Base64 在工程便签里。\n> 2000-02-11 加装 大功率 4.5Hz 低频模块，甲方：瀚洋；经手：柯振\n> 2000-03-14 03:14 《潮声》停播，低频模块未关，转为“甲板中继”\n> 日志被人手动撕去两页：03-14 之后 → 见监控。\n\n◈ 接下来： <a data-arg-link=\"进机房\">→ 去机房</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "> BIOS 认台呼，但口令被编码了：明文我从不落纸，只留一串 Base64 在工程便签里。\n> 2000-02-11 加装 大功率 4.5Hz 低频模块，甲方：瀚洋；经手：柯振\n> 2000-03-14 03:14 《潮声》停播，低频模块未关，转为“甲板中继”\n> 日志被人手动撕去两页：03-14 之后 → 见监控。\n\n◈ 接下来： <a data-arg-link=\"进机房\">→ 去机房</a> ｜ <a data-arg-link=\"频率手记\">看：第九夜频率手记</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -1370,7 +1436,7 @@
         "title": "延盛外海 · 暗流回卷记录",
         "date": "2000-03-15",
         "author": "（水文站内部）",
-        "body": "> 03:40—04:20 暗流回卷，三名落水者被浪推回礁石区，被渔民救起。\n> 但移交清单上没有他们。有人在码头，把他们又带回了船上。\n> 名字被海水泡开了。只剩三个圈。\n\n◈ 接下来： <a data-arg-link=\"交给记者\">→ 回聊天找明月如霜</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "> 03:40—04:20 暗流回卷，三名落水者被浪推回礁石区，被渔民救起。\n> 但移交清单上没有他们。有人在码头，把他们又带回了船上。\n> 名字被海水泡开了。只剩三个圈。\n\n◈ 接下来： <a data-arg-link=\"交给记者\">→ 回聊天找明月如霜</a> ｜ <a data-arg-link=\"救护记录\">对照：礁石区救护记录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -1429,7 +1495,7 @@
         "title": "蓝湾海岸电台 · 通话与设备日志（节选）",
         "date": "2000-03-14",
         "author": "值守员",
-        "body": "> 03:02:41 沈砚 ↔ 陆某 · 通话 37 秒（内容未录音）\n> 03:11:20 延盛主灯 · 手动启动（该时段无值守申请）\n> 03:14:00 《潮声》停播\n> ——一个 03:02 还在岸上打电话的人，03:14 已经“在海上遇难”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a>"
+        "body": "> 03:02:41 沈砚 ↔ 陆某 · 通话 37 秒（内容未录音）\n> 03:11:20 延盛主灯 · 手动启动（该时段无值守申请）\n> 03:14:00 《潮声》停播\n> ——一个 03:02 还在岸上打电话的人，03:14 已经“在海上遇难”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"信标最后坐标\">看：手工标绘的最后坐标</a> ｜ <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a>"
       }
     },
     {
@@ -1474,7 +1540,7 @@
         "title": "延盛灯塔落成合影（1962）",
         "date": "1962-05-01",
         "author": "摄影：佚名",
-        "body": "黑白照片：四十七个人站在塔基下，神情疲惫又骄傲。\n背面钢笔字：一九六二·五一·延盛。\n最左边那个年轻人，后来成了广播站的第一任台长——沈砚的师父。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回灯塔词条</a> ｜ <a data-arg-link=\"登塔\">→ 登塔</a>"
+        "body": "黑白照片：四十七个人站在塔基下，神情疲惫又骄傲。\n背面钢笔字：一九六二·五一·延盛。\n最左边那个年轻人，后来成了广播站的第一任台长——沈砚的师父。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回灯塔词条</a> ｜ <a data-arg-link=\"1962试音带\">看：全站第一盘试音带</a> ｜ <a data-arg-link=\"登塔\">→ 登塔</a>"
       }
     },
     {
@@ -1624,6 +1690,258 @@
       }
     },
     {
+      "id": "clue_frequency_note",
+      "name": "频率手记",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 1270,
+      "fields": {
+        "siteName": "frequency_note.txt",
+        "title": "第九夜 · 频率手记",
+        "date": "2000-03-13",
+        "author": "沈砚",
+        "hashClue": "clue_firstlight",
+        "hashValue": "#firstlight",
+        "body": "> 所有人都以为第九夜用的还是 99.4。\n> 不是。真正的开机频率，不写进任何档案、不落任何纸面。\n> 它只存在于一个地方——你正在看着的这一页的地址栏。\n> 回到这一页，在网址最后加上 #firstlight，回车。机器自己会记住你来过。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">← 返回搜索</a> ｜ <a data-arg-link=\"去灯塔\">→ 灯塔顶层</a>"
+      }
+    },
+    {
+      "id": "clue_elements",
+      "name": "元素谜题",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 1270,
+      "fields": {
+        "siteName": "注销档案 · 批注页",
+        "title": "被原子序数记下来的船名",
+        "date": "1998-06",
+        "author": "（抄录）",
+        "body": "原始船名被人用原子序数记在页边（他怕别人看懂）：\n5 · 57 · 6 · 19　｜　9 · 53 · 7\n——翻开随便哪一张真的元素周期表，把符号连起来念。\n\n◈ 接下来： <a data-arg-link=\"去搜索\">→ 千禧搜索</a> ｜ <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a>"
+      }
+    },
+    {
+      "id": "doc_blackfin_registry",
+      "name": "黑鳍号船籍档案",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 770,
+      "y": 1270,
+      "fields": {
+        "siteName": "船籍登记 · 注销底档",
+        "title": "“BLACKFIN／黑鳍” 船籍与事故记录",
+        "date": "1998-11-02",
+        "author": "海事局（注销）",
+        "body": "瀚洋 7 号，原名 BLACKFIN（黑鳍）。1998 年 10 月以“黑鳍”名义离港后失联，船上 12 人。\n结案：走失。无遗体、无残骸、无调查。\n1999-03 该船更名并重新登记为“瀚洋 7 号”。\n——同一艘船，两次出海，两批名字。\n\n◈ 接下来： <a data-arg-link=\"返回档案馆\">← 返回档案馆目录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "clue_coordinates",
+      "name": "延盛外海坐标",
+      "type": "Browse",
+      "template": "监控室观察记录 (CRT)",
+      "x": 1000,
+      "y": 1270,
+      "fields": {
+        "siteName": "nav_chart · 标绘",
+        "title": "信标最后坐标",
+        "date": "2000-03-14",
+        "time": "03:40:00",
+        "cam": "NAV / 手工标绘",
+        "signature": "纸海图 · 铅笔",
+        "body": "21°31′N　111°58′E。\n——用任何一张真的地图去找它。那里确实是一片海。\n有人在真实的海面上，做过这些事。"
+      }
+    },
+    {
+      "id": "post_browser",
+      "name": "帖子·这个镇子是真的吗",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 1230,
+      "y": 1270,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "认真的问一句：蓝湾这个镇子是真的吗？",
+        "date": "2003-11-16",
+        "author": "过路的",
+        "forumName": "蓝湾异闻",
+        "username": "过路的",
+        "time": "00:31",
+        "body": "我在别的论坛查不到蓝湾。卫星图上这片海岸确实存在。\n可为什么所有的事都凑在同一个镇？\n守夜人只回了一句：你查过 2000 年 3 月 14 日的月亮吗。",
+        "replies": "过路的：查了。下弦月，西北风。潮汐表分秒不差\n匿名：所以呢"
+      }
+    },
+    {
+      "id": "post_moon",
+      "name": "帖子·月亮对得上",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 80,
+      "y": 1440,
+      "fields": {
+        "siteName": "蓝湾潮声论坛",
+        "title": "我查了 2000-03-14 的月相和潮汐，全部对得上",
+        "date": "2003-11-17",
+        "author": "半仙",
+        "forumName": "蓝湾异闻",
+        "username": "半仙",
+        "time": "01:44",
+        "body": "满月后第三天，月出 21:07。按蓝湾纬度推算，03:14 满潮——和港务的潮汐表分秒不差。\n编故事的人会算这个吗？\n我不知道蓝湾在哪。但我知道那晚的月亮是真的。",
+        "replies": "守夜人：月亮是真的就够了\n匿名：鸡皮疙瘩"
+      }
+    },
+    {
+      "id": "doc_callbook",
+      "name": "呼号手册",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 1440,
+      "fields": {
+        "siteName": "无线电呼号分区手册（摘录）",
+        "title": "BD 呼号分区速查",
+        "date": "1999 版",
+        "author": "无线电运动协会",
+        "body": "BD 前缀＝中华人民共和国业余电台。\n分区：1 区京津、4 区华东、7 区华南（含两广海南）。\n执照与呼号前缀必须一致；跨区使用须申请移位。\n\n◈ 接下来： <a data-arg-link=\"回到呼号之谜\">← 返回呼号之谜</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "clue_callsign",
+      "name": "呼号之谜",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 1440,
+      "fields": {
+        "siteName": "执照复印件 · 便条",
+        "title": "华南的执照，华东的呼号",
+        "date": "1996",
+        "author": "（无）",
+        "body": "沈砚的业余电台执照：BD7-XXXX（华南）。\n可 03:02 那通电话里，中继报出的呼号是 BD4（华东）。\n一个华南人，为什么用华东的呼号？\n他备注里只有一句：我从北边来。蓝湾没有我的过去。\n\n◈ 接下来： <a data-arg-link=\"呼号手册\">看：呼号分区手册</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "clue_binary",
+      "name": "B面间隔抄录",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 770,
+      "y": 1440,
+      "fields": {
+        "siteName": "tape_b_gaps.txt",
+        "title": "把倒放的间隔抄成 0 和 1",
+        "date": "2003-11-13",
+        "author": "深夜调频",
+        "body": "把 B 面的呼吸间隔按有无抄下来，八个一组：\n01101100 01100001 01110011 01110100 01110100 01101001 01100100 01100101\n——交给任何一台浏览器，它都认识。\n\n◈ 接下来： <a data-arg-link=\"去搜索\">→ 千禧搜索</a> ｜ <a data-arg-link=\"返回原帖\">← 返回卡带B面帖</a>"
+      }
+    },
+    {
+      "id": "doc_last_tide",
+      "name": "最后一次涨潮值班表",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1000,
+      "y": 1440,
+      "fields": {
+        "siteName": "蓝湾港务 · 值班底表",
+        "title": "2000-03-14 满潮（03:14）值守表",
+        "date": "2000-03-14",
+        "author": "港务处",
+        "body": "应到 6 人，实到 3 人。\n第 4 栏：请假（批准人：柯）。\n第 5 栏：空。\n第 6 栏被水洇开，只认得出一个姓：柯。\n——同一个人，签掉了两份“人不该在场的证明”。\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a> ｜ <a data-arg-link=\"对照气象记录\">对照：气象原始记录</a>"
+      }
+    },
+    {
+      "id": "clue_mirror",
+      "name": "倒着写的一页",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 1230,
+      "y": 1440,
+      "fields": {
+        "title": "（这一页是从右往左写的）",
+        "date": "2000-02-29",
+        "author": "沈砚",
+        "body": "sgnisesuohthgil：它喊里索搜去，文英回拼着倒字名的它把。歌唱在塔灯，晚一那：人的读着倒给\n\n◈ 接下来： <a data-arg-link=\"去搜索\">→ 千禧搜索</a> ｜ <a data-arg-link=\"返回论坛\">← 返回论坛</a>"
+      }
+    },
+    {
+      "id": "doc_singing_light",
+      "name": "会唱歌的灯塔",
+      "type": "Browse",
+      "template": "监控室观察记录 (CRT)",
+      "x": 80,
+      "y": 1610,
+      "fields": {
+        "siteName": "渔民证言 · 整理",
+        "title": "1999-08-13 夜，灯塔“唱”了六分钟",
+        "date": "1999-08-14",
+        "time": "23:00",
+        "cam": "口述 / 三人画押",
+        "signature": "证言整理：老周",
+        "body": "三条渔船同时听见：不是雾笛，不是机器——像有人在很低的地方，一口气唱了六分钟。\n船上的狗全部安静下来，趴下，把头搁在爪子上。\n那六分钟里，海面平得像玻璃。"
+      }
+    },
+    {
+      "id": "doc_first_aircheck",
+      "name": "1962试音带",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 1610,
+      "fields": {
+        "siteName": "广播站 · 磁带库最早一盘",
+        "title": "试音带（全站第一盘）",
+        "date": "1962-05-01",
+        "author": "第一任台长",
+        "body": "磁带里只有三句话：\n“喂……喂……蓝湾，能听见吗。”\n“能。很清楚。”\n“那就好。从今天起，这片海说的话，由我们替它说。”\n标签：一九六二·五一·延盛。\n\n◈ 接下来： <a data-arg-link=\"建塔合影\">← 返回建塔合影</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "news_dismantle",
+      "name": "新闻·拆除叫停",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 540,
+      "y": 1610,
+      "fields": {
+        "siteName": "蓝湾晚报 · 号外",
+        "title": "延盛灯塔拆除紧急叫停 市文物局：收到“新的不可移动证据”",
+        "date": "2003-11-18",
+        "author": "记者 阿帆",
+        "body": "原定今日上午的爆破拆除于凌晨叫停。市文物局仅称“收到新的证据”，拒绝说明证据内容与提交人。\n现场工人说，塔门上多了一把新锁。"
+      }
+    },
+    {
+      "id": "doc_victim_letters",
+      "name": "三封没寄出的信",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 770,
+      "y": 1610,
+      "fields": {
+        "title": "遗物 · 三封没寄出的信",
+        "date": "1999-08-10",
+        "author": "三名随船者",
+        "body": "信一：妈，这次回来我就把债还清，再也不出海了。\n信二：等发了工钱，给你买那双你看了三次的鞋。\n信三：（只有一行）如果我到不了对岸，记得我不是自愿的。\n三封信都没有邮戳。都在保险箱最底层。\n\n◈ 接下来： <a data-arg-link=\"返回来信帖\">← 返回听众来信帖</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_rescue_list",
+      "name": "救护记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1000,
+      "y": 1610,
+      "fields": {
+        "siteName": "镇卫生院 · 接诊底联",
+        "title": "3 月 15 日凌晨 · 礁石区伤员接诊记录",
+        "date": "2000-03-15",
+        "author": "值班医生",
+        "body": "03:52—04:30 接诊 3 名落水者：低温、声带损伤（不能说话）、结膜出血。\n04:31 一辆无牌货车接走 3 人。登记栏签名：空白。\n值班医生备注：他们指着自己的耳朵，然后指海的方向。\n\n◈ 接下来： <a data-arg-link=\"返回暗流记录\">← 返回暗流记录</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
       "id": "end_silence",
       "name": "结局·官方结论",
       "type": "Ending",
@@ -1631,7 +1949,7 @@
       "x": 80,
       "y": 80,
       "fields": {
-        "message": "【结局一 · 盖棺】\n你向警方提交了“3·14 意外海难”，卷宗归档。\nFM99.4 永久停播，延盛灯塔按计划拆除，瀚洋的“蓝色经济”剪彩如期举行。\n你偶尔还会在梦里听到那段白噪，可你已经不想知道它是什么了。\n—— 线索不足时的默认结局。（共 8 结局，此为最浅）"
+        "message": "【结局一 · 盖棺】\n你向警方提交了“3·14 意外海难”，卷宗归档。\nFM99.4 永久停播，延盛灯塔按计划拆除，瀚洋的“蓝色经济”剪彩如期举行。\n你偶尔还会在梦里听到那段白噪，可你已经不想知道它是什么了。\n—— 线索不足时的默认结局。（共 9 结局，此为最浅）"
       }
     },
     {
@@ -1709,6 +2027,17 @@
       "y": 250,
       "fields": {
         "message": "【隐藏结局 · 潮声未绝】\n你循着浮标信标，在登记“已沉”的旧船上，找到一台还在发报的应急电台，和一本泡水的航海日志。\n最后一页是沈砚的字：『知微，如果你解到了这里——我们还在，海上。活着的人，比通报多。』\n你没有让声音沉进海里，你把它带回了岸上。\n\n—— 你解开了全部密码与最深的秘密 ——"
+      }
+    },
+    {
+      "id": "end_signal",
+      "name": "ARG 结局 · 电台未死",
+      "type": "Ending",
+      "template": "CRT 黑屏",
+      "x": 540,
+      "y": 250,
+      "fields": {
+        "message": "【ARG 结局 · 电台未死】\n你把天线架上塔顶，输入那个不存在于任何纸面的频率。\n03:14，全镇的收音机同时亮起。没有白噪。是潮声，是呼吸，是六十几个名字被一个一个念完。\n有人后来在论坛问：蓝湾是真的吗。\n月亮是真的，海是真的。你听见的，也是真的。\n\n—— 你打破了第四面墙。潮声，现在归所有听见的人。 ——"
       }
     }
   ],
@@ -1918,6 +2247,30 @@
       "to": "doc_fake_diary",
       "port": "门缝里的手记",
       "label": "一本塞在我门缝里的“守夜人手记”",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_browser",
+      "port": "这个镇子是真的吗",
+      "label": "认真的问一句：蓝湾是真的吗",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "post_moon",
+      "port": "月亮对得上",
+      "label": "我查了那晚的月相和潮汐",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "clue_frequency_note",
+      "port": "频率手记",
+      "label": "第九夜 · 频率手记",
       "icon": "",
       "desc": ""
     },
@@ -2246,6 +2599,14 @@
       "to": "node_login_light",
       "port": "夜探灯塔",
       "label": "→ 夜探灯塔（顶层有门禁）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_lighthouse",
+      "to": "news_dismantle",
+      "port": "拆除叫停",
+      "label": "看号外：灯塔拆除紧急叫停",
       "icon": "",
       "desc": ""
     },
@@ -2875,6 +3236,14 @@
     },
     {
       "from": "audio_log",
+      "to": "clue_frequency_note",
+      "port": "频率手记",
+      "label": "看：第九夜频率手记",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "audio_log",
       "to": "node_search",
       "port": "返回搜索",
       "label": "返回搜索",
@@ -3259,6 +3628,14 @@
     },
     {
       "from": "clue_undertow",
+      "to": "doc_rescue_list",
+      "port": "救护记录",
+      "label": "对照：礁石区救护记录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_undertow",
       "to": "node_search",
       "port": "返回搜索",
       "label": "返回搜索",
@@ -3323,6 +3700,14 @@
     },
     {
       "from": "doc_radio_log",
+      "to": "clue_coordinates",
+      "port": "信标最后坐标",
+      "label": "看：手工标绘的最后坐标",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_radio_log",
       "to": "index_archive",
       "port": "返回档案馆",
       "label": "← 返回档案馆目录",
@@ -3379,6 +3764,14 @@
     },
     {
       "from": "photo_nanhai",
+      "to": "doc_first_aircheck",
+      "port": "1962试音带",
+      "label": "看：全站第一盘试音带",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "photo_nanhai",
       "to": "node_login_light",
       "port": "登塔",
       "label": "→ 登塔",
@@ -3390,6 +3783,14 @@
       "to": "node_forum",
       "port": "返回论坛首页",
       "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_listeners",
+      "to": "doc_victim_letters",
+      "port": "三封没寄出的信",
+      "label": "看：遗物·三封没寄出的信",
       "icon": "",
       "desc": ""
     },
@@ -3475,6 +3876,14 @@
     },
     {
       "from": "post_tape_b",
+      "to": "clue_binary",
+      "port": "B面间隔抄录",
+      "label": "看：把间隔抄成 0 和 1",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_tape_b",
       "to": "node_search",
       "port": "去搜索",
       "label": "→ 千禧搜索",
@@ -3507,6 +3916,14 @@
     },
     {
       "from": "post_missing_call",
+      "to": "clue_callsign",
+      "port": "呼号之谜",
+      "label": "看：华南的执照，华东的呼号",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_missing_call",
       "to": "node_chat",
       "port": "去聊天",
       "label": "→ 潮声通讯",
@@ -3526,6 +3943,262 @@
       "to": "doc_weather_log",
       "port": "对照气象记录",
       "label": "对照：气象原始记录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_frequency_note",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "← 返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_frequency_note",
+      "to": "node_login_light",
+      "port": "去灯塔",
+      "label": "→ 灯塔顶层",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_elements",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_elements",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_blackfin_registry",
+      "to": "index_archive",
+      "port": "返回档案馆",
+      "label": "← 返回档案馆目录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_blackfin_registry",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_coordinates",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_coordinates",
+      "to": "post_browser",
+      "port": "去论坛",
+      "label": "→ 蓝湾潮声论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_browser",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_browser",
+      "to": "clue_elements",
+      "port": "注销档案批注",
+      "label": "看：被原子序数记下来的船名",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_moon",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_moon",
+      "to": "clue_tide_table",
+      "port": "对照潮汐表",
+      "label": "对照：蓝湾港潮汐表",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_callbook",
+      "to": "clue_callsign",
+      "port": "回到呼号之谜",
+      "label": "← 返回呼号之谜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_callbook",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_callsign",
+      "to": "doc_callbook",
+      "port": "呼号手册",
+      "label": "看：呼号分区手册",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_callsign",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_binary",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_binary",
+      "to": "post_tape_b",
+      "port": "返回原帖",
+      "label": "← 返回卡带B面帖",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_last_tide",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_last_tide",
+      "to": "doc_weather_log",
+      "port": "对照气象记录",
+      "label": "对照：气象原始记录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_mirror",
+      "to": "node_search",
+      "port": "去搜索",
+      "label": "→ 千禧搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_mirror",
+      "to": "node_forum",
+      "port": "返回论坛",
+      "label": "← 返回论坛",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_singing_light",
+      "to": "node_login_light",
+      "port": "上锁的灯塔顶层",
+      "label": "🔒 线索锁在灯塔顶层里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_singing_light",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_first_aircheck",
+      "to": "photo_nanhai",
+      "port": "建塔合影",
+      "label": "← 返回建塔合影",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_first_aircheck",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_dismantle",
+      "to": "news_lighthouse",
+      "port": "返回灯塔报道",
+      "label": "← 返回灯塔报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "news_dismantle",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_victim_letters",
+      "to": "post_listeners",
+      "port": "返回来信帖",
+      "label": "← 返回听众来信帖",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_victim_letters",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_rescue_list",
+      "to": "clue_undertow",
+      "port": "返回暗流记录",
+      "label": "← 返回暗流记录",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_rescue_list",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
       "icon": "",
       "desc": ""
     }
