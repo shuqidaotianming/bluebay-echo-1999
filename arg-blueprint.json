@@ -197,6 +197,11 @@
               "reply": "不能再明白了。这份谨慎，是有人用命换的。"
             },
             {
+              "text": "关于“他从北边来”，我还想再问一句。",
+              "requires": "clue_callnorth",
+              "reply": "……他调来蓝湾那年，往频率表的背面写了一行字。我一直没看懂——“等一个信号。等到它先开口。”现在你解到了这里，也许你懂了。"
+            },
+            {
               "text": "先去忙。",
               "target": "node_desktop"
             }
@@ -235,6 +240,11 @@
               "target": "node_forum"
             },
             {
+              "text": "两片海……到底是什么关系？",
+              "requires": "clue_seaprovince",
+              "reply": "……同一张网……换了名字……再撒一次……1998……2000……下一个名字……（信号中断）"
+            },
+            {
               "text": "检索“延盛灯塔”",
               "target": "news_lighthouse"
             }
@@ -260,6 +270,11 @@
           "passphraseClue": "clue_secondtide",
           "passphraseTarget": "doc_second_tide",
           "choices": [
+            {
+              "text": "哥。第二个满潮夜，码头上有人看见你了吗？",
+              "requires": "clue_secondtide",
+              "reply": "（自动回复的末尾，多出了不属于程序的一行）……别在第二个满潮夜靠近码头。……这行字是谁加的？"
+            },
             {
               "text": "回到桌面",
               "target": "node_desktop"
