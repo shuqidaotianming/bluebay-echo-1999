@@ -189,8 +189,8 @@
     });
     document.getElementById('arg-pv-reset').addEventListener('click', function(ev){
       ev.stopPropagation();
-      if (window.confirm('确定重置全部调查进度？线索记录将清空，页面将重新载入。')) {
-        try { localStorage.removeItem('arg_visited_nodes'); } catch (e) {}
+      if (window.confirm('确定重置全部调查进度？线索与聊天记录将清空，页面将重新载入。')) {
+        try { localStorage.removeItem('arg_visited_nodes'); localStorage.removeItem('arg_chat_log_v1'); } catch (e) {}
         window.location.reload();
       }
     });
@@ -404,6 +404,35 @@
     const form = container.querySelector('#chatForm');
     const input = container.querySelector('#chatInput');
 
+    // —— 聊天存档：按联系人持久化动态对话（打字/选项/回复），localStorage，跨会话保留 ——
+    const CHAT_LOG_KEY = 'arg_chat_log_v1';
+    function readChatLog(){ try { return JSON.parse(localStorage.getItem(CHAT_LOG_KEY) || '{}'); } catch (e) { return {}; } }
+    function logMsg(cid, sender, text){
+      if (!cid) return;
+      try {
+        const l = readChatLog(); l[cid] = l[cid] || [];
+        l[cid].push({ s: sender, t: text });
+        if (l[cid].length > 300) l[cid] = l[cid].slice(-300);
+        localStorage.setItem(CHAT_LOG_KEY, JSON.stringify(l));
+      } catch (e) {}
+    }
+    function ensureChatStyle(){
+      if (document.getElementById('arg-chat-style')) return;
+      const st = document.createElement('style'); st.id = 'arg-chat-style';
+      st.textContent = '.msg-action{text-align:center;font-size:11px;color:#94a3b8;font-style:italic;margin:8px 0;opacity:.85}';
+      document.head.appendChild(st);
+    }
+    ensureChatStyle();
+    // 行动条：玩家"做了某事"而非"说了某话"（避免把指令当台词念出来）
+    function appendAction(text, silent){
+      if (!messagesEl) return;
+      const d = document.createElement('div');
+      d.className = 'msg-action';
+      d.textContent = '—— ' + text + ' ——';
+      messagesEl.appendChild(d);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
     if (!contacts.length) {
       if (contactsList) {
         contactsList.innerHTML = '<div style="padding:16px 10px;text-align:center;color:var(--text-muted, #888);font-size:12px;">暂无联系人</div>';
@@ -486,9 +515,11 @@
         btn.textContent = choice.text;
         btn.addEventListener('click', () => {
           playSynthSound('click');
-          appendMessage('user', choice.text);
+          // 行动条而非台词：玩家是"做了这个决定"，不是把指令念出来
+          appendAction(choice.text);
+          logMsg(contact.id, 'action', choice.text);
           if (choice.reply) {
-            setTimeout(() => appendMessage('npc', choice.reply, contact.avatar), 300);
+            setTimeout(() => { appendMessage('npc', choice.reply, contact.avatar); logMsg(contact.id, 'npc', choice.reply); }, 300);
           }
           if (choice.target) {
             setTimeout(() => go(choice.target), choice.reply ? 600 : 250);
@@ -515,6 +546,14 @@
         });
       }
 
+      // 重放历史动态对话（打字/选项/回复），跨会话持久
+      let history = [];
+      try { history = readChatLog()[contact.id] || []; } catch (e) {}
+      history.forEach(m => {
+        if (m.s === 'action') appendAction(m.t, true);
+        else appendMessage(m.s === 'user' ? 'user' : 'npc', m.t, contact.avatar);
+      });
+
       if (contact.dialogue && contact.dialogue.length) {
         contact.dialogue.forEach(item => {
           if (item.sender === 'npc' && item.text) appendMessage('npc', item.text, contact.avatar);
@@ -536,17 +575,21 @@
         input.value = '';
         appendMessage('user', text);
         const contact = contacts[currentIdx];
+        logMsg(contact.id, 'user', text);
         // ARG：联系人答案校验——把查到的答案打字发给他，对了才给回信并记线索
         const accepted = String(contact.passphrase || '').split(/[,，;|/]+/).map(s => s.trim().toLowerCase()).filter(Boolean);
         const hit = accepted.length > 0 && accepted.indexOf(text.toLowerCase()) !== -1;
         setTimeout(() => {
+          let replyText;
           if (hit) {
-            appendMessage('npc', contact.passphraseReply || '……对。就是这个。', contact?.avatar);
+            replyText = contact.passphraseReply || '……对。就是这个。';
             if (contact.passphraseClue) triggerClue(contact.passphraseClue);
-            if (contact.passphraseTarget) setTimeout(() => go(contact.passphraseTarget), 700);
           } else {
-            appendMessage('npc', '收到。请继续核查其他线索。', contact?.avatar);
+            replyText = '收到。请继续核查其他线索。';
           }
+          appendMessage('npc', replyText, contact?.avatar);
+          logMsg(contact.id, 'npc', replyText);
+          if (hit && contact.passphraseTarget) setTimeout(() => go(contact.passphraseTarget), 700);
         }, 350);
       });
     }
