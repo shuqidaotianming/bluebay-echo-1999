@@ -3141,7 +3141,7 @@
         "title": "线上纪念站 · 入口",
         "hashClue": "clue_mem66",
         "hashValue": "#sixtysix",
-        "body": "六十六盏灯的线上纪念站，不设在蓝湾。\n它设在一个只有知情者知道的地址上。\n\n入口暗号只有一个数字：六十六。\n——停留在这一页，在浏览器地址栏的末尾加上 #sixtysix，回车。\n（左侧菜单的「最近更改」「随机条目」都是真的，随时可用。）\n\n◈ 接下来： <a data-arg-link=\"返回\">← 返回一年后的蓝湾</a> ｜ <a data-arg-link=\"守夜人最后一条\">看：守夜人的最后一条帖子</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "六十六盏灯的线上纪念站，不设在蓝湾。\n它设在一个只有知情者知道的地址上。\n\n入口暗号只有一个数字：六十六。\n——停留在这一页，在浏览器地址栏的末尾加上 #sixtysix，回车。\n（左侧菜单的「最近更改」「随机条目」都是真的，随时可用。）\n\n◈ 接下来： <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -9752,22 +9752,6 @@
     },
     {
       "from": "node_memorial",
-      "to": "doc_aftermath_bay",
-      "port": "返回",
-      "label": "← 返回一年后的蓝湾",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "node_memorial",
-      "to": "post_after_forum",
-      "port": "守夜人最后一条",
-      "label": "看：守夜人的最后一条帖子",
-      "icon": "",
-      "desc": ""
-    },
-    {
-      "from": "node_memorial",
       "to": "node_search",
       "port": "返回搜索",
       "label": "返回搜索",
@@ -13429,6 +13413,12 @@
       "to": "ns_code",
       "port": "新暗号",
       "label": "新暗号"
+    },
+    {
+      "from": "wall_memorial",
+      "to": "post_after_forum",
+      "port": "守夜人最后一条",
+      "label": "守夜人的最后一条帖子"
     },
     {
       "from": "node_forum",
