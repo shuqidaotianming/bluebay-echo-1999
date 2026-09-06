@@ -961,6 +961,54 @@
           "target": "node_memorial"
         },
         {
+          "keyword": "节目单",
+          "target": "node_programs"
+        },
+        {
+          "keyword": "潮声节目",
+          "target": "node_programs"
+        },
+        {
+          "keyword": "判决书",
+          "target": "doc_verdict_full"
+        },
+        {
+          "keyword": "打捞",
+          "target": "doc_salvage"
+        },
+        {
+          "keyword": "导播",
+          "target": "doc_director_diary"
+        },
+        {
+          "keyword": "点播",
+          "target": "doc_request_log"
+        },
+        {
+          "keyword": "发射机",
+          "target": "doc_transmitter_manual"
+        },
+        {
+          "keyword": "值机",
+          "target": "doc_duty_rules"
+        },
+        {
+          "keyword": "应急",
+          "target": "doc_emergency_plan"
+        },
+        {
+          "keyword": "协调函",
+          "target": "doc_freq_letter"
+        },
+        {
+          "keyword": "鬼船",
+          "target": "post_rumor98"
+        },
+        {
+          "keyword": "母带",
+          "target": "doc_tape_donated"
+        },
+        {
           "keyword": "铭牌",
           "target": "clue_tower_plaque"
         },
@@ -1919,7 +1967,7 @@
         "title": "韩氏集团司机周某的不在场证明",
         "date": "2000-04-02",
         "author": "律师函附件",
-        "body": "材料称：3 月 14 日 23:00—次日 05:00，司机周某全程陪同韩启昌在市区酒店，有“监控截图”为证。\n疑点：截图右上角时间戳 03:14，而当晚全市监控自 23:00 起停电检修——根本不可能有画面。\n这张纸是真的，内容是假的。\n\n◈ 接下来： <a data-arg-link=\"返回顶层\">← 返回顶层</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+        "body": "材料称：3 月 14 日 23:00—次日 05:00，司机周某全程陪同韩启昌在市区酒店，有“监控截图”为证。\n疑点：截图右上角时间戳 03:14，而当晚全市监控自 23:00 起停电检修——根本不可能有画面。\n这张纸是真的，内容是假的。\n\n◈ 接下来： <a data-arg-link=\"上锁的灯塔顶层\">🔒 线索锁在灯塔顶层里（需口令）</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
       }
     },
     {
@@ -3108,6 +3156,459 @@
         "date": "1999-08-12",
         "author": "（原件）",
         "body": "这一份是原件。没有红圈、没有“镇静”、没有“留声”——什么都没有。\n只有 66 个名字，和出生年月。\n他们不需要旁注。旁注是加害者写的；名字，是他们自己带来的。\n（你一个一个读完了。谢谢。）\n\n◈ 接下来： <a data-arg-link=\"退出深层\">← 退出深层档案</a> ｜ <a data-arg-link=\"回档案馆\">回档案馆</a>"
+      }
+    },
+    {
+      "id": "node_programs",
+      "name": "潮声 · 节目存档（八期）",
+      "type": "Index",
+      "template": "档案目录",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "FM99.4 · 节目存档",
+        "categoryTitle": "《潮声》1993—2000 · 八期存档（第九期缺失）",
+        "navigation": "一 二 三 四 五 六 七 八 ｜ 九？"
+      }
+    },
+    {
+      "id": "prog_1",
+      "name": "潮声·第一期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第一期",
+        "title": "第一期 · 海是你的邻居（1993-04 开播）",
+        "date": "1993-04-05",
+        "author": "沈砚",
+        "body": "开播词：\n“晚上好，蓝湾。我是沈砚。\n很多人问我，深夜电台能给一座渔镇什么。\n我想了很久——什么都不给。我只是把海的声音，原样放给你听。\n海是你的邻居。吵你的时候，也在守你。”\n\n◈ 接下来： <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_2",
+      "name": "潮声·第二期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第二期",
+        "title": "第二期 · 夜航船",
+        "date": "1993-04-12",
+        "author": "沈砚",
+        "body": "本期读了一篇散文《夜航船》：\n“每条夜航船上都有一个不睡觉的人。他不是守夜的，他是记账的——\n记谁上了船，谁没下船。”\n（听众来信：这期之后，栏目信箱第一次收到署名“陆”的听众。）\n\n◈ 接下来： <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_3",
+      "name": "潮声·第三期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第三期",
+        "title": "第三期 · 读信之夜",
+        "date": "1993-04-19",
+        "author": "沈砚",
+        "body": "本期的压轴，读了一封没有署名的信：\n“我想给厂里三号宿舍点一首歌。如果我没时间听，请替我听完。”\n——信的笔迹，后来被收录进《点播登记簿》。\n\n◈ 接下来： <a data-arg-link=\"对照点播单\">对照：没播出的点播单</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_4",
+      "name": "潮声·第四期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第四期",
+        "title": "第四期 · 台风夜特别节目",
+        "date": "1994-08",
+        "author": "沈砚",
+        "body": "台风夜连续播音 9 小时。录音里能听见他把话筒伸出窗外：\n“听，这就是你们白天骂的坏天气。\n它也会累。”\n（本期磁带后来被港务借用——作为风暴潮的声学参考。借条至今未还。）\n\n◈ 接下来： <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_5",
+      "name": "潮声·第五期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第五期",
+        "title": "第五期 · 点播专柜",
+        "date": "1996",
+        "author": "沈砚",
+        "body": "点播专柜开栏第一期。本期播出 7 首。\n登记簿备注：其中一首的点播人署名“第 9 行的哥哥”。\n——1996 年。比福利院名单早了三年。陆某从那时就在听。\n\n◈ 接下来： <a data-arg-link=\"对照陆某证言\">对照：陆某的证言</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_6",
+      "name": "潮声·第六期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第六期",
+        "title": "第六期 · 沉默的来电",
+        "date": "1999-08-13",
+        "author": "沈砚",
+        "body": "本期 23:00，一个电话打了进来，沉默 41 秒后挂断。\n来电显示：+0000-994。\n沈砚在播出日志里写：\n“第一次。他还没准备好。等他。”\n\n◈ 接下来： <a data-arg-link=\"对照深夜来电\">对照：三年后的深夜来电</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_7",
+      "name": "潮声·第七期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第七期",
+        "title": "第七期 · 灯塔专稿（未播全）",
+        "date": "1999-09",
+        "author": "沈砚",
+        "body": "本期采访了守塔人陈伯。播出版比采访版短了 11 分钟。\n被剪掉的 11 分钟里，陈伯说到一句：\n“主灯去年换过一套新柜子，钥匙不给塔里的人。”\n——专访全文，后来被锁进了灯塔顶层。\n\n◈ 接下来： <a data-arg-link=\"去灯塔顶层\">→ 灯塔顶层（专访全文所在）</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "prog_8",
+      "name": "潮声·第八期",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "《潮声》存档 · 第八期",
+        "title": "第八期 ·（播出单缺失）",
+        "date": "2000-03-07",
+        "author": "（存档不全）",
+        "body": "第八期有播出记录，无播出单，无磁带编号。\n存档卡片上一行铅笔字：\n“这一期没有名字。等第九夜一起命名。”\n——所以《潮声》不是八期，也不是九期。是八期，加一个没来得及命名的夜晚。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回节目单\">← 返回节目存档</a>"
+      }
+    },
+    {
+      "id": "doc_blackfin_crew",
+      "name": "黑鳍号·12人名单",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "船籍 · 1998 名单",
+        "title": "“黑鳍”离港船员名单（12 人）",
+        "date": "1998-10",
+        "author": "（抄件）",
+        "body": "12 人：轮机长、水手若干、厨工一名。\n第 9 行旁有一个红圈——和沈砚的笔迹一致。\n第 12 行旁，有一小片干了的酒渍——海爷的记事本压过这一页。\n\n◈ 接下来： <a data-arg-link=\"返回船籍档案\">← 返回黑鳍号船籍档案</a> ｜ <a data-arg-link=\"对照奖章\">对照：劳动奖章</a>"
+      }
+    },
+    {
+      "id": "doc_salvage",
+      "name": "打捞未遂记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "海警 · 工作记录",
+        "title": "1998-11 民间打捞劝返记录",
+        "date": "1998-11-09",
+        "author": "海警工作站",
+        "body": "家属自筹雇用民间打捞船一艘，前往 21°31′N 111°58′E 作业。\n劝返理由：该海域“无沉船记录”。\n家属代表签收。签名栏的笔迹，与三年后一份报案回执相同。\n\n◈ 接下来： <a data-arg-link=\"返回船籍档案\">← 返回黑鳍号船籍档案</a> ｜ <a data-arg-link=\"对照报案回执\">对照：报案回执</a>"
+      }
+    },
+    {
+      "id": "post_rumor98",
+      "name": "帖子·1998渔村谣言",
+      "type": "Browse",
+      "template": "复古 BBS 论坛",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "蓝湾潮声论坛 · 老帖",
+        "title": "1998 年渔村的谣言：黑鳍是“鬼船”",
+        "date": "1999-02",
+        "author": "（旧帖存档）",
+        "forumName": "蓝湾异闻",
+        "username": "（已注销）",
+        "time": "22:12",
+        "body": "那年冬天渔民之间传：夜里别跟黑鳍抢水道，它自己认路，船上没人掌舵。\n谣言怎么起的？从探鱼器那团“跟着船走的影子”起的。\n后来帖子被删了。删帖的管理员，那时候刚上任。",
+        "replies": "守夜人：这条我恢复过 11 次\n匿名：所以你才叫守夜人"
+      }
+    },
+    {
+      "id": "doc_chart_mark",
+      "name": "海图·1998铅笔点",
+      "type": "Browse",
+      "template": "监控室观察记录 (CRT)",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "渔民海图 · 私藏",
+        "title": "一张比官方更早的海图",
+        "date": "1998-10",
+        "time": "—",
+        "cam": "私人海图",
+        "signature": "铅笔点 · 未标日期",
+        "body": "一张渔民私藏的海图，比任何官方记录都早地，在 21°31′N 111°58′E 上点了一个铅笔点。\n点旁边一个字：等。\n——第一个相信那片海出过事的人，不是调查者，是渔民。"
+      }
+    },
+    {
+      "id": "watch_spring",
+      "name": "守夜人档案·春",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "守夜人档案 · 春",
+        "title": "春 · 寻人类（被删 137 条）",
+        "date": "2001 春",
+        "author": "守夜人",
+        "body": "春天删得最多的是寻人帖。每一条我都先抄下来再让它消失。\n抄写格式：日期 / 标题 / 寻谁 / 发帖人 IP 尾号。\n一个春天，我记下了 137 个还在等的人。\n\n◈ 接下来： <a data-arg-link=\"夏\">→ 夏 · 谣言治理</a> ｜ <a data-arg-link=\"返回柜子\">← 返回守夜人的柜子</a>"
+      }
+    },
+    {
+      "id": "watch_summer",
+      "name": "守夜人档案·夏",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "守夜人档案 · 夏",
+        "title": "夏 · “谣言治理”（被删 89 条）",
+        "date": "2001 夏",
+        "author": "守夜人",
+        "body": "夏天他们开始删“谣言”——凡提黑鳍、凡提灯塔，一律按谣言处理。\n我给每条谣言标注了一个核实结果：\n证实 61 条，无法证伪 26 条，证伪 2 条。\n那 2 条，是有人故意放的假消息，用来搞臭真的。\n\n◈ 接下来： <a data-arg-link=\"秋\">→ 秋 · 威胁信</a> ｜ <a data-arg-link=\"春\">← 春 · 寻人类</a>"
+      }
+    },
+    {
+      "id": "watch_autumn",
+      "name": "守夜人档案·秋",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "守夜人档案 · 秋",
+        "title": "秋 · 威胁信（3 封 + 1 本假手记）",
+        "date": "2002 秋",
+        "author": "守夜人",
+        "body": "三封威胁信，都没有署名，但用的邮票是同一批。\n第四样东西不是信——是那本伪造的“守夜人手记”，被人塞进值班室。\n他们没有吓住我。他们只是提醒我：我快查完了。\n\n◈ 接下来： <a data-arg-link=\"冬\">→ 冬 · 核对名单</a> ｜ <a data-arg-link=\"夏\">← 夏 · 谣言治理</a>"
+      }
+    },
+    {
+      "id": "watch_winter",
+      "name": "守夜人档案·冬",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "守夜人档案 · 冬",
+        "title": "冬 · 名单核对笔记",
+        "date": "2003 冬",
+        "author": "守夜人",
+        "body": "每年冬天只做一件事：核对名单。\n66 个名字，逐一与家属、户籍、医院三方比对。\n三年零八个月，核完了。\n缺的从来不是证据。缺的是一个敢把证据印出来的人。\n——现在，有了。\n\n◈ 接下来： <a data-arg-link=\"秋\">← 秋 · 威胁信</a> ｜ <a data-arg-link=\"最后一条帖子\">看：守夜人的最后一条帖子</a>"
+      }
+    },
+    {
+      "id": "doc_transmitter_manual",
+      "name": "发射机操作手册",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "机房 · 随机资料",
+        "title": "发射机操作手册（第四版）",
+        "date": "1997",
+        "author": "设备厂商",
+        "body": "第三章第七节：\n“严禁在无人值守状态下以低频模式连续运行超过 300 秒。”\n——第九夜的运行时长：362 秒。\n手册没有错。错的是按了开始、又锁门走掉的人。\n\n◈ 接下来： <a data-arg-link=\"去机房\">→ 去机房（手册全文锁在柜里）</a> ｜ <a data-arg-link=\"对照六十六秒\">对照：多出来的六十六秒</a>"
+      }
+    },
+    {
+      "id": "doc_duty_rules",
+      "name": "值机员守则",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "机房 · 上墙文件",
+        "title": "值机员守则（第七条加粗）",
+        "date": "1995",
+        "author": "蓝湾广播站",
+        "body": "第七条（加粗）：\n“播出期间，机房不得离人。”\n——3 月 14 日 03:08—03:14，机房离人。\n离人的钥匙，在柯振的裤兜里。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"对照发射机手册\">对照：发射机操作手册</a>"
+      }
+    },
+    {
+      "id": "doc_emergency_plan",
+      "name": "应急预案（1999修订）",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "机房 · 应急预案（1999 修订版）",
+        "title": "突发事件应急预案（有一节整页涂黑）",
+        "date": "1999-06",
+        "author": "柯振 修订",
+        "body": "第七章：设备异常处置。\n第七章第三节整页被涂黑。透过背光能认出标题四个字：\n“低频照射”。\n应急预案里为什么要有一节“低频照射”？除非，照射本身就是计划内的。\n\n◈ 接下来： <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>"
+      }
+    },
+    {
+      "id": "doc_freq_letter",
+      "name": "频率协调函",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "无委办 · 复函",
+        "title": "关于 94.90MHz 备用频率的协调函",
+        "date": "1999-05-30",
+        "author": "无委办",
+        "body": "复函同意 94.90MHz 作为备用频率，“与主频保持适当间隔”。\n申请理由栏写着：设备测试。\n间隔是 4.50。测试是假的。申请人是柯振。\n\n◈ 接下来： <a data-arg-link=\"对照登记表\">对照：短波登记表</a> ｜ <a data-arg-link=\"上锁的机房\">🔒 线索锁在机房里（需口令）</a>"
+      }
+    },
+    {
+      "id": "doc_indictment",
+      "name": "起诉书（摘要）",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "检察院 · 起诉书（公开摘要）",
+        "title": "起诉书摘要：组织拐骗、故意杀人等五罪",
+        "date": "2004-08",
+        "author": "市检察院",
+        "body": "起诉书第 11 页第 3 行，第一次出现公开表述：\n“……利用无线电频率实施精神控制。”\n——为这一行字，一份母带、两本日记、三路监控，等了一千三百天。\n\n◈ 接下来： <a data-arg-link=\"返回庭审\">← 返回庭审细节</a> ｜ <a data-arg-link=\"返回报道\">← 返回一审报道</a>"
+      }
+    },
+    {
+      "id": "doc_defense_list",
+      "name": "辩方证物清单",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "法院 · 证物室",
+        "title": "辩方证物清单（开庭前撤回 2 项）",
+        "date": "2004-08",
+        "author": "辩护人",
+        "body": "原清单第 3 项：周某“不在场证明”复印件。\n开庭前撤回。撤回理由：经核实，该证据来源存疑。\n——伪造证据在法庭上活不过一轮质证。可惜有些人，在生活里就被它说服了。\n\n◈ 接下来： <a data-arg-link=\"返回庭审\">← 返回庭审细节</a> ｜ <a data-arg-link=\"对照伪造证据\">对照：那份伪造的证明</a>"
+      }
+    },
+    {
+      "id": "doc_witness_list",
+      "name": "出庭证人名单",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "法院 · 证人名单（公开）",
+        "title": "出庭证人名单（8 人）",
+        "date": "2004-09",
+        "author": "法院公告",
+        "body": "证人：沈知微（声音鉴定）、陆某（首诊医生）、方某某（福利院教师）、海某某（渔民）、陈某（原守塔人）、周某某（原排版员）、老周某某（原技师）、王某某（论坛管理员）。\n——八个人。名单很长。因为一个人守不了夜。\n\n◈ 接下来： <a data-arg-link=\"返回庭审\">← 返回庭审细节</a> ｜ <a data-arg-link=\"去聊天\">→ 回潮声通讯</a>"
+      }
+    },
+    {
+      "id": "doc_verdict_full",
+      "name": "判决书（全文）",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "法院 · 判决书（全文公开）",
+        "title": "刑事判决书（全文）",
+        "date": "2004-11-24",
+        "author": "市中院",
+        "body": "判决书第 29 页，“另查明”部分写道：\n“涉案音频资料中存在 66 秒独立声纹区间，经鉴定与 66 名被害人一一对应。”\n——66 秒，成了 66 个铁证。\n沈砚留在母带上的那一秒一秒，全部到庭了。\n\n◈ 接下来： <a data-arg-link=\"返回庭审\">← 返回庭审细节</a> ｜ <a data-arg-link=\"对照六十六秒\">对照：多出来的六十六秒</a>"
+      }
+    },
+    {
+      "id": "doc_request_log",
+      "name": "点播登记簿",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "广播站 · 点播登记簿",
+        "title": "点播登记簿（1993—2000 · 摘录）",
+        "date": "1993—2000",
+        "author": "值班导播",
+        "body": "登记簿共 7 本，现存 5 本。\n缺的两本：1999 下半年、2000 年全年。\n——被删的从来不只是帖子。有人连“谁点过歌”都要抹掉。\n\n◈ 接下来： <a data-arg-link=\"返回来信帖\">← 返回听众来信帖</a> ｜ <a data-arg-link=\"导播日记\">看：导播日记</a>"
+      }
+    },
+    {
+      "id": "doc_director_diary",
+      "name": "导播日记",
+      "type": "Browse",
+      "template": "遇害者手写日记",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "title": "导播日记（最后一页）",
+        "date": "2000-03-14",
+        "author": "值班导播",
+        "body": "今晚我不在场。我被调去跟一车“设备”。\n凌晨刷到推送：FM99.4 停播。\n我给台里打了七个电话。第七个，有人哭了。\n——导播，是第七个电话里哭的人。他后来成了证人名单上的第八个。\n\n◈ 接下来： <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a> ｜ <a data-arg-link=\"证人名单\">看：出庭证人名单</a>"
+      }
+    },
+    {
+      "id": "doc_voicetape",
+      "name": "一卷听众留言带",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "磁带库 · 留言带",
+        "title": "听众留言带（33 条，未播）",
+        "date": "2000-02",
+        "author": "（ collected by 沈砚）",
+        "body": "第 32 条留言：\n“主持人，如果有一天我打不进电话了，你就当我在听。”\n第 33 条留言只有背景音：海。\n——第 33 条的留言人栏写着：第 55 行。\n\n◈ 接下来： <a data-arg-link=\"上锁的保险箱\">🔒 线索锁在保险箱里（需口令）</a> ｜ <a data-arg-link=\"返回登记簿\">← 返回点播登记簿</a>"
+      }
+    },
+    {
+      "id": "clue_tide1998",
+      "name": "潮汐表·1998年10月",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "蓝湾港务 · 旧表",
+        "title": "潮汐表（1998 年 10 月）",
+        "date": "1998-10",
+        "author": "港务处",
+        "body": "10 月 17 日：满潮 19:40。\nQSL 卡的通联时间：19:22。\n紧急通联提前于满潮 18 分钟——船是在涨潮的时候，被压进水里的。\n\n◈ 接下来： <a data-arg-link=\"对照QSL卡\">← 返回QSL卡</a> ｜ <a data-arg-link=\"返回搜索\">返回搜索</a>"
+      }
+    },
+    {
+      "id": "doc_about",
+      "name": "关于这台机器",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 3140,
+      "fields": {
+        "siteName": "README · 关机前最后一页",
+        "title": "关于这台机器",
+        "date": "2003-11-17",
+        "author": "沈知微",
+        "body": "这台机器整理自沈砚的遗物：61 份档案、8 期存档、7 条被删又恢复的帖子。\n献给六十六个名字，和所有真的去查过月亮的人。\n本机没有通关画面。你听到的每一个声音，都是它的通关画面。\n\n◈ 接下来： <a data-arg-link=\"纪念站\">← 线上纪念站</a> ｜ <a data-arg-link=\"关机\">关机（回到桌面）</a>"
       }
     },
     {
@@ -5283,9 +5784,9 @@
     },
     {
       "from": "doc_forged_alibi",
-      "to": "node_files_light",
-      "port": "返回顶层",
-      "label": "← 返回顶层",
+      "to": "node_login_light",
+      "port": "上锁的灯塔顶层",
+      "label": "🔒 线索锁在灯塔顶层里（需口令）",
       "icon": "",
       "desc": ""
     },
@@ -6532,6 +7033,518 @@
       "desc": ""
     },
     {
+      "from": "node_programs",
+      "to": "prog_1",
+      "port": "第一期",
+      "label": "第一期 · 海是你的邻居（1993）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_2",
+      "port": "第二期",
+      "label": "第二期 · 夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_3",
+      "port": "第三期",
+      "label": "第三期 · 读信之夜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_4",
+      "port": "第四期",
+      "label": "第四期 · 台风夜特别节目",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_5",
+      "port": "第五期",
+      "label": "第五期 · 点播专柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_6",
+      "port": "第六期",
+      "label": "第六期 · 沉默的来电",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_7",
+      "port": "第七期",
+      "label": "第七期 · 灯塔专稿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "prog_8",
+      "port": "第八期",
+      "label": "第八期 · （无播出单）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_1",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_2",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_3",
+      "to": "vic_song",
+      "port": "对照点播单",
+      "label": "对照：没播出的点播单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_3",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_4",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_5",
+      "to": "doc_lu_truth",
+      "port": "对照陆某证言",
+      "label": "对照：陆某的证言",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_5",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_6",
+      "to": "post_missing_call",
+      "port": "对照深夜来电",
+      "label": "对照：三年后的深夜来电",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_6",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_7",
+      "to": "node_login_light",
+      "port": "去灯塔顶层",
+      "label": "→ 灯塔顶层（专访全文所在）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_7",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_8",
+      "to": "node_login_safe",
+      "port": "上锁的保险箱",
+      "label": "🔒 线索锁在保险箱里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "prog_8",
+      "to": "node_programs",
+      "port": "返回节目单",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_blackfin_crew",
+      "to": "doc_blackfin_registry",
+      "port": "返回船籍档案",
+      "label": "← 返回黑鳍号船籍档案",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_blackfin_crew",
+      "to": "vic_medal",
+      "port": "对照奖章",
+      "label": "对照：劳动奖章",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_salvage",
+      "to": "doc_blackfin_registry",
+      "port": "返回船籍档案",
+      "label": "← 返回黑鳍号船籍档案",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_salvage",
+      "to": "police_report",
+      "port": "对照报案回执",
+      "label": "对照：报案回执",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_rumor98",
+      "to": "node_forum",
+      "port": "返回论坛首页",
+      "label": "← 返回论坛首页",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "post_rumor98",
+      "to": "doc_blackfin_registry",
+      "port": "黑鳍号档案",
+      "label": "看：黑鳍号船籍档案",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_chart_mark",
+      "to": "clue_coordinates",
+      "port": "对照坐标",
+      "label": "对照：信标最后坐标",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_chart_mark",
+      "to": "doc_blackfin_registry",
+      "port": "黑鳍号档案",
+      "label": "看：黑鳍号船籍档案",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_spring",
+      "to": "watch_summer",
+      "port": "夏",
+      "label": "→ 夏 · 谣言治理",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_spring",
+      "to": "doc_watchman_true",
+      "port": "返回柜子",
+      "label": "← 返回守夜人的柜子",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_summer",
+      "to": "watch_autumn",
+      "port": "秋",
+      "label": "→ 秋 · 威胁信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_summer",
+      "to": "watch_spring",
+      "port": "春",
+      "label": "← 春 · 寻人类",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_autumn",
+      "to": "watch_winter",
+      "port": "冬",
+      "label": "→ 冬 · 核对名单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_autumn",
+      "to": "watch_summer",
+      "port": "夏",
+      "label": "← 夏 · 谣言治理",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_winter",
+      "to": "watch_autumn",
+      "port": "秋",
+      "label": "← 秋 · 威胁信",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "watch_winter",
+      "to": "post_after_forum",
+      "port": "最后一条帖子",
+      "label": "看：守夜人的最后一条帖子",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_transmitter_manual",
+      "to": "node_login_station",
+      "port": "去机房",
+      "label": "→ 去机房（手册全文锁在柜里）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_transmitter_manual",
+      "to": "doc_66s",
+      "port": "对照六十六秒",
+      "label": "对照：多出来的六十六秒",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_duty_rules",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_duty_rules",
+      "to": "doc_transmitter_manual",
+      "port": "对照发射机手册",
+      "label": "对照：发射机操作手册",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_emergency_plan",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_emergency_plan",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_freq_letter",
+      "to": "clue_sw_log",
+      "port": "对照登记表",
+      "label": "对照：短波登记表",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_freq_letter",
+      "to": "node_login_station",
+      "port": "上锁的机房",
+      "label": "🔒 线索锁在机房里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_indictment",
+      "to": "doc_trial_detail",
+      "port": "返回庭审",
+      "label": "← 返回庭审细节",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_indictment",
+      "to": "news_one_year",
+      "port": "返回报道",
+      "label": "← 返回一审报道",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_defense_list",
+      "to": "doc_trial_detail",
+      "port": "返回庭审",
+      "label": "← 返回庭审细节",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_defense_list",
+      "to": "doc_forged_alibi",
+      "port": "对照伪造证据",
+      "label": "对照：那份伪造的证明",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_witness_list",
+      "to": "doc_trial_detail",
+      "port": "返回庭审",
+      "label": "← 返回庭审细节",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_witness_list",
+      "to": "node_chat",
+      "port": "去聊天",
+      "label": "→ 回潮声通讯",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "doc_trial_detail",
+      "port": "返回庭审",
+      "label": "← 返回庭审细节",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "doc_66s",
+      "port": "对照六十六秒",
+      "label": "对照：多出来的六十六秒",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_request_log",
+      "to": "post_listeners",
+      "port": "返回来信帖",
+      "label": "← 返回听众来信帖",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_request_log",
+      "to": "doc_director_diary",
+      "port": "导播日记",
+      "label": "看：导播日记",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_director_diary",
+      "to": "doc_request_log",
+      "port": "返回登记簿",
+      "label": "← 返回点播登记簿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_director_diary",
+      "to": "doc_witness_list",
+      "port": "证人名单",
+      "label": "看：出庭证人名单",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_voicetape",
+      "to": "node_login_safe",
+      "port": "上锁的保险箱",
+      "label": "🔒 线索锁在保险箱里（需口令）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_voicetape",
+      "to": "doc_request_log",
+      "port": "返回登记簿",
+      "label": "← 返回点播登记簿",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tide1998",
+      "to": "doc_qsl_card",
+      "port": "对照QSL卡",
+      "label": "← 返回QSL卡",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "clue_tide1998",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_about",
+      "to": "node_memorial",
+      "port": "纪念站",
+      "label": "← 线上纪念站",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "doc_about",
+      "to": "node_desktop",
+      "port": "关机",
+      "label": "关机（回到桌面）",
+      "icon": "",
+      "desc": ""
+    },
+    {
       "from": "doc_shenyan_north",
       "to": "node_chat",
       "port": "回到聊天",
@@ -6642,6 +7655,114 @@
       "label": "回档案馆",
       "icon": "",
       "desc": ""
+    },
+    {
+      "from": "node_forum",
+      "to": "node_programs",
+      "port": "节目存档",
+      "label": "《潮声》八期存档（1993—2000）"
+    },
+    {
+      "from": "node_forum",
+      "to": "post_rumor98",
+      "port": "鬼船谣言",
+      "label": "1998 年渔村谣言帖"
+    },
+    {
+      "from": "doc_blackfin_registry",
+      "to": "doc_blackfin_crew",
+      "port": "12人名单",
+      "label": "调阅：黑鳍号 12 人名单"
+    },
+    {
+      "from": "doc_blackfin_registry",
+      "to": "doc_salvage",
+      "port": "打捞记录",
+      "label": "调阅：民间打捞劝返记录"
+    },
+    {
+      "from": "doc_blackfin_registry",
+      "to": "doc_chart_mark",
+      "port": "1998海图",
+      "label": "看：渔民私藏海图"
+    },
+    {
+      "from": "doc_watchman_true",
+      "to": "watch_spring",
+      "port": "四季档案",
+      "label": "看：守夜人档案·春夏秋冬"
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_transmitter_manual",
+      "port": "发射机手册",
+      "label": "发射机操作手册"
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_duty_rules",
+      "port": "值机守则",
+      "label": "值机员守则"
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_emergency_plan",
+      "port": "应急预案",
+      "label": "应急预案（1999 修订）"
+    },
+    {
+      "from": "node_files_station",
+      "to": "doc_freq_letter",
+      "port": "协调函",
+      "label": "频率协调函"
+    },
+    {
+      "from": "doc_trial_detail",
+      "to": "doc_indictment",
+      "port": "起诉书",
+      "label": "起诉书摘要"
+    },
+    {
+      "from": "doc_trial_detail",
+      "to": "doc_defense_list",
+      "port": "辩方证物",
+      "label": "辩方证物清单"
+    },
+    {
+      "from": "doc_trial_detail",
+      "to": "doc_witness_list",
+      "port": "证人名单",
+      "label": "出庭证人名单"
+    },
+    {
+      "from": "doc_trial_detail",
+      "to": "doc_verdict_full",
+      "port": "判决书",
+      "label": "判决书全文"
+    },
+    {
+      "from": "post_listeners",
+      "to": "doc_request_log",
+      "port": "点播登记簿",
+      "label": "点播登记簿（1993—2000）"
+    },
+    {
+      "from": "node_memorial",
+      "to": "doc_about",
+      "port": "关于这台机器",
+      "label": "关于这台机器"
+    },
+    {
+      "from": "doc_qsl_card",
+      "to": "clue_tide1998",
+      "port": "1998潮汐表",
+      "label": "对照：1998 年潮汐表"
+    },
+    {
+      "from": "doc_director_diary",
+      "to": "doc_voicetape",
+      "port": "留言带",
+      "label": "看：一卷听众留言带"
     }
   ],
   "customTemplates": [],
