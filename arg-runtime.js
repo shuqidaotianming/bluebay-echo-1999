@@ -5,14 +5,20 @@
   const result = (text) => { const el = document.querySelector('[data-arg-result]'); if (el) el.textContent = text; };
 
   // ==================== Clue & Story State Engine ====================
+  // 进度存 localStorage（跨标签页/会话保留）；重置用进度角标上的 ⟳
+  function readVisited() {
+    try { return JSON.parse(localStorage.getItem('arg_visited_nodes') || '[]'); } catch (e) { return []; }
+  }
+  function writeVisited(list) {
+    try { localStorage.setItem('arg_visited_nodes', JSON.stringify(list)); } catch (e) {}
+  }
   if (config.trackProgress !== false) {
     try {
-      const visitedStr = sessionStorage.getItem('arg_visited_nodes') || '[]';
-      const visited = JSON.parse(visitedStr);
+      const visited = readVisited();
       const currentPageId = config.nodeId || config.pageName || window.location.pathname.split('/').pop().replace('.html', '');
       if (currentPageId && !visited.includes(currentPageId)) {
         visited.push(currentPageId);
-        sessionStorage.setItem('arg_visited_nodes', JSON.stringify(visited));
+        writeVisited(visited);
       }
     } catch (e) {}
   }
@@ -20,12 +26,24 @@
   function hasClue(req) {
     if (!req) return true;
     try {
-      const visited = JSON.parse(sessionStorage.getItem('arg_visited_nodes') || '[]');
+      const visited = readVisited();
       const reqList = String(req).split(',').map(s => s.trim().toLowerCase());
       return reqList.every(r => visited.some(v => String(v).toLowerCase() === r));
     } catch (e) {
       return true;
     }
+  }
+
+  // 线索 API：手动记一条线索 / 读取已收集线索
+  function triggerClue(id) {
+    if (!id) return;
+    try {
+      const visited = readVisited();
+      if (!visited.includes(id)) { visited.push(id); writeVisited(visited); }
+    } catch (e) {}
+  }
+  function getClues() {
+    try { return readVisited().slice(); } catch (e) { return []; }
   }
 
   // ==================== Web Audio Synthesizer (Zero-Asset Offline Engine) ====================
@@ -137,6 +155,84 @@
       if (ci % 2 === 0 && plain[li].length) playSynthSound('type');
       if (ci < plain[li].length) { ci++; } else { li++; ci = 0; }
     }, speed);
+  }
+
+  // ==================== 进度角标 / 重置入口 ====================
+  function ensureProgressPill(){
+    if (!config.trackProgress || config.preview || document.getElementById('arg-progress-pill')) return;
+    var total = Object.keys(config.files || {}).length;
+    var el = document.createElement('div'); el.id = 'arg-progress-pill';
+    el.innerHTML = '线索 <b id="arg-pv-num">0</b>/' + total + ' <span id="arg-pv-reset" title="重置调查进度">⟳</span>';
+    document.body.appendChild(el);
+    var st = document.createElement('style');
+    st.textContent = '#arg-progress-pill{position:fixed;right:10px;bottom:10px;z-index:99990;font-size:11px;color:#cbd5e1;background:rgba(10,14,22,.55);border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:3px 9px;opacity:.55;pointer-events:auto;font-family:inherit}#arg-progress-pill:hover{opacity:.9}#arg-pv-reset{cursor:pointer;margin-left:4px;opacity:.7}#arg-pv-reset:hover{opacity:1;color:#f87171}';
+    document.head.appendChild(st);
+    function update(){ var n = document.getElementById('arg-pv-num'); if (n) n.textContent = String(readVisited().length); }
+    update();
+    window.addEventListener('focus', update);
+    document.getElementById('arg-pv-reset').addEventListener('click', function(ev){
+      ev.stopPropagation();
+      if (window.confirm('确定重置全部调查进度？线索记录将清空，页面将重新载入。')) {
+        try { localStorage.removeItem('arg_visited_nodes'); } catch (e) {}
+        window.location.reload();
+      }
+    });
+  }
+
+  // ==================== 4.5Hz 低频底噪（Web Audio 合成，零素材） ====================
+  var droneCtx = null, droneMaster = null, droneOn = false, droneBtn = null;
+  function ensureDroneToggle(){
+    if (droneBtn || !config.drone || config.preview || document.getElementById('arg-drone-toggle')) return;
+    droneBtn = document.createElement('button'); droneBtn.id = 'arg-drone-toggle';
+    droneBtn.textContent = '◍ 白噪'; droneBtn.title = '开启/关闭 4.5Hz 低频底噪（FM99.4）';
+    document.body.appendChild(droneBtn);
+    var st = document.createElement('style');
+    st.textContent = '#arg-drone-toggle{position:fixed;left:10px;bottom:10px;z-index:99990;font-size:11px;letter-spacing:1px;color:#94a3b8;background:rgba(10,14,22,.5);border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:4px 11px;cursor:pointer;opacity:.6;font-family:inherit}#arg-drone-toggle:hover{opacity:.95;color:#e2e8f0}';
+    document.head.appendChild(st);
+    droneBtn.addEventListener('click', function(ev){ ev.stopPropagation(); toggleDrone(); });
+  }
+  function buildDrone(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    droneCtx = new AC();
+    droneMaster = droneCtx.createGain(); droneMaster.gain.value = 0.0001; droneMaster.connect(droneCtx.destination);
+    // 双低频正弦 52Hz / 56.5Hz → 4.5Hz 拍频（"白噪"的频率感）
+    [52, 56.5].forEach(function(f){
+      var o = droneCtx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      var g = droneCtx.createGain(); g.gain.value = 0.5;
+      o.connect(g); g.connect(droneMaster); o.start();
+    });
+    // 低通海噪（brown-ish noise）
+    var len = 2 * droneCtx.sampleRate, buf = droneCtx.createBuffer(1, len, droneCtx.sampleRate), d = buf.getChannelData(0), last = 0;
+    for (var i = 0; i < len; i++){ var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = last * 3.2; }
+    var src = droneCtx.createBufferSource(); src.buffer = buf; src.loop = true;
+    var lp = droneCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 140;
+    var ng = droneCtx.createGain(); ng.gain.value = 0.7;
+    src.connect(lp); lp.connect(ng); ng.connect(droneMaster); src.start();
+  }
+  function toggleDrone(){
+    try {
+      if (!droneCtx) buildDrone();
+      if (droneCtx.state === 'suspended') droneCtx.resume();
+      droneOn = !droneOn;
+      var t = droneCtx.currentTime;
+      droneMaster.gain.cancelScheduledValues(t);
+      droneMaster.gain.setValueAtTime(droneMaster.gain.value, t);
+      droneMaster.gain.linearRampToValueAtTime(droneOn ? 0.05 : 0.0001, t + 0.8);
+      droneBtn.textContent = droneOn ? '◉ 白噪' : '◍ 白噪';
+    } catch (e) {}
+  }
+
+  // ==================== 隐藏访问统计（不影响沉浸，无可见元素） ====================
+  function trackVisit(){
+    if (config.preview || !config.trackProgress) return;
+    try {
+      var UV_KEY = 'arg_uv_done';
+      if (!localStorage.getItem(UV_KEY)) {
+        localStorage.setItem(UV_KEY, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999-uv').catch(function(){});
+      }
+      fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999').catch(function(){});
+    } catch (e) {}
   }
 
   // ==================== Core Routing ====================
@@ -444,6 +540,11 @@
         if (port) checkLink(port);
       }
     });
+
+    // 进度角标/重置、4.5Hz 底噪开关、隐藏访问统计（均兜底，不影响游戏）
+    try { ensureProgressPill(); } catch (e) {}
+    try { ensureDroneToggle(); } catch (e) {}
+    try { trackVisit(); } catch (e) {}
 
     // Expose official API for custom templates
     window.ARG_RUNTIME = {
