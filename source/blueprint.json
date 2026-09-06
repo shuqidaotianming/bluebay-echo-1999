@@ -1010,6 +1010,38 @@
           "target": "doc_tape_donated"
         },
         {
+          "keyword": "文字稿",
+          "target": "ts_hub"
+        },
+        {
+          "keyword": "地点志",
+          "target": "node_places"
+        },
+        {
+          "keyword": "头版",
+          "target": "node_front_hub"
+        },
+        {
+          "keyword": "外围",
+          "target": "tide_branch"
+        },
+        {
+          "keyword": "上诉",
+          "target": "court_appeal"
+        },
+        {
+          "keyword": "执行",
+          "target": "court_exec"
+        },
+        {
+          "keyword": "赔偿",
+          "target": "court_comp"
+        },
+        {
+          "keyword": "阿灯",
+          "target": "ns_qsl"
+        },
+        {
           "keyword": "节目补遗",
           "target": "node_programs2"
         },
@@ -6004,6 +6036,598 @@
         "title": "写给你的一页",
         "nameInput": true,
         "body": "这一页原本是空白的。\n它属于每一个把 200 页翻完、把十几个密码解开、把月亮和潮汐真的拿去查证的人。\n在下方写下你的名字——这台机器会记住：海是假的，海也是真的；但你查证的每一步，都是真的。\n\n◈ 接下来： <a data-arg-link=\"返回纪念站\">← 返回纪念站</a>"
+      }
+    },
+    {
+      "id": "ts_hub",
+      "name": "潮声 · 文字稿全集",
+      "type": "Index",
+      "template": "档案目录",
+      "x": 540,
+      "y": 7900,
+      "fields": {
+        "siteName": "FM99.4 · 文字稿全集",
+        "categoryTitle": "一至八期 + 特辑 · 全文字稿（誊录）",
+        "navigation": "逐期誊录 ｜ 第九夜另存"
+      }
+    },
+    {
+      "id": "ts_1",
+      "name": "潮声文字稿·1",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 7900,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第一期 · 海是你的邻居",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "“晚上好，蓝湾。我是沈砚。\n很多人问我，深夜电台能给一座渔镇什么。\n我想了很久——什么都不给。我只是把海的声音，原样放给你听。\n海是你的邻居。吵你的时候，也在守你。”\n（结尾：今晚的潮是 21:40。记得回家。）\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_2",
+      "name": "潮声文字稿·2",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 7900,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第二期 · 夜航船",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "“每条夜航船上都有一个不睡觉的人。他不是守夜的，他是记账的——\n记谁上了船，谁没下船。”\n（结尾：如果你也在某条夜航船上，替我看看甲板上的月亮。）\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_3",
+      "name": "潮声文字稿·3",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1230,
+      "y": 7900,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第三期 · 读信之夜",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "信一：给厂里三号宿舍点《军港之夜》。\n信二：给我妈，告诉她我不回家过年是因为加班。\n信三：（只有一句）帮我记住我的名字。\n沈砚读到最后一句停了很久，说：我会记住的。\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_4",
+      "name": "潮声文字稿·4",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第四期 · 台风夜九小时（节选）",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "凌晨两点：“医院的路灯还亮着，致敬值夜班的医生。”\n凌晨四点：“渔船闽狮 77 已进港，人员平安。”\n清晨五点半：“台风过了。天是灰的，但所有人都还在。”\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_5",
+      "name": "潮声文字稿·5",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第五期 · 点播专柜",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "七首曲目与献词（全录）：\n1.《军港之夜》——三号宿舍全体\n2.《大海》——“给退潮的人”\n3.《隐形的翅膀》——“给我自己”\n4.《同桌的你》——第 9 行的哥哥\n5—7. 三首没署名的，统一献词：给海上的人。\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_6",
+      "name": "潮声文字稿·6",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第六期 · 沉默的来电",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "23:00，来电，沉默 41 秒，挂断。\n沈砚当晚在纸上写：\n“沉默也是语言。41 秒，够说一句最重要的话了。\n等他准备好。”\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_7",
+      "name": "潮声文字稿·7",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第七期 · 灯塔专稿（播出版）",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "播出版节选：\n陈伯：“灯塔一百年不会说话。会说话的是人。”\n——被剪的 11 分钟里，他说了钥匙、柜子，和一个名字。\n剪掉的人，是柯振。\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_8",
+      "name": "潮声文字稿·8",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "第八期 · 无名之夜",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "本期的存档只有一份节目单草稿，曲目全部划掉。\n草稿边缘写着：\n“这期不命名。名字留给最后一个夜晚。”\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_9",
+      "name": "潮声文字稿·9",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1230,
+      "y": 8070,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "特辑 · 春节联播（文字稿）",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "“旧年所有的委屈，到这儿为止。新年见。”\n——七年，同一句。\n2000 年除夕，这句话没有播出。那年蓝湾没有心情过年。\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "ts_10",
+      "name": "潮声文字稿·10",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 8240,
+      "fields": {
+        "siteName": "《潮声》文字稿全集",
+        "title": "特辑 · 中秋望海（文字稿）",
+        "date": "1993—2000",
+        "author": "誊录：沈知微",
+        "body": "第 214 句“对海说的话”：\n“等我把事做完。”\n——没有署名。字迹鉴定：沈砚。\n他对海说这句话的时候，已经知道自己在做什么了。\n\n◈ 接下来： <a data-arg-link=\"返回文字稿\">← 返回文字稿全集</a>"
+      }
+    },
+    {
+      "id": "node_places",
+      "name": "蓝湾地点志",
+      "type": "Index",
+      "template": "维基档案百科",
+      "x": 310,
+      "y": 8240,
+      "fields": {
+        "siteName": "蓝湾 · 地点志",
+        "categoryTitle": "十处地点 · 每处一段往事",
+        "navigation": "灯塔 渔港 防波堤 老码头 福利院 小学 牌坊 电台大楼 礁石区 纸厂"
+      }
+    },
+    {
+      "id": "pl_lighthouse",
+      "name": "地点·延盛灯塔",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 8240,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "延盛灯塔",
+        "body": "1962 年亮到 2000 年。顶层那扇门，去年换过锁。\n现在的守门人，是纪念馆。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_harbor",
+      "name": "地点·蓝湾渔港",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 8240,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "蓝湾渔港",
+        "body": "渔汛时停满船。空的时候，只剩缆绳桩和油味。\n1999-08 之后，泊位表上少了一行。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_breakwater",
+      "name": "地点·防波堤",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 8240,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "防波堤",
+        "body": "风暴夜“站满不动的人”的那道堤。\n白天来看，只是一道普通的、长满牡蛎壳的石堤。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_olddock",
+      "name": "地点·老码头",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1230,
+      "y": 8240,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "老码头",
+        "body": "瀚洋7号最后一次离港的地方。\n缆桩上拴过一根红布，写着一个名字，褪成了白色。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_orphanage",
+      "name": "地点·福利院",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 80,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "福利院",
+        "body": "闹钟都修好了。\n方老师每晚锁门前，会朝纪念站的方向看一眼。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_school",
+      "name": "地点·蓝湾小学",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 310,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "蓝湾小学",
+        "body": "第 55 行和第 9 行的孩子，在这里读过同一间教室。\n课桌上有一个没擦掉的手机号。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_arch",
+      "name": "地点·镇口牌坊",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 540,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "镇口牌坊",
+        "body": "牌坊上刻“心安即是家”。\n刻字的手艺人，是黑鳍号第 9 行孩子的爷爷。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_station",
+      "name": "地点·广播站大楼",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 770,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "广播站大楼",
+        "body": "三楼是播音室，二楼是导播间，一楼信箱贴着一张旧便签。\n整栋楼的灯，现在每晚都亮。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_reef",
+      "name": "地点·礁石区",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1000,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "礁石区",
+        "body": "三个人被浪推回来的地方。\n石头缝里，有人放过一束干花——换过三次，都是新的。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "pl_papermill",
+      "name": "地点·纸厂",
+      "type": "Browse",
+      "template": "极简现代杂志",
+      "x": 1230,
+      "y": 8410,
+      "fields": {
+        "siteName": "蓝湾地点志",
+        "title": "纸厂",
+        "body": "两本点播登记簿在这里差点变成纸浆。\n追回的 41 页，现在在档案馆。剩下的是灰，也入藏了。\n\n◈ 接下来： <a data-arg-link=\"返回地点志\">← 返回地点志</a>"
+      }
+    },
+    {
+      "id": "node_front_hub",
+      "name": "蓝湾日报 · 历年头版",
+      "type": "Index",
+      "template": "档案目录",
+      "x": 80,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "categoryTitle": "1993—2004 · 十个头版",
+        "navigation": "按年份"
+      }
+    },
+    {
+      "id": "front_1993",
+      "name": "头版·1993 · 创刊号",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 310,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1993 · 创刊号",
+        "body": "《蓝湾日报》创刊。发刊词：\n“小镇虽小，事无大小，皆可信。”"
+      }
+    },
+    {
+      "id": "front_1995",
+      "name": "头版·1995 · 渔汛丰收",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 540,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1995 · 渔汛丰收",
+        "body": "头版：渔汛大丰收，码头连夜卸货。\n配图里，每一张脸都在笑。"
+      }
+    },
+    {
+      "id": "front_1997",
+      "name": "头版·1997 · 风暴潮之夜",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 770,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1997 · 风暴潮之夜",
+        "body": "头版：风暴潮过境，全镇零伤亡。\n副标题：感谢广播站通宵播报。\n——那晚播了九小时的人，叫沈砚。"
+      }
+    },
+    {
+      "id": "front_1998",
+      "name": "头版·1998 · 黑鳍失联（短讯）",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 1000,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1998 · 黑鳍失联（短讯）",
+        "body": "头版角落，三行短讯：\n“渔船黑鳍失联，12 人。搜救停止。”\n没有后续。这一版之后，关于黑鳍的报道再也没有出现过。"
+      }
+    },
+    {
+      "id": "front_1999a",
+      "name": "头版·1999 · 黑鳍更名瀚洋",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 1230,
+      "y": 8580,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1999 · 黑鳍更名瀚洋",
+        "body": "头版：黑鳍更名瀚洋7号，瀚洋水产发布会全程报道。\n同一版角落：福利院申请修缮经费，未获批。"
+      }
+    },
+    {
+      "id": "front_1999b",
+      "name": "头版·1999 · 瀚洋7号首航",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 80,
+      "y": 8750,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "1999 · 瀚洋7号首航",
+        "body": "头版：瀚洋7号首航，“蓝色劳务”启航仪式。\n照片里，船头挂着红布。"
+      }
+    },
+    {
+      "id": "front_2000",
+      "name": "头版·2000 · 沈砚失踪",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 310,
+      "y": 8750,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "2000 · 沈砚失踪",
+        "body": "头版：知名主持人沈砚出海失联。\n同一版右下角，天气预报：\n“今日微风，浪 0.6 米。”\n——两张纸，其实是同一张。"
+      }
+    },
+    {
+      "id": "front_2001",
+      "name": "头版·2001 · 沉默的一年",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 540,
+      "y": 8750,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "2001 · 沉默的一年",
+        "body": "头版：全镇文明创建动员大会。\n这一年，蓝湾日报没有登过一条寻人启事。"
+      }
+    },
+    {
+      "id": "front_2003",
+      "name": "头版·2003 · 产业园剪彩",
+      "type": "Browse",
+      "template": "2001 新闻",
+      "x": 770,
+      "y": 8750,
+      "fields": {
+        "siteName": "蓝湾日报 · 头版存档",
+        "title": "2003 · 产业园剪彩",
+        "body": "头版：蓝色经济产业园奠基，盛况空前。\n角落有一条更正启事：\n“本报 1999-08-14 报道中船名有误，应为‘黑鳍’。”\n——四年后的更正，只有一行。"
+      }
+    },
+    {
+      "id": "tide_branch",
+      "name": "听潮会外围·分部名录",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 1000,
+      "y": 8750,
+      "fields": {
+        "siteName": "听潮会 · 外围档案",
+        "title": "分部名录",
+        "body": "外围分部七处：蓝湾、延盛、北塘、沙尾……每处分部“管事”一人。\n第 7 处的分部管事一栏，写的不是人名，是一个频率：99.4。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回听潮会词条</a>"
+      }
+    },
+    {
+      "id": "tide_ledger2",
+      "name": "听潮会外围·账本残页",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 1230,
+      "y": 8750,
+      "fields": {
+        "siteName": "听潮会 · 外围档案",
+        "title": "账本残页",
+        "body": "残页收支（1999 下半年）：\n“入：净化仪式 43 笔。出：镇静剂、船租、‘静默费’。”\n静默费——付给谁的？收款人一栏，盖着广播站的章。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回听潮会词条</a>"
+      }
+    },
+    {
+      "id": "tide_goods",
+      "name": "听潮会外围·祭品清单",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 80,
+      "y": 8920,
+      "fields": {
+        "siteName": "听潮会 · 外围档案",
+        "title": "祭品清单",
+        "body": "祭品清单里没有香烛纸钱。\n全部是：旧物。收音机、手表、鞋、发卡、全家福。\n——管这叫“祭品”的人，其实是在收集“声源锚点”。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回听潮会词条</a>"
+      }
+    },
+    {
+      "id": "tide_quit",
+      "name": "听潮会外围·退出者访谈（节选）",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 8920,
+      "fields": {
+        "siteName": "听潮会 · 外围档案",
+        "title": "退出者访谈（节选）",
+        "body": "“我退出来了。他们没拦我，只说了一句：\n潮水会记得你。”\n我现在睡觉不关灯。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回听潮会词条</a>"
+      }
+    },
+    {
+      "id": "tide_code",
+      "name": "听潮会外围·内部代号表",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 540,
+      "y": 8920,
+      "fields": {
+        "siteName": "听潮会 · 外围档案",
+        "title": "内部代号表",
+        "body": "“白噪”＝4.5Hz。“锚点”＝抵押旧物。“引渡”＝随船。“静默费”＝……\n最后一个代号被撕走了一半，只剩两个字：\n留声。\n\n◈ 接下来： <a data-arg-link=\"返回词条\">← 返回听潮会词条</a>"
+      }
+    },
+    {
+      "id": "court_appeal",
+      "name": "法院·上诉裁定",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 770,
+      "y": 8920,
+      "fields": {
+        "siteName": "法院 · 执行与后续",
+        "title": "上诉裁定",
+        "body": "柯振上诉。裁定：驳回，维持原判。\n裁定书末页有一行附注：\n“二审期间，上诉人未提交任何新证据。”\n\n◈ 接下来： <a data-arg-link=\"返回判决书\">← 返回判决书全文</a>"
+      }
+    },
+    {
+      "id": "court_exec",
+      "name": "法院·执行记录",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1000,
+      "y": 8920,
+      "fields": {
+        "siteName": "法院 · 执行与后续",
+        "title": "执行记录",
+        "body": "执行清单：\n1. 瀚洋涉案资产拍卖，得款 2.3 亿；\n2. 2.3 亿的分配方案，家属代表投了整整两天票；\n3. 第 3 条决议：先修福利院的钟。\n\n◈ 接下来： <a data-arg-link=\"返回判决书\">← 返回判决书全文</a>"
+      }
+    },
+    {
+      "id": "court_comp",
+      "name": "法院·赔偿与补偿",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 1230,
+      "y": 8920,
+      "fields": {
+        "siteName": "法院 · 执行与后续",
+        "title": "赔偿与补偿",
+        "body": "国家补偿申请 41 份，全部受理。\n另有一笔“无名氏补偿”，无人认领——\n是给那两个没有户口的孩子的。方老师代领，捐给了学校。\n\n◈ 接下来： <a data-arg-link=\"返回判决书\">← 返回判决书全文</a>"
+      }
+    },
+    {
+      "id": "court_seal",
+      "name": "法院·卷宗封存通知",
+      "type": "Browse",
+      "template": "SCP 绝密卷宗",
+      "x": 80,
+      "y": 9090,
+      "fields": {
+        "siteName": "法院 · 执行与后续",
+        "title": "卷宗封存通知",
+        "body": "卷宗封存 30 年。\n封存通知的落款旁边，有人用铅笔写了一行小字：\n“纸会封存，声音不会。”\n\n◈ 接下来： <a data-arg-link=\"返回判决书\">← 返回判决书全文</a>"
+      }
+    },
+    {
+      "id": "ns_qsl",
+      "name": "夜航船·阿灯的QSL卡",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 310,
+      "y": 9090,
+      "fields": {
+        "siteName": "101.7 · 渤海",
+        "title": "阿灯的QSL卡",
+        "body": "101.7 阿灯的 QSL 卡，发给所有通联过的人。\n卡面印着一句话：\n“渤海也有名字。我只是还没念完。”\n\n◈ 接下来： <a data-arg-link=\"返回夜航船\">← 返回夜航船</a>"
+      }
+    },
+    {
+      "id": "ns_coord",
+      "name": "夜航船·渤海坐标",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 540,
+      "y": 9090,
+      "fields": {
+        "siteName": "101.7 · 渤海",
+        "title": "渤海坐标",
+        "body": "39°02′N 118°31′E——渤海湾。\n和南边那个点，几乎在同一条经线上。\n两个点，两个人，两份名单。\n\n◈ 接下来： <a data-arg-link=\"返回夜航船\">← 返回夜航船</a>"
+      }
+    },
+    {
+      "id": "ns_code",
+      "name": "夜航船·新暗号",
+      "type": "Browse",
+      "template": "黑客数据窃密流",
+      "x": 770,
+      "y": 9090,
+      "fields": {
+        "siteName": "101.7 · 渤海",
+        "title": "新暗号",
+        "body": "阿灯的暗号只有三个字母：\nD J L（等你们）。\n——她在等会修声音的人。\n\n◈ 接下来： <a data-arg-link=\"返回夜航船\">← 返回夜航船</a>"
       }
     }
   ],
@@ -12035,6 +12659,748 @@
       "to": "doc_your_hub",
       "port": "写给你的一页",
       "label": "看：写给你的一页"
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_1",
+      "port": "文字稿一",
+      "label": "文字稿 · 第一期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_2",
+      "port": "文字稿二",
+      "label": "文字稿 · 第二期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_3",
+      "port": "文字稿三",
+      "label": "文字稿 · 第三期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_4",
+      "port": "文字稿四",
+      "label": "文字稿 · 第四期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_5",
+      "port": "文字稿五",
+      "label": "文字稿 · 第五期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_6",
+      "port": "文字稿六",
+      "label": "文字稿 · 第六期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_7",
+      "port": "文字稿七",
+      "label": "文字稿 · 第七期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_8",
+      "port": "文字稿八",
+      "label": "文字稿 · 第八期",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_9",
+      "port": "特辑·春节",
+      "label": "文字稿 · 春节特辑",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "ts_10",
+      "port": "特辑·中秋",
+      "label": "文字稿 · 中秋特辑",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_hub",
+      "to": "node_programs",
+      "port": "返回节目存档",
+      "label": "← 返回节目存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_1",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_2",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_3",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_4",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_5",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_6",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_7",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_8",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_9",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_10",
+      "to": "ts_hub",
+      "port": "返回文字稿",
+      "label": "← 返回文字稿全集",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ts_1",
+      "to": "ts_2",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_2",
+      "to": "ts_3",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_3",
+      "to": "ts_4",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_4",
+      "to": "ts_5",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_5",
+      "to": "ts_6",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_6",
+      "to": "ts_7",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_7",
+      "to": "ts_8",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_8",
+      "to": "ts_9",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_9",
+      "to": "ts_10",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "ts_10",
+      "to": "ts_hub",
+      "port": "下一篇",
+      "label": "→ 下一篇"
+    },
+    {
+      "from": "node_places",
+      "to": "pl_lighthouse",
+      "port": "灯塔",
+      "label": "延盛灯塔",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_harbor",
+      "port": "渔港",
+      "label": "蓝湾渔港",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_breakwater",
+      "port": "防波堤",
+      "label": "防波堤",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_olddock",
+      "port": "老码头",
+      "label": "老码头",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_orphanage",
+      "port": "福利院",
+      "label": "福利院",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_school",
+      "port": "小学",
+      "label": "蓝湾小学",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_arch",
+      "port": "镇口牌坊",
+      "label": "镇口牌坊",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_station",
+      "port": "电台大楼",
+      "label": "广播站大楼",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_reef",
+      "port": "礁石区",
+      "label": "礁石区",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "pl_papermill",
+      "port": "纸厂",
+      "label": "纸厂",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_places",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_lighthouse",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_harbor",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_breakwater",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_olddock",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_orphanage",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_school",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_arch",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_station",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_reef",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "pl_papermill",
+      "to": "node_places",
+      "port": "返回地点志",
+      "label": "← 返回地点志",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1993",
+      "port": "1993",
+      "label": "1993 · 创刊号",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1995",
+      "port": "1995",
+      "label": "1995 · 渔汛丰收",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1997",
+      "port": "1997",
+      "label": "1997 · 风暴潮之夜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1998",
+      "port": "1998",
+      "label": "1998 · 黑鳍失联（短讯）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1999a",
+      "port": "1999-03",
+      "label": "1999 · 黑鳍更名瀚洋",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_1999b",
+      "port": "1999-08",
+      "label": "1999 · 瀚洋7号首航",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_2000",
+      "port": "2000",
+      "label": "2000 · 沈砚失踪",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_2001",
+      "port": "2001",
+      "label": "2001 · 沉默的一年",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "front_2003",
+      "port": "2003",
+      "label": "2003 · 产业园剪彩",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "doc_aftermath_bay",
+      "port": "2004",
+      "label": "2004 · 纪念馆（见一年后）",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_front_hub",
+      "to": "node_search",
+      "port": "返回搜索",
+      "label": "返回搜索",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1993",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1995",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1997",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1998",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1999a",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_1999b",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_2000",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_2001",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "front_2003",
+      "to": "node_front_hub",
+      "port": "返回头版存档",
+      "label": "← 返回头版存档",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "tide_branch",
+      "to": "wiki_tingchao",
+      "port": "返回词条",
+      "label": "← 返回听潮会词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "tide_ledger2",
+      "to": "wiki_tingchao",
+      "port": "返回词条",
+      "label": "← 返回听潮会词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "tide_goods",
+      "to": "wiki_tingchao",
+      "port": "返回词条",
+      "label": "← 返回听潮会词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "tide_quit",
+      "to": "wiki_tingchao",
+      "port": "返回词条",
+      "label": "← 返回听潮会词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "tide_code",
+      "to": "wiki_tingchao",
+      "port": "返回词条",
+      "label": "← 返回听潮会词条",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "court_appeal",
+      "to": "doc_verdict_full",
+      "port": "返回判决书",
+      "label": "← 返回判决书全文",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "court_exec",
+      "to": "doc_verdict_full",
+      "port": "返回判决书",
+      "label": "← 返回判决书全文",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "court_comp",
+      "to": "doc_verdict_full",
+      "port": "返回判决书",
+      "label": "← 返回判决书全文",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "court_seal",
+      "to": "doc_verdict_full",
+      "port": "返回判决书",
+      "label": "← 返回判决书全文",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ns_qsl",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "← 返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ns_coord",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "← 返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "ns_code",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "← 返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_programs",
+      "to": "ts_hub",
+      "port": "文字稿全集",
+      "label": "潮声 · 文字稿全集"
+    },
+    {
+      "from": "wiki_hub",
+      "to": "node_places",
+      "port": "地点志",
+      "label": "蓝湾地点志"
+    },
+    {
+      "from": "index_archive",
+      "to": "node_front_hub",
+      "port": "历年头版",
+      "label": "蓝湾日报 · 历年头版"
+    },
+    {
+      "from": "wiki_tingchao",
+      "to": "tide_branch",
+      "port": "外围档案",
+      "label": "听潮会 · 外围档案"
+    },
+    {
+      "from": "doc_club_ledger",
+      "to": "tide_ledger2",
+      "port": "账本残页",
+      "label": "听潮会 · 账本残页"
+    },
+    {
+      "from": "tide_ledger2",
+      "to": "tide_goods",
+      "port": "祭品清单",
+      "label": "听潮会 · 祭品清单"
+    },
+    {
+      "from": "post_oath",
+      "to": "tide_code",
+      "port": "代号表",
+      "label": "听潮会 · 内部代号表"
+    },
+    {
+      "from": "doc_watchman_true",
+      "to": "tide_quit",
+      "port": "退出者访谈",
+      "label": "退出者访谈（节选）"
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "court_appeal",
+      "port": "上诉裁定",
+      "label": "上诉裁定"
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "court_exec",
+      "port": "执行记录",
+      "label": "执行记录"
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "court_comp",
+      "port": "赔偿补偿",
+      "label": "赔偿与补偿"
+    },
+    {
+      "from": "doc_verdict_full",
+      "to": "court_seal",
+      "port": "卷宗封存",
+      "label": "卷宗封存通知"
+    },
+    {
+      "from": "ns_names",
+      "to": "ns_qsl",
+      "port": "阿灯QSL",
+      "label": "阿灯的QSL卡"
+    },
+    {
+      "from": "ns_qsl",
+      "to": "ns_coord",
+      "port": "渤海坐标",
+      "label": "渤海坐标"
+    },
+    {
+      "from": "ns_coord",
+      "to": "ns_code",
+      "port": "新暗号",
+      "label": "新暗号"
     },
     {
       "from": "node_forum",
