@@ -177,6 +177,16 @@
               "reply": "守塔人日志＋切断话筒的监控＋原始声学数据＋被涂改的气象簿……你指着柯振：灯，是你开的。明天头版印下所有名字。"
             },
             {
+              "text": "把浮标信标的事告诉明月如霜。",
+              "requires": "clue_buoy",
+              "reply": "她把你的转述听了三遍：“这个信号，三年里我收到过四次，四次都被压下去。要让它变成新闻，我必须拿到完整的主链——白噪计划、资助协议、两路监控、名单、日记后半、守塔人日志、声学数据、气象原始簿。缺一样，我就不敢签名。集齐了，再回来找我。”"
+            },
+            {
+              "text": "把暗流记录和救护记录一起推给她。",
+              "requires": "clue_buoy,clue_undertow",
+              "reply": "她盯着那三个圈看了很久：“活着的证人，比名单更重。可主链还差——差哪条，你手里的清单会告诉你。开完那些门，我陪你去敲警局的门。”"
+            },
+            {
               "text": "追问那个“仍在闪的浮标信标”。",
               "target": "end_secret",
               "requires": "doc_experiment,doc_subsidy,surv_port,transcript_tape,doc_ship_manifest,diary_shenyan2,doc_keeper_log,doc_raw_data,doc_weather_log,clue_buoy,clue_undertow",
