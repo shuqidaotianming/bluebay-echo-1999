@@ -327,7 +327,7 @@
     }
   };
 
-  // ==================== 联网结果视图：未命中时在「游戏页内」展示 Bing 风格结果 + 真实外链 ====================
+  // ==================== 联网结果视图：未命中时在「游戏页内」展示 Bing 风格结果 + 外部引擎外链 ====================
   function fbEsc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
   function ensureFbStyle(){
     if (document.getElementById('arg-fb-style')) return;
@@ -360,11 +360,11 @@
       head.textContent = '联网结果 · ' + text;
       res.appendChild(head);
       const count = document.createElement('div'); count.className = 'fb-count';
-      count.textContent = '约 ' + (scored.length * 173 + 21) + ' 条结果（用时 0.' + (terms.length * 17 + 3) + ' 秒）· 检索范围：蓝湾档案库 + 真实互联网';
+      count.textContent = '约 ' + (scored.length * 173 + 21) + ' 条结果（用时 0.' + (terms.length * 17 + 3) + ' 秒）· 检索范围：蓝湾档案库 + 外部引擎';
       res.appendChild(count);
       if (!scored.length) {
         const none = document.createElement('div'); none.className = 'fb-none';
-        none.textContent = '站内没有找到与「' + text + '」直接相关的档案。你仍可以在真实的互联网上继续查证 ↓';
+        none.textContent = '站内没有找到与「' + text + '」直接相关的档案。你仍可以用外部引擎继续查证 ↓';
         res.appendChild(none);
       }
       scored.forEach(function(x){
@@ -377,18 +377,18 @@
         res.appendChild(item);
       });
       const real = document.createElement('div'); real.className = 'fb-real';
-      real.innerHTML = '<div class="fb-head">🌐 真实联网结果（实时 · 维基百科）</div><div class="fb-count">正在从真实互联网检索「' + fbEsc(text) + '」……</div>';
+      real.innerHTML = '<div class="fb-head">🌐 外部检索 · 维基百科（实时）</div><div class="fb-count">正在外部检索「' + fbEsc(text) + '」……</div>';
       res.appendChild(real);
       fetch('https://zh.wikipedia.org/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(text) + '&format=json&origin=*&srlimit=4')
         .then(function(r){ return r.json(); })
         .then(function(j){
           const hits = (j.query && j.query.search) || [];
-          real.innerHTML = '<div class="fb-head">🌐 真实联网结果（实时 · 维基百科）</div>';
-          if (!hits.length) { const d = document.createElement('div'); d.className = 'fb-none'; d.textContent = '真实互联网上暂时也没有直接相关的内容。'; real.appendChild(d); return; }
+          real.innerHTML = '<div class="fb-head">🌐 外部检索 · 维基百科（实时）</div>';
+          if (!hits.length) { const d = document.createElement('div'); d.className = 'fb-none'; d.textContent = '外部检索暂时没有直接相关的内容。'; real.appendChild(d); return; }
           hits.forEach(function(h){
             const item = document.createElement('div'); item.className = 'fb-item';
             const t = document.createElement('div'); t.className = 't';
-            const a = document.createElement('a'); a.href = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(h.title); a.target = '_blank'; a.rel = 'noopener'; a.textContent = h.title + ' _ 真实网页 ↗';
+            const a = document.createElement('a'); a.href = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(h.title); a.target = '_blank'; a.rel = 'noopener'; a.textContent = h.title + ' _ 维基百科 ↗';
             t.appendChild(a);
             const u = document.createElement('div'); u.className = 'u'; u.textContent = 'zh.wikipedia.org/wiki/' + h.title;
             const s = document.createElement('div'); s.className = 's'; s.textContent = String(h.snippet || '').replace(/<[^>]+>/g, '');
@@ -396,22 +396,36 @@
             real.appendChild(item);
           });
         })
-        .catch(function(){ real.innerHTML = '<div class="fb-none">（真实联网检索暂不可用。可用下方按钮在新窗口搜索。）</div>'; });
-      const bing = document.createElement('div'); bing.className = 'fb-bing';
-      bing.innerHTML = '<div class="fb-head">🌐 真实必应（内嵌实时 · 可直接在本页浏览）</div>';
-      const fr = document.createElement('iframe');
-      fr.src = 'https://www.bing.com/search?q=' + encodeURIComponent(text) + '&setlang=zh-cn';
-      fr.loading = 'lazy'; fr.referrerPolicy = 'no-referrer';
-      bing.appendChild(fr);
-      const under = document.createElement('div'); under.className = 'fb-count';
-      under.innerHTML = '若上方内嵌空白，<a href="https://www.bing.com/search?q=' + encodeURIComponent(text) + '" target="_blank" rel="noopener" style="color:#1a58d8">点此在新窗口打开必应 ↗</a>';
-      bing.appendChild(under);
+        .catch(function(){ real.innerHTML = '<div class="fb-none">（外部检索暂不可用。可用下方链接在新窗口搜索。）</div>'; });
+      const bing = document.createElement('div'); bing.className = 'fb-real';
+      bing.innerHTML = '<div class="fb-head">🌐 外部检索 · DuckDuckGo（实时）</div><div class="fb-count">正在检索「' + fbEsc(text) + '」……</div>';
+      res.appendChild(bing);
+      fetch('https://api.duckduckgo.com/?q=' + encodeURIComponent(text) + '&format=json&no_html=1&skip_disambig=1&t=bluebay')
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          bing.innerHTML = '<div class="fb-head">🌐 外部检索 · DuckDuckGo（实时）</div>';
+          const items = [];
+          if (j.AbstractText) items.push({ t: (j.Heading || 'DuckDuckGo') + ' _ 外部条目 ↗', u: String(j.AbstractURL || '').replace(/^https?:[/][/]/, ''), s: j.AbstractText });
+          (j.RelatedTopics || []).slice(0, 4).forEach(function(rt){ if (rt.FirstURL && rt.Text) items.push({ t: rt.Text.split(' - ')[0] + ' _ 外部条目 ↗', u: rt.FirstURL.replace(/^https?:[/][/]/, ''), s: rt.Text }); });
+          if (!items.length) { const d = document.createElement('div'); d.className = 'fb-none'; d.textContent = '外部检索暂无直接相关条目。可用下方链接在新窗口搜索。'; bing.appendChild(d); return; }
+          items.forEach(function(h){
+            const item = document.createElement('div'); item.className = 'fb-item';
+            const t = document.createElement('div'); t.className = 't';
+            const a = document.createElement('a'); a.href = 'https://' + h.u; a.target = '_blank'; a.rel = 'noopener'; a.textContent = h.t;
+            t.appendChild(a);
+            const u = document.createElement('div'); u.className = 'u'; u.textContent = h.u;
+            const s = document.createElement('div'); s.className = 's'; s.textContent = h.s;
+            item.appendChild(t); item.appendChild(u); item.appendChild(s);
+            bing.appendChild(item);
+          });
+        })
+        .catch(function(){ bing.innerHTML = '<div class="fb-none">（外部检索暂不可用。可用下方链接在新窗口搜索。）</div>'; });
       res.appendChild(bing);
       const ext = document.createElement('div'); ext.className = 'fb-ext';
-      ext.innerHTML = '在<b>真实的互联网</b>上继续查证「' + fbEsc(text) + '」：<br>';
+      ext.innerHTML = '继续在外部搜索引擎查证「' + fbEsc(text) + '」：<br>';
       const a1 = document.createElement('a'); a1.href = 'https://www.bing.com/search?q=' + encodeURIComponent(text); a1.target = '_blank'; a1.rel = 'noopener'; a1.textContent = '用必应搜索 ↗';
       const a2 = document.createElement('a'); a2.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent(text); a2.target = '_blank'; a2.rel = 'noopener'; a2.textContent = '用百度搜索 ↗';
-      const note = document.createElement('div'); note.className = 'fb-count'; note.textContent = '（真实联网 · 不影响游戏进度）';
+      const note = document.createElement('div'); note.className = 'fb-count'; note.textContent = '（外部检索 · 不影响游戏进度）';
       ext.appendChild(a1); ext.appendChild(a2); ext.appendChild(note);
       res.appendChild(ext);
       const clear = document.createElement('span'); clear.className = 'fb-clear'; clear.textContent = '清除结果';
