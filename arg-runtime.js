@@ -332,7 +332,7 @@
   function ensureFbStyle(){
     if (document.getElementById('arg-fb-style')) return;
     const st = document.createElement('style'); st.id = 'arg-fb-style';
-    st.textContent = '.arg-ir{background:#ffffff!important;border:1px solid #dbe4f0!important;border-radius:14px!important;padding:20px 24px!important;margin-top:18px!important;box-shadow:0 8px 24px rgba(20,40,80,.08)!important;color:#1f2937!important;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif!important}.arg-ir .fb-head{font-weight:700;font-size:15px;color:#0f172a;margin-bottom:12px}.arg-ir .fb-count{color:#6b7280;font-size:12.5px;margin-bottom:16px}.arg-ir .fb-item{margin-bottom:22px}.arg-ir .fb-item .t{color:#1a58d8;font-size:18px;cursor:pointer;line-height:1.4}.arg-ir .fb-item .t:hover{text-decoration:underline}.arg-ir .fb-item .u{color:#16803d;font-size:12.5px;margin:2px 0;word-break:break-all}.arg-ir .fb-item .s{color:#4b5563;font-size:14px;line-height:1.7}.arg-ir .fb-ext{margin:24px 0 6px;padding:14px 16px;background:#f0f6ff!important;border:1px solid #dbe7ff!important;border-radius:10px!important;font-size:14px;line-height:2;color:#33507a!important}.arg-ir .fb-ext a{color:#1a58d8;font-weight:600;text-decoration:none;margin-right:14px}.arg-ir .fb-ext a:hover{text-decoration:underline}.arg-ir .fb-none{color:#6b7280;font-size:14.5px;margin-bottom:18px}.arg-ir .fb-clear{display:inline-block;margin-top:6px;cursor:pointer;color:#1a58d8;font-size:13px;text-decoration:underline}';
+    st.textContent = '.arg-ir{background:#ffffff!important;border:1px solid #dbe4f0!important;border-radius:14px!important;padding:20px 24px!important;margin-top:18px!important;box-shadow:0 8px 24px rgba(20,40,80,.08)!important;color:#1f2937!important;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif!important}.arg-ir .fb-head{font-weight:700;font-size:15px;color:#0f172a;margin-bottom:12px}.arg-ir .fb-count{color:#6b7280;font-size:12.5px;margin-bottom:16px}.arg-ir .fb-item{margin-bottom:22px}.arg-ir .fb-item .t{color:#1a58d8;font-size:18px;cursor:pointer;line-height:1.4}.arg-ir .fb-item .t:hover{text-decoration:underline}.arg-ir .fb-item .u{color:#16803d;font-size:12.5px;margin:2px 0;word-break:break-all}.arg-ir .fb-item .s{color:#4b5563;font-size:14px;line-height:1.7}.arg-ir .fb-ext{margin:24px 0 6px;padding:14px 16px;background:#f0f6ff!important;border:1px solid #dbe7ff!important;border-radius:10px!important;font-size:14px;line-height:2;color:#33507a!important}.arg-ir .fb-ext a{color:#1a58d8;font-weight:600;text-decoration:none;margin-right:14px}.arg-ir .fb-ext a:hover{text-decoration:underline}.arg-ir .fb-none{color:#6b7280;font-size:14.5px;margin-bottom:18px}.arg-ir .fb-clear{display:inline-block;margin-top:6px;cursor:pointer;color:#1a58d8;font-size:13px;text-decoration:underline}.arg-ir .fb-real,.arg-ir .fb-bing{margin:20px 0 8px;padding-top:10px;border-top:1px dashed #e2e8f0}.arg-ir .fb-bing iframe{width:100%;height:560px;border:1px solid #dbe4f0;border-radius:10px;background:#fff}.arg-ir .fb-item .t a{color:#1a58d8;text-decoration:none}.arg-ir .fb-item .t a:hover{text-decoration:underline}';
     document.head.appendChild(st);
   }
   function fallbackSearch(text){
@@ -376,11 +376,42 @@
         item.appendChild(t); item.appendChild(u); item.appendChild(s);
         res.appendChild(item);
       });
+      const real = document.createElement('div'); real.className = 'fb-real';
+      real.innerHTML = '<div class="fb-head">🌐 真实联网结果（实时 · 维基百科）</div><div class="fb-count">正在从真实互联网检索「' + fbEsc(text) + '」……</div>';
+      res.appendChild(real);
+      fetch('https://zh.wikipedia.org/w/api.php?action=query&list=search&srsearch=' + encodeURIComponent(text) + '&format=json&origin=*&srlimit=4')
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          const hits = (j.query && j.query.search) || [];
+          real.innerHTML = '<div class="fb-head">🌐 真实联网结果（实时 · 维基百科）</div>';
+          if (!hits.length) { const d = document.createElement('div'); d.className = 'fb-none'; d.textContent = '真实互联网上暂时也没有直接相关的内容。'; real.appendChild(d); return; }
+          hits.forEach(function(h){
+            const item = document.createElement('div'); item.className = 'fb-item';
+            const t = document.createElement('div'); t.className = 't';
+            const a = document.createElement('a'); a.href = 'https://zh.wikipedia.org/wiki/' + encodeURIComponent(h.title); a.target = '_blank'; a.rel = 'noopener'; a.textContent = h.title + ' _ 真实网页 ↗';
+            t.appendChild(a);
+            const u = document.createElement('div'); u.className = 'u'; u.textContent = 'zh.wikipedia.org/wiki/' + h.title;
+            const s = document.createElement('div'); s.className = 's'; s.textContent = String(h.snippet || '').replace(/<[^>]+>/g, '');
+            item.appendChild(t); item.appendChild(u); item.appendChild(s);
+            real.appendChild(item);
+          });
+        })
+        .catch(function(){ real.innerHTML = '<div class="fb-none">（真实联网检索暂不可用。可用下方按钮在新窗口搜索。）</div>'; });
+      const bing = document.createElement('div'); bing.className = 'fb-bing';
+      bing.innerHTML = '<div class="fb-head">🌐 真实必应（内嵌实时 · 可直接在本页浏览）</div>';
+      const fr = document.createElement('iframe');
+      fr.src = 'https://www.bing.com/search?q=' + encodeURIComponent(text) + '&setlang=zh-cn';
+      fr.loading = 'lazy'; fr.referrerPolicy = 'no-referrer';
+      bing.appendChild(fr);
+      const under = document.createElement('div'); under.className = 'fb-count';
+      under.innerHTML = '若上方内嵌空白，<a href="https://www.bing.com/search?q=' + encodeURIComponent(text) + '" target="_blank" rel="noopener" style="color:#1a58d8">点此在新窗口打开必应 ↗</a>';
+      bing.appendChild(under);
+      res.appendChild(bing);
       const ext = document.createElement('div'); ext.className = 'fb-ext';
       ext.innerHTML = '在<b>真实的互联网</b>上继续查证「' + fbEsc(text) + '」：<br>';
       const a1 = document.createElement('a'); a1.href = 'https://www.bing.com/search?q=' + encodeURIComponent(text); a1.target = '_blank'; a1.rel = 'noopener'; a1.textContent = '用必应搜索 ↗';
       const a2 = document.createElement('a'); a2.href = 'https://www.baidu.com/s?wd=' + encodeURIComponent(text); a2.target = '_blank'; a2.rel = 'noopener'; a2.textContent = '用百度搜索 ↗';
-      const note = document.createElement('div'); note.className = 'fb-count'; note.textContent = '（真实联网 · 新窗口打开 · 不影响游戏进度）';
+      const note = document.createElement('div'); note.className = 'fb-count'; note.textContent = '（真实联网 · 不影响游戏进度）';
       ext.appendChild(a1); ext.appendChild(a2); ext.appendChild(note);
       res.appendChild(ext);
       const clear = document.createElement('span'); clear.className = 'fb-clear'; clear.textContent = '清除结果';
