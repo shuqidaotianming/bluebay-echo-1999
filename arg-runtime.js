@@ -523,7 +523,18 @@
         input.value = '';
         appendMessage('user', text);
         const contact = contacts[currentIdx];
-        setTimeout(() => appendMessage('npc', '收到。请继续核查其他线索。', contact?.avatar), 350);
+        // ARG：联系人答案校验——把查到的答案打字发给他，对了才给回信并记线索
+        const accepted = String(contact.passphrase || '').split(/[,，;|/]+/).map(s => s.trim().toLowerCase()).filter(Boolean);
+        const hit = accepted.length > 0 && accepted.indexOf(text.toLowerCase()) !== -1;
+        setTimeout(() => {
+          if (hit) {
+            appendMessage('npc', contact.passphraseReply || '……对。就是这个。', contact?.avatar);
+            if (contact.passphraseClue) triggerClue(contact.passphraseClue);
+            if (contact.passphraseTarget) setTimeout(() => go(contact.passphraseTarget), 700);
+          } else {
+            appendMessage('npc', '收到。请继续核查其他线索。', contact?.avatar);
+          }
+        }, 350);
       });
     }
 
