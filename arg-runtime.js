@@ -223,15 +223,16 @@
   }
 
   // ==================== 隐藏访问统计（不影响沉浸，无可见元素） ====================
+  // Abacus 新版 API 为两段式 命名空间/键名；旧单段式会 308 跳官网，导致计数丢失
   function trackVisit(){
     if (config.preview || !config.trackProgress) return;
     try {
       var UV_KEY = 'arg_uv_done';
       if (!localStorage.getItem(UV_KEY)) {
         localStorage.setItem(UV_KEY, '1');
-        fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999-uv').catch(function(){});
+        fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999/visitors').catch(function(){});
       }
-      fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999').catch(function(){});
+      fetch('https://abacus.jasoncameron.dev/hit/bluebay-echo-1999/pages').catch(function(){});
     } catch (e) {}
   }
 
