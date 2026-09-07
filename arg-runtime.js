@@ -85,6 +85,7 @@
     setTimeout(function(){ b.classList.add('out'); setTimeout(function(){ if (b.parentNode) b.remove(); }, 700); }, 7000);
   }
   function ensureNotifyRelay(){
+    if (window.__argNotifyOn) return; window.__argNotifyOn = true;
     if (!document.getElementById('arg-notify-style')) {
       var st = document.createElement('style'); st.id = 'arg-notify-style';
       st.textContent = [
@@ -360,6 +361,7 @@
   // ==================== 移动端：强制横屏 + 分辨率检测 ====================
   var ARG_DISPLAY = { w: 0, h: 0, dpr: 1, orient: '', forced: false };
   function ensureLandscapeProbe(){
+    if (document.getElementById('arg-land-style')) return;
     const st = document.createElement('style'); st.id = 'arg-land-style';
     st.textContent = [
       'html.arg-force-land{overflow:hidden}',
@@ -442,6 +444,7 @@
   window.ARG_CLOCK = { time: gameClockText };
 
   function ensureGameClock(){
+    if (window.__argClockOn) return; window.__argClockOn = true;
     function paint(){
       var txt = gameClockText();
       ['.tray-time', '.mac-time', '.cyber-clock', '.tray-status', '[data-arg-clock]'].forEach(function(sel){
@@ -675,6 +678,14 @@
     var wall = 'arg-wall-' + (1 + Math.floor(Math.random() * 3));
     document.body.classList.add(wall);
 
+    // 桌面壁纸：蓝湾海岸（1999 年感），暗色压一层保证图标可读
+    var desk = document.querySelector('.winxp-desktop,.win98-desktop,.macos-desktop,.cyber-desktop,.dark-desktop,.desktop-main');
+    if (desk) {
+      desk.style.backgroundImage = 'linear-gradient(rgba(9,14,26,.20),rgba(9,14,26,.36)),url("wall-bluebay.jpg")';
+      desk.style.backgroundSize = 'cover';
+      desk.style.backgroundPosition = 'center';
+    }
+
     // 托盘假指示器
     var tray = document.querySelector('.win-tray,.winxp-tray,.dark-tray,.mac-menubar-right,.cyber-footer');
     if (tray && !tray.querySelector('.arg-tray-ind')) {
@@ -870,6 +881,19 @@
 
   const checkRule = (kind, value) => {
     const key = String(value || '').trim().toLowerCase();
+    // —— 影子搜索：输对档案员暗号（FM 94.9），检索权限升级 ——
+    if (config.isSearch && kind === 'search' && config.shadowKey && !isShadow() && normShadow(key) === normShadow(config.shadowKey)) {
+      if (config.shadowClue) triggerClue(config.shadowClue);
+      applyShadowSkin(true);
+      playSynthSound('notify');
+      result('✔ 权限已切换：档案员检索（94.9）。有些结果，刚才是不给你看的。');
+      return;
+    }
+    // 影子索引优先（档案员权限下）
+    if (config.isSearch && kind === 'search' && isShadow()) {
+      const st = (config.shadowRules || {})[key];
+      if (st) { playSynthSound('click'); go(st); return; }
+    }
     const target = (config.rules[kind] || {})[key];
     if (target) {
       playSynthSound('click');
@@ -882,6 +906,145 @@
       result(config.notFoundText || '没有找到相关结果');
     }
   };
+
+  // ==================== 权限层：影子搜索 / 帖子级密码 / 敏感词涂码 / 论坛生态 ====================
+  function normShadow(s){
+    let out = '';
+    String(s || '').toLowerCase().split('').forEach(function(c){
+      if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || c === '.') out += c;
+    });
+    if (out.slice(0, 2) === 'fm') out = out.slice(2);
+    while (out.slice(-2) === '.0') out = out.slice(0, -2);
+    return out;
+  }
+  function isShadow(){
+    try { return config.shadowClue ? hasClue(config.shadowClue) : localStorage.getItem('arg_shadow_949') === '1'; } catch (e) { return false; }
+  }
+  function applyShadowSkin(fresh){
+    const host = document.querySelector('[data-arg-result]') || document.querySelector('.search-container,.term-container,.yahoo-container,.bbs-container');
+    const id = 'arg-shadow-ribbon';
+    if (document.getElementById(id)) return;
+    const r = document.createElement('div'); r.id = id;
+    r.textContent = '检索权限：档案员（94.9 MHz）· 内线索引已并入';
+    r.style.cssText = 'margin:10px 0;padding:7px 12px;border-radius:8px;background:rgba(13,148,136,.12);border:1px dashed rgba(13,148,136,.55);color:#0f766e;font-size:12px;letter-spacing:1px';
+    if (host && host.parentElement) host.parentElement.insertBefore(r, host);
+    else document.body.insertBefore(r, document.body.firstChild);
+    if (fresh) {
+      const cands = Object.keys(config.shadowRules || {});
+      if (cands.length) {
+        result('✔ 权限已切换：档案员检索。现在试试这些当年被挡在后面的词——' + cands.slice(0, 4).join(' / '));
+      }
+    }
+  }
+  var CENSOR_WORDS = ['白噪计划', '第九夜', '六十六', '听潮会', '随船', '失踪名单'];
+  function maskText(s){
+    let out = String(s || '');
+    if (isShadow()) return out;
+    CENSOR_WORDS.forEach(function(w){
+      while (out.indexOf(w) !== -1) {
+        const bar = new Array(w.length + 1).join('▇');
+        out = out.replace(w, bar);
+      }
+    });
+    return out;
+  }
+
+  function ensurePostLock(){
+    if (!config.postPassword) return;
+    let unlocked = false;
+    try {
+      unlocked = config.unlockClue ? hasClue(config.unlockClue) : localStorage.getItem('arg_post_open_' + config.nodeId) === '1';
+    } catch (e) {}
+    if (unlocked) { document.body.classList.add('arg-post-open'); return; }
+    if (document.getElementById('arg-postlock')) return;
+    const st = document.createElement('style'); st.id = 'arg-postlock-style';
+    st.textContent = [
+      '#arg-postlock{position:fixed;right:14px;bottom:44px;z-index:99988;max-width:290px;background:#fffdf6;border:1px solid #d8d2c0;border-left:4px solid #b45309;border-radius:10px;box-shadow:0 18px 44px -16px rgba(80,50,10,.4);padding:12px 14px;font-size:12.5px;color:#44403c}',
+      '#arg-postlock .pl-title{font-weight:700;letter-spacing:.5px;margin-bottom:4px}',
+      '#arg-postlock .pl-sub{font-size:11px;color:#78716c;margin-bottom:8px}',
+      '#arg-postlock .pl-row{display:flex;gap:6px}',
+      '#arg-postlock input{flex:1;min-width:0;border:1px solid #c9c2ae;border-radius:6px;padding:6px 8px;font-size:13px}',
+      '#arg-postlock button{border:1px solid #b45309;background:#b45309;color:#fff;border-radius:6px;padding:6px 12px;cursor:pointer}',
+      '#arg-postlock button:hover{background:#92400e}',
+      '#arg-postlock .pl-err{color:#b91c1c;font-size:11px;margin-top:6px;min-height:14px}',
+      '#arg-postlock.shake{animation:arg-pl-shake .4s}',
+      '@keyframes arg-pl-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}',
+      '.arg-post-open .arg-redacted{color:inherit!important;background:linear-gradient(transparent 62%,rgba(250,204,21,.4) 0)!important;cursor:auto}',
+      '.arg-post-open #arg-postlock{display:none}',
+      '@media (max-width:720px){#arg-postlock{left:10px;right:10px;max-width:none;bottom:52px}}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    const panel = document.createElement('div'); panel.id = 'arg-postlock';
+    const lockName = config.lockType || '版务';
+    const title = document.createElement('div'); title.className = 'pl-title';
+    title.textContent = '🔒 本帖已由【' + lockName + '】加密';
+    const sub = document.createElement('div'); sub.className = 'pl-sub';
+    sub.textContent = lockName === '本人' ? '楼主本人加密。口令只有他和收信的人知道。' : '版务操作记录：此层含违规内容，输口令调阅。';
+    const row = document.createElement('div'); row.className = 'pl-row';
+    const input = document.createElement('input'); input.placeholder = '输入口令…';
+    input.setAttribute('autocomplete', 'off');
+    const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = '解锁';
+    const err = document.createElement('div'); err.className = 'pl-err';
+    row.appendChild(input); row.appendChild(btn);
+    panel.appendChild(title); panel.appendChild(sub); panel.appendChild(row); panel.appendChild(err);
+    document.body.appendChild(panel);
+
+    function attempt(){
+      const v = String(input.value || '').trim().toLowerCase();
+      const ok = String(config.postPassword || '').split(/[,，;|]+/).map(function(s){ return s.trim().toLowerCase(); }).filter(Boolean).indexOf(v) !== -1;
+      if (!ok) {
+        err.textContent = '口令不对。';
+        panel.classList.remove('shake'); void panel.offsetWidth; panel.classList.add('shake');
+        playSynthSound('error');
+        return;
+      }
+      try { if (config.unlockClue) triggerClue(config.unlockClue); else localStorage.setItem('arg_post_open_' + config.nodeId, '1'); } catch (e) {}
+      document.body.classList.add('arg-post-open');
+      panel.remove();
+      playSynthSound('notify');
+      pushNotify((config.realAuthor ? '锁着的楼层显形了。真实发帖人：' + config.realAuthor + '。' : '锁着的楼层显形了。'), '');
+    }
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); attempt(); } });
+  }
+
+  function ensureForumLife(){
+    const box = document.querySelector('.bbs-container');
+    if (!box || document.getElementById('arg-forum-life')) return;
+    const st = document.createElement('style'); st.id = 'arg-forum-life-style';
+    st.textContent = [
+      '.arg-forum-banner{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#f0ede4;border:1px dashed #c9bfa5;border-radius:8px;padding:7px 12px;font-size:11.5px;color:#6b6252;margin-bottom:10px}',
+      '.arg-forum-banner .g{color:#a8a29e}',
+      '.arg-forum-banner a{color:#0f766e;cursor:pointer;text-decoration:underline}',
+      '.arg-online{font-size:11px;color:#94a3b8;letter-spacing:.4px}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    const banner = document.createElement('div'); banner.className = 'arg-forum-banner'; banner.id = 'arg-forum-life';
+    const left = document.createElement('span');
+    left.innerHTML = '当前身份：<b>游客</b> · 【听潮会·内圈】板块不可见　<span class="g">（已有权限？从「绝密专题」进入）</span>';
+    const deep = document.createElement('a'); deep.textContent = '→ 绝密专题';
+    deep.dataset.argLink = 'node_login_hard';
+    left.appendChild(deep);
+    const online = document.createElement('span'); online.className = 'arg-online';
+    banner.appendChild(left); banner.appendChild(online);
+    box.insertBefore(banner, box.firstChild);
+
+    let n = 980 + Math.floor(Math.random() * 90);
+    function paint(){ online.textContent = '在线 ' + n.toLocaleString() + ' 人 · 今天是' + gameClockText() + '，还没有人下线'; }
+    paint();
+    setInterval(function(){ n = Math.max(900, n + Math.floor(Math.random() * 15) - 7); paint(); }, 26000);
+
+    function check(){
+      if (getClues().some(function(id){ return id.indexOf('ns_') === 0; }) || hasClue('clue_shadow_949')) {
+        left.innerHTML = '当前身份：<b>已验证</b> · 欢迎回来，知微。夜航的记录你都看过了。';
+        clearInterval(timer);
+      }
+    }
+    const timer = setInterval(check, 4000);
+    check();
+  }
 
   // ==================== 联网结果视图：未命中时在「游戏页内」展示 Bing 风格结果 + 外部引擎外链 ====================
   function fbEsc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
@@ -935,7 +1098,7 @@
           const sug = document.createElement('div'); sug.className = 'fb-none';
           sug.innerHTML = '您是不是要找：';
           cands.forEach(function(x, i){
-            const s = document.createElement('span'); s.className = 'fb-clear'; s.textContent = x.it.t;
+            const s = document.createElement('span'); s.className = 'fb-clear'; s.textContent = maskText(x.it.t);
             s.addEventListener('click', function(){ playSynthSound('click'); fallbackSearch(x.it.t); });
             sug.appendChild(s);
             if (i < cands.length - 1) sug.appendChild(document.createTextNode('　·　'));
@@ -945,13 +1108,18 @@
       }
       scored.forEach(function(x){
         const item = document.createElement('div'); item.className = 'fb-item';
-        const t = document.createElement('div'); t.className = 't'; t.textContent = x.it.t + ' _ 蓝湾档案';
+        const t = document.createElement('div'); t.className = 't'; t.textContent = maskText(x.it.t) + ' _ 蓝湾档案';
         t.addEventListener('click', function(){ playSynthSound('click'); go(x.it.id); });
         const u = document.createElement('div'); u.className = 'u'; u.textContent = 'https://lanwan.archive.fm99.4/' + x.it.u;
-        const s = document.createElement('div'); s.className = 's'; s.textContent = x.it.s;
+        const s = document.createElement('div'); s.className = 's'; s.textContent = maskText(x.it.s);
         item.appendChild(t); item.appendChild(u); item.appendChild(s);
         res.appendChild(item);
       });
+      if (!isShadow() && scored.some(function(x){ return CENSOR_WORDS.some(function(w){ return (x.it.t + x.it.s).indexOf(w) !== -1; }); })) {
+        const warn = document.createElement('div'); warn.className = 'fb-count';
+        warn.textContent = '※ 部分字样已按 1999 年《沿海广播临时管理办法》予以遮蔽。';
+        res.appendChild(warn);
+      }
       const real = document.createElement('div'); real.className = 'fb-real';
       real.innerHTML = '<div class="fb-head">🌐 外部检索 · 维基百科（实时）</div><div class="fb-count">正在外部检索「' + fbEsc(text) + '」……</div>';
       res.appendChild(real);
@@ -1439,8 +1607,7 @@
   let bound = false;
   function bind(){
     if (bound) return;
-    const comps = document.querySelectorAll('[data-arg-component]');
-    if (comps.length) bound = true;
+    bound = true; // 无论本页有没有 data-arg-component，都只绑一次（桌面页此前会重复执行 3 次）
     document.querySelectorAll('[data-arg-component="search"]').forEach(bindSearch);
     document.querySelectorAll('[data-arg-component="login"]').forEach(bindLogin);
     document.querySelectorAll('[data-arg-component="chat"]').forEach(bindChat);
@@ -1480,6 +1647,9 @@
     try { ensureLandscapeProbe(); } catch (e) {}
     try { ensureGameClock(); } catch (e) {}
     try { ensureNotifyRelay(); } catch (e) {}
+    try { ensurePostLock(); } catch (e) {}
+    try { ensureForumLife(); } catch (e) {}
+    try { if (config.isSearch && config.shadowKey && isShadow()) applyShadowSkin(false); } catch (e) {}
     try {
       if (document.querySelector('.win98-desktop,.xp-desktop,.winxp-desktop,.macos-desktop,.cyber-desktop,.dark-desktop,.desktop-main,.mac-main-area')) {
         ensureWindowManager(); ensurePowerMenu(); ensureTrayTexture();

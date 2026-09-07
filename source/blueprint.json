@@ -682,7 +682,23 @@
         "notFoundText": "—— 没有回音。海不回答猜错的问题。",
         "customCss": "body{background:linear-gradient(180deg,#f6f8fb 0%,#e9eef6 100%)!important;font-family:-apple-system,\"Segoe UI\",\"Microsoft YaHei\",sans-serif!important} .yahoo-container{max-width:880px!important;margin:26px auto!important;background:#fff!important;border-radius:16px!important;box-shadow:0 12px 34px rgba(20,40,80,.13)!important;padding:30px 38px 26px!important} .yahoo-topbar{border-bottom:1px solid #eef1f6!important;padding-bottom:10px!important} .yahoo-logo{font-size:42px!important;font-weight:800!important;letter-spacing:3px!important;background:linear-gradient(92deg,#1f6fed 0%,#00b7a2 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important} .yahoo-nav-links a{color:#5b6b80!important;font-size:13px!important;margin-left:14px!important;text-decoration:none!important} .yahoo-subtitle{color:#64748b!important;font-size:13px!important;margin-top:6px!important} .yahoo-search-form{display:flex!important;gap:10px!important;align-items:stretch!important;margin:18px 0 6px!important} .search-input-box{flex:1!important} .search-input-box input{width:100%!important;border:2px solid #1f6fed!important;border-radius:999px!important;padding:11px 20px!important;font-size:16px!important;outline:none!important;background:#fff!important;box-shadow:0 2px 10px rgba(31,111,237,.10)!important} .search-input-box input:focus{box-shadow:0 2px 16px rgba(31,111,237,.28)!important} .yahoo-btn{border:none!important;border-radius:999px!important;background:linear-gradient(92deg,#1f6fed,#3b82f6)!important;color:#fff!important;font-size:15px!important;padding:11px 26px!important;cursor:pointer!important;box-shadow:0 4px 14px rgba(31,111,237,.35)!important} .yahoo-btn:hover{filter:brightness(1.12)!important} .yahoo-notice{background:#f0f6ff!important;border:1px solid #dbe7ff!important;border-radius:12px!important;padding:12px 16px!important;color:#33507a!important;font-size:13px!important;line-height:1.8!important;margin-top:14px!important} .yahoo-hot-label{font-size:13px!important;color:#64748b!important;font-weight:700!important} .yahoo-hot-links a{display:inline-block!important;background:#f0f6ff!important;border:1px solid #dce6fb!important;border-radius:999px!important;padding:5px 14px!important;margin:4px 6px 4px 0!important;color:#1f4fd8!important;font-size:13px!important;text-decoration:none!important;transition:all .15s!important} .yahoo-hot-links a:hover{background:#1f6fed!important;color:#fff!important;border-color:#1f6fed!important} .yahoo-directory{margin-top:18px!important;border-top:1px dashed #e2e8f0!important;padding-top:14px!important} .dir-col{font-size:13px!important;line-height:2!important} .dir-col b,.dir-col strong{color:#334155!important} #arg-fb{font-family:-apple-system,\"Segoe UI\",\"Microsoft YaHei\",sans-serif} ",
         "placeholder": "请输入关键词……",
-        "buttonText": "检索档案"
+        "buttonText": "检索档案",
+        "shadowKey": "94.9",
+        "shadowClue": "clue_shadow_949",
+        "shadowRules": [
+          {
+            "keyword": "第二份名单",
+            "target": "ns_names"
+          },
+          {
+            "keyword": "101.7",
+            "target": "ns_frequency"
+          },
+          {
+            "keyword": "北岸来信",
+            "target": "ns_letter"
+          }
+        ]
       },
       "rules": [
         {
@@ -1167,8 +1183,12 @@
         "forumName": "蓝湾异闻",
         "username": "深夜来客",
         "time": "03:14",
-        "body": "我开货运的。延盛灯塔那盏大功率灯，从不照礁石，一到暴风雨夜就把光往内海打。\n像是在给谁“指路”——不是给船看的，是给岸上那批人看的。",
-        "replies": "老海狼：那灯塔早该拆了\n匿名：3·14 那晚灯亮了一整夜"
+        "body": "我开货运的。延盛灯塔那盏大功率灯，从不照礁石，一到暴风雨夜就把光往内海打。\n像是在给谁“指路”——不是给船看的，是给岸上那批人看的。\n\n—— 以下 #47 楼已被【本人】加密，输口令调阅 ——\n<span class=\"arg-redacted\">#47（楼主补充）：你们猜对了一半。灯往内海打，是打给“不能露面的人”的——岸上有人用镜子接光，一次闪一下，是“平安，继续”。\n我不是楼主。替我发这个帖的人，现在就在塔上值灯。\n再送你们一条老电台的常识：主频 99.40，备用 94.90，两个都合法。会做减法的人，去搜索框里搜那个差。</span>",
+        "replies": "老海狼：那灯塔早该拆了\n匿名：3·14 那晚灯亮了一整夜\n雾港守夜人：此帖由本人加锁。多问无益。",
+        "postPassword": "1962,一九六二,tide1962",
+        "lockType": "本人",
+        "realAuthor": "守夜人",
+        "unlockClue": "clue_post_1962"
       }
     },
     {
