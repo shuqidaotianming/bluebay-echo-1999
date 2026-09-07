@@ -44,11 +44,73 @@
     if (!id) return;
     try {
       const visited = readVisited();
-      if (!visited.includes(id)) { visited.push(id); writeVisited(visited); }
+      if (!visited.includes(id)) {
+        visited.push(id); writeVisited(visited);
+        if (typeof config === 'undefined' || !config.preview) {
+          try {
+            if (id !== (config && config.nodeId) && typeof pushNotify === 'function') {
+              pushNotify('新线索 · ' + ((config.names && config.names[id]) || id) + '。有些门，现在能推得开了。', (config.files && config.files[id]) ? id : '');
+            }
+          } catch (e) {}
+        }
+      }
     } catch (e) {}
   }
   function getClues() {
     try { return readVisited().slice(); } catch (e) { return []; }
+  }
+
+  // ==================== 跨页未读通知（localStorage + storage 事件总线） ====================
+  var NOTIFY_KEY = 'arg_notify_v1', NOTIFY_SEEN_KEY = 'arg_notify_seen';
+  function pushNotify(text, target){
+    if (!text) return;
+    try {
+      localStorage.setItem(NOTIFY_KEY, JSON.stringify({ text: text, target: target || '', ts: Date.now(), from: (typeof config !== 'undefined' && config.nodeId) ? config.nodeId : '' }));
+      showNotify({ text: text, target: target });
+    } catch (e) {}
+  }
+  function showNotify(payload){
+    var old = document.getElementById('arg-notify');
+    if (old) old.remove();
+    var b = document.createElement('div'); b.id = 'arg-notify';
+    var head = document.createElement('div'); head.className = 'arg-notify-head'; head.textContent = '📟 潮声通讯 · 新消息';
+    var body = document.createElement('div'); body.className = 'arg-notify-body'; body.textContent = payload.text;
+    b.appendChild(head); b.appendChild(body);
+    if (payload.target) {
+      b.classList.add('clickable');
+      b.addEventListener('click', function(){ try { go(payload.target); } catch (e) { location.href = (config.files && config.files[payload.target]) || (payload.target + '.html'); } });
+    }
+    document.body.appendChild(b);
+    try { localStorage.setItem(NOTIFY_SEEN_KEY, String(payload.ts || Date.now())); } catch (e) {}
+    setTimeout(function(){ b.classList.add('out'); setTimeout(function(){ if (b.parentNode) b.remove(); }, 700); }, 7000);
+  }
+  function ensureNotifyRelay(){
+    if (!document.getElementById('arg-notify-style')) {
+      var st = document.createElement('style'); st.id = 'arg-notify-style';
+      st.textContent = [
+        '#arg-notify{position:fixed;left:50%;transform:translateX(-50%);bottom:46px;z-index:99993;max-width:min(88vw,380px);background:rgba(12,18,28,.95);border:1px solid rgba(148,163,184,.35);border-left:3px solid #38bdf8;border-radius:10px;padding:9px 13px;color:#e2e8f0;font-size:12.5px;line-height:1.6;box-shadow:0 16px 40px -14px rgba(0,0,0,.7);animation:arg-notify-in .32s ease-out}',
+        '#arg-notify.clickable{cursor:pointer}#arg-notify.clickable:hover{border-left-color:#facc15}',
+        '#arg-notify-head{font-size:10.5px;letter-spacing:1.2px;color:#7dd3fc;opacity:.9;margin-bottom:2px}',
+        '#arg-notify-body{color:#e5e7eb}',
+        '#arg-notify.out{opacity:0;transform:translateX(-50%) translateY(12px);transition:all .6s}',
+        '@keyframes arg-notify-in{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}'
+      ].join(String.fromCharCode(10));
+      document.head.appendChild(st);
+    }
+    window.addEventListener('storage', function(e){
+      if (e.key !== NOTIFY_KEY || !e.newValue) return;
+      try {
+        var n = JSON.parse(e.newValue);
+        if (n && n.text && n.from !== (config.nodeId || '')) showNotify(n);
+      } catch (err) {}
+    });
+    try {
+      var raw = localStorage.getItem(NOTIFY_KEY);
+      if (raw) {
+        var n2 = JSON.parse(raw), seen = parseInt(localStorage.getItem(NOTIFY_SEEN_KEY) || '0', 10);
+        if (n2 && n2.text && n2.ts > seen && n2.from !== (config.nodeId || '')) showNotify(n2);
+      }
+    } catch (e) {}
   }
 
   // ==================== Web Audio Synthesizer (Zero-Asset Offline Engine) ====================
@@ -279,11 +341,20 @@
 
   // ==================== 移动端：viewport 兜底 ====================
   function ensureViewportMeta(){
-    if (document.querySelector('meta[name="viewport"]')) return;
-    const mv = document.createElement('meta');
-    mv.setAttribute('name', 'viewport');
-    mv.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
-    document.head.appendChild(mv);
+    if (!document.querySelector('meta[name="viewport"]')) {
+      const mv = document.createElement('meta');
+      mv.setAttribute('name', 'viewport');
+      mv.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
+      document.head.appendChild(mv);
+    }
+    // 灯塔 favicon（顺带消掉浏览器每次请求 /favicon.ico 的 404）
+    if (!document.querySelector('link[rel="icon"]')) {
+      var fx = document.createElement('link');
+      fx.rel = 'icon'; fx.type = 'image/svg+xml';
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0c1720"/><path d="M16 5l4 6v14h-8V11z" fill="#facc15"/><circle cx="16" cy="9" r="2.4" fill="#fef3c7"/><path d="M4 27h24" stroke="#22d3ee" stroke-width="2" fill="none"/></svg>';
+      fx.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+      document.head.appendChild(fx);
+    }
   }
 
   // ==================== 移动端：强制横屏 + 分辨率检测 ====================
@@ -353,6 +424,265 @@
     window.addEventListener('orientationchange', function(){ setTimeout(measure, 120); setTimeout(measure, 620); });
     document.addEventListener('pointerdown', function once(){ tryLock(); document.removeEventListener('pointerdown', once); });
     tryLock();
+  }
+
+  // ==================== 桌面拟真 ①：游戏内时钟（真实流逝时间映射 18:00→23:30） ====================
+  var CLOCK_START_KEY = 'arg_game_start';
+  function gameClockText(){
+    var t0 = 0;
+    try {
+      t0 = parseInt(localStorage.getItem(CLOCK_START_KEY) || '0', 10);
+      if (!t0) { t0 = Date.now(); localStorage.setItem(CLOCK_START_KEY, String(t0)); }
+    } catch (e) { t0 = Date.now(); }
+    var elapsedMin = Math.floor((Date.now() - t0) / 60000);
+    var gameMin = 18 * 60 + Math.min(elapsedMin * 4, (23 * 60 + 30) - (18 * 60)); // 1 真实分钟 = 4 游戏分钟，封顶 23:30
+    var hh = Math.floor(gameMin / 60) % 24, mm = gameMin % 60;
+    return (hh < 10 ? '0' + hh : '' + hh) + ':' + (mm < 10 ? '0' + mm : '' + mm);
+  }
+  window.ARG_CLOCK = { time: gameClockText };
+
+  function ensureGameClock(){
+    function paint(){
+      var txt = gameClockText();
+      ['.tray-time', '.mac-time', '.cyber-clock', '.tray-status', '[data-arg-clock]'].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){
+          if (el.dataset.argClockLocked === '1') return;
+          el.dataset.argClockLocked = '1';
+          el.textContent = txt;
+        });
+      });
+      document.querySelectorAll('[data-arg-clock-fill]').forEach(function(el){ el.textContent = txt; });
+    }
+    paint();
+    setInterval(paint, 15000);
+  }
+
+  // ==================== 桌面拟真 ②：真拖拽多窗口 + 最小化/最大化/关闭 + 任务栏切换 ====================
+  function ensureWindowManager(){
+    var WIN_SEL = '.win-sticky-note,.dark-sticky-note,.mac-stickies';
+    var wins = [].slice.call(document.querySelectorAll(WIN_SEL)).filter(function(w){
+      return (w.textContent || '').trim().length > 6; // 模板里的空便签不做成窗口
+    });
+    if (!wins.length) return;
+    var st = document.createElement('style'); st.id = 'arg-winman';
+    st.textContent = [
+      '.arg-win{position:absolute!important;margin:0!important;transition:box-shadow .12s;touch-action:none}',
+      '.arg-win.arg-win-min{display:none!important}',
+      '.arg-win.arg-win-max{width:calc(100% - 24px)!important;height:calc(100% - 24px)!important;top:12px!important;left:12px!important}',
+      '.arg-win .arg-win-btns{position:absolute;top:4px;right:5px;display:flex;gap:3px;z-index:2}',
+      '.arg-win .arg-win-btns button{width:18px;height:16px;line-height:13px;font:11px/1 "Tahoma","SimSun",sans-serif;border:1px solid rgba(0,0,0,.45);background:#d8d0c0;color:#222;cursor:pointer;padding:0;border-radius:1px}',
+      '.arg-win .arg-win-btns button:hover{background:#efe8da}',
+      '.arg-win.dragging{opacity:.94;box-shadow:0 18px 44px -12px rgba(0,0,0,.6)!important}',
+      '.arg-win-focus{box-shadow:0 12px 34px -10px rgba(0,0,0,.5)!important}',
+      '.arg-taskbtn{min-width:74px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;padding:2px 8px;border:1px solid rgba(0,0,0,.3);background:rgba(255,255,255,.72);color:#1f2937;border-radius:2px;cursor:pointer}',
+      '.arg-taskbtn.active{background:#1d4ed8;color:#fff;border-color:#1e3a8a}',
+      '.arg-taskbar-injected{display:flex;gap:4px;align-items:center;flex-wrap:wrap}',
+      '@media (max-width:720px){.arg-win .arg-win-btns button{width:26px;height:22px}}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    var topZ = 120;
+    // 把窗口重挂到整块桌面区域（.desktop-main 等），否则会被零高度的便签容器钳死坐标
+    var host = document.querySelector('.desktop-main,.mac-main-area,.cyber-desktop,.dark-desktop,.win98-desktop,.winxp-desktop') || wins[0].parentElement || document.body;
+    if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+    wins.forEach(function(w){
+      if (w.parentElement !== host) {
+        var r0 = w.getBoundingClientRect(), hr0 = host.getBoundingClientRect();
+        w.dataset.argInitX = String(Math.round(r0.left - hr0.left + (host.scrollLeft || 0)));
+        w.dataset.argInitY = String(Math.round(r0.top - hr0.top + (host.scrollTop || 0)));
+        host.appendChild(w);
+      }
+    });
+
+    // 任务栏容器
+    var taskHost = document.querySelector('.taskbar-tasks') || document.querySelector('.dark-taskbar') ||
+      document.querySelector('.win98-taskbar') || document.querySelector('.winxp-taskbar') ||
+      document.querySelector('.mac-menubar-right') || document.querySelector('.cyber-footer');
+    if (taskHost && !taskHost.querySelector('.arg-taskbar-injected')) {
+      var bar = document.createElement('div');
+      bar.className = 'arg-taskbar-injected';
+      taskHost.appendChild(bar);
+    }
+
+    wins.forEach(function(w, i){
+      var title = (w.querySelector('.note-titlebar') || w.querySelector('h3,h4,.note-title') || w).textContent.trim().slice(0, 14) || ('窗口 ' + (i + 1));
+      w.classList.add('arg-win');
+      w.dataset.argWinTitle = title;
+      var r = w.getBoundingClientRect(), hr = host.getBoundingClientRect();
+      var initL = w.dataset.argInitX ? parseInt(w.dataset.argInitX, 10) : Math.max(0, r.left - hr.left + (host.scrollLeft || 0));
+      var initT = w.dataset.argInitY ? parseInt(w.dataset.argInitY, 10) : Math.max(0, r.top - hr.top + (host.scrollTop || 0));
+      w.style.left = initL + 'px';
+      w.style.top = initT + 'px';
+
+      var bar = document.createElement('div'); bar.className = 'arg-win-btns';
+      [['_', 'minimize', '最小化'], ['□', 'maximize', '最大化'], ['×', 'close', '关闭']].forEach(function(b){
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.textContent = b[0]; btn.title = b[2]; btn.dataset.act = b[1];
+        bar.appendChild(btn);
+      });
+      w.appendChild(bar);
+
+      var tb = taskHost && taskHost.querySelector('.arg-taskbar-injected');
+      if (tb) {
+        var tbtn = document.createElement('button');
+        tbtn.type = 'button'; tbtn.className = 'arg-taskbtn'; tbtn.textContent = title;
+        tbtn.addEventListener('click', function(){
+          if (w.classList.contains('arg-win-min')) { w.classList.remove('arg-win-min'); focusWin(w); }
+          else if (document.activeElement !== document.body && w.classList.contains('arg-win-focus')) { setMin(w, true); }
+          else { focusWin(w); }
+        });
+        tb.appendChild(tbtn);
+        w._taskBtn = tbtn;
+      }
+
+      bar.addEventListener('click', function(e){
+        var act = e.target && e.target.dataset ? e.target.dataset.act : '';
+        if (!act) return;
+        e.preventDefault(); e.stopPropagation();
+        if (act === 'minimize') setMin(w, true);
+        else if (act === 'maximize') w.classList.toggle('arg-win-max');
+        else { setMin(w, true); }
+        playSynthSound('click');
+      });
+
+      var drag = null;
+      w.addEventListener('pointerdown', function(e){
+        if (e.target && e.target.dataset && e.target.dataset.act) return;
+        focusWin(w);
+        var onBar = !!(e.target.closest && e.target.closest('.note-titlebar,.arg-win-btns')) || true;
+        if (!onBar) return;
+        drag = { x: e.clientX, y: e.clientY, l: parseFloat(w.style.left) || 0, t: parseFloat(w.style.top) || 0 };
+        w.classList.add('dragging');
+        try { w.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      w.addEventListener('pointermove', function(e){
+        if (!drag) return;
+        var nl = drag.l + (e.clientX - drag.x), nt = drag.t + (e.clientY - drag.y);
+        var hostW = host.clientWidth || window.innerWidth, hostH = host.clientHeight || window.innerHeight;
+        var maxL = hostW - w.offsetWidth - 4, maxT = hostH - 28;
+        w.style.left = Math.min(Math.max(nl, -w.offsetWidth + 60), Math.max(maxL, 0)) + 'px';
+        w.style.top = Math.min(Math.max(nt, 0), Math.max(maxT, 0)) + 'px';
+      });
+      function endDrag(){ if (drag) { drag = null; w.classList.remove('dragging'); } }
+      w.addEventListener('pointerup', endDrag);
+      w.addEventListener('pointercancel', endDrag);
+    });
+
+    function setMin(w, on){
+      w.classList.toggle('arg-win-min', on);
+      if (w._taskBtn) w._taskBtn.classList.toggle('active', !on);
+      if (!on) focusWin(w);
+    }
+    function focusWin(w){
+      wins.forEach(function(x){ x.classList.remove('arg-win-focus'); if (x._taskBtn) x._taskBtn.classList.remove('active'); });
+      w.classList.add('arg-win-focus');
+      w.style.zIndex = String(++topZ);
+      if (w._taskBtn) w._taskBtn.classList.add('active');
+    }
+    focusWin(wins[0]);
+  }
+
+  // ==================== 桌面拟真 ③：假关机 / 重启 / 睡眠 回环 ====================
+  function ensurePowerMenu(){
+    var start = document.querySelector('.win-start-btn,.xp-start-btn,.dark-start-btn,.cyber-start,.mac-menubar-left');
+    if (!start || start.dataset.argPower) return;
+    start.dataset.argPower = '1';
+    var st = document.createElement('style'); st.id = 'arg-power';
+    st.textContent = [
+      '#arg-power-menu{position:fixed;z-index:99995;min-width:168px;background:#ece9d8;border:2px outset #fff;box-shadow:4px 4px 12px rgba(0,0,0,.45);padding:4px;font-family:"Tahoma","SimSun",sans-serif;font-size:13px;color:#111}',
+      '#arg-power-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:7px 12px;cursor:pointer;font:inherit;color:inherit}',
+      '#arg-power-menu button:hover{background:#1d4ed8;color:#fff}',
+      '#arg-power-off{position:fixed;inset:0;z-index:99999;background:#000;color:#3f6212;font:14px/1.9 "Courier New",monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px}',
+      '#arg-power-off .po-line{opacity:.85}',
+      '#arg-power-off .po-cursor{display:inline-block;width:9px;height:16px;background:#3f6212;animation:arg-blink 1s steps(2) infinite;vertical-align:-2px}',
+      '@keyframes arg-blink{0%,50%{opacity:1}51%,100%{opacity:0}}',
+      'body.arg-sleep{filter:brightness(.12) saturate(.4);transition:filter .5s;pointer-events:none}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    function menu(){
+      var old = document.getElementById('arg-power-menu');
+      if (old) { old.remove(); return null; }
+      var m = document.createElement('div'); m.id = 'arg-power-menu';
+      var r = start.getBoundingClientRect();
+      m.style.left = Math.max(6, r.left) + 'px';
+      m.style.top = Math.max(6, r.top - 132) + 'px';
+      [['待机（睡眠）', 'sleep'], ['重新启动', 'reboot'], ['关机', 'off']].forEach(function(o){
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = o[0];
+        b.addEventListener('click', function(){ m.remove(); act(o[1]); });
+        m.appendChild(b);
+      });
+      document.body.appendChild(m);
+      setTimeout(function(){ document.addEventListener('pointerdown', function close(ev){ if (!m.contains(ev.target)) { m.remove(); document.removeEventListener('pointerdown', close); } }); }, 0);
+      return m;
+    }
+    function act(kind){
+      if (kind === 'sleep') {
+        document.body.classList.add('arg-sleep');
+        setTimeout(function(){ document.body.classList.remove('arg-sleep'); }, 2200);
+        return;
+      }
+      var ov = document.createElement('div'); ov.id = 'arg-power-off';
+      var lines = kind === 'reboot'
+        ? ['ACPI: 正在终止进程…', '潮声站备份守护进程：已停止', '系统即将重新启动。', '', 'BOOT SELF-TEST / 开机自检']
+        : ['电源已切断。', '', '这台机器停在了 2003 年的某个夜里。', '想再听一次，就得自己按下去。', ''];
+      lines.forEach(function(t){ var d = document.createElement('div'); d.className = 'po-line'; d.textContent = t; ov.appendChild(d); });
+      var cur = document.createElement('span'); cur.className = 'po-cursor'; ov.appendChild(cur);
+      var go = document.createElement('a');
+      go.href = (config.files && config.files.node_prologue) ? config.files.node_prologue : 'index.html';
+      go.textContent = kind === 'reboot' ? '› 重新启动' : '› 重新通电';
+      go.style.cssText = 'margin-top:18px;color:#65a30d;text-decoration:underline;cursor:pointer';
+      ov.appendChild(go);
+      document.body.appendChild(ov);
+      try { if (window.screen && window.screen.orientation && window.screen.orientation.unlock) window.screen.orientation.unlock(); } catch (e) {}
+    }
+    start.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); playSynthSound('click'); menu(); });
+  }
+
+  // ==================== 桌面拟真 ④：托盘指示器 + 静态噪点 + 随机墨渍/壁纸 ====================
+  function ensureTrayTexture(){
+    if (document.getElementById('arg-noise')) return;
+    var st = document.createElement('style'); st.id = 'arg-tray';
+    st.textContent = [
+      '.arg-tray-ind{display:inline-flex;gap:8px;align-items:center;font-size:11px;opacity:.85;margin-right:8px;letter-spacing:.4px}',
+      '.arg-tray-ind span{white-space:nowrap}',
+      '#arg-noise{position:fixed;inset:0;z-index:99970;pointer-events:none;opacity:.045;background-repeat:repeat;background-size:180px 180px}',
+      '.arg-ink{position:fixed;border-radius:52% 48% 61% 39%/47% 55% 45% 53%;pointer-events:none;z-index:99969;filter:blur(.4px)}',
+      'body.arg-wall-1{background-image:radial-gradient(1100px 520px at 78% -8%,rgba(30,64,120,.28),transparent)}',
+      'body.arg-wall-2{background-image:radial-gradient(900px 480px at 12% 108%,rgba(13,80,74,.26),transparent)}',
+      'body.arg-wall-3{background-image:radial-gradient(760px 760px at 92% 88%,rgba(88,28,28,.2),transparent)}'
+    ].join(String.fromCharCode(10));
+    document.head.appendChild(st);
+
+    // 噪点层（SVG feTurbulence，无外链）
+    var nz = document.createElement('div'); nz.id = 'arg-noise';
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="180" height="180" filter="url(#n)" opacity="0.55"/></svg>';
+    nz.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+    document.body.appendChild(nz);
+
+    // 随机墨渍 2–4 处
+    var ink = 2 + Math.floor(Math.random() * 3);
+    for (var i = 0; i < ink; i++) {
+      var d = document.createElement('div'); d.className = 'arg-ink';
+      var s = 26 + Math.random() * 62;
+      d.style.width = s + 'px'; d.style.height = s * (0.6 + Math.random() * 0.5) + 'px';
+      d.style.left = (Math.random() * 90) + 'vw'; d.style.top = (Math.random() * 92) + 'vh';
+      d.style.background = 'rgba(20,24,30,' + (0.02 + Math.random() * 0.05).toFixed(3) + ')';
+      document.body.appendChild(d);
+    }
+
+    // 每次进桌面换一层壁纸色温
+    var wall = 'arg-wall-' + (1 + Math.floor(Math.random() * 3));
+    document.body.classList.add(wall);
+
+    // 托盘假指示器
+    var tray = document.querySelector('.win-tray,.winxp-tray,.dark-tray,.mac-menubar-right,.cyber-footer');
+    if (tray && !tray.querySelector('.arg-tray-ind')) {
+      var ind = document.createElement('span'); ind.className = 'arg-tray-ind';
+      var vol = 55 + Math.floor(Math.random() * 30), bat = 40 + Math.floor(Math.random() * 55);
+      ind.innerHTML = '<span>▂▄▆</span><span>♪ ' + vol + '%</span><span> batt ' + bat + '%</span>';
+      tray.insertBefore(ind, tray.firstChild);
+    }
   }
 
   // ==================== 全局主题层：统一「蓝湾档案」美学 ====================
@@ -806,10 +1136,90 @@
     function ensureChatStyle(){
       if (document.getElementById('arg-chat-style')) return;
       const st = document.createElement('style'); st.id = 'arg-chat-style';
-      st.textContent = '.msg-action{text-align:center;font-size:11px;color:#94a3b8;font-style:italic;margin:8px 0;opacity:.85}';
+      st.textContent = [
+        '.msg-action{text-align:center;font-size:11px;color:#94a3b8;font-style:italic;margin:8px 0;opacity:.85}',
+        '.msg-lost{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:12px}',
+        '.msg-lost .lost-tag{color:#f87171;border:1px dashed rgba(248,113,113,.6);border-radius:4px;padding:2px 8px;letter-spacing:1px;flex:0 0 auto}',
+        '.msg-lost .lost-txt{color:#6b7280;text-decoration:line-through;opacity:.75;word-break:break-all}',
+        '.msg-auto .msg-bubble{opacity:.82;border-style:dashed!important}',
+        '.msg-auto .auto-tag{display:block;font-size:10px;letter-spacing:1px;color:#a1a1aa;margin-bottom:2px}',
+        '.msg-waiting{text-align:center;font-size:11.5px;color:#94a3b8;margin:10px 0;letter-spacing:.6px}',
+        '.msg-call{text-align:center;font-size:11.5px;color:#fbbf24;margin:10px 0;opacity:.9}',
+        '.arg-typing{display:inline-flex;gap:4px;align-items:center;padding:10px 14px;border-radius:14px;background:rgba(127,127,127,.16)}',
+        '.arg-typing i{width:6px;height:6px;border-radius:50%;background:#9ca3af;display:inline-block;animation:arg-dot 1.05s infinite}',
+        '.arg-typing i:nth-child(2){animation-delay:.16s}.arg-typing i:nth-child(3){animation-delay:.32s}',
+        '@keyframes arg-dot{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}',
+        '.msg-ts{font-size:9.5px;opacity:.45;margin:0 46px 6px;letter-spacing:.5px}',
+        '.arg-send-armed{animation:arg-armed 1.1s ease-in-out infinite!important}',
+        '@keyframes arg-armed{0%,100%{box-shadow:0 0 0 0 rgba(250,204,21,.5)}50%{box-shadow:0 0 0 6px rgba(250,204,21,0)}}',
+        '.arg-scripted-hint{font-size:10.5px;color:#94a3b8;text-align:center;width:100%;margin-top:-2px}'
+      ].join(String.fromCharCode(10));
       document.head.appendChild(st);
     }
     ensureChatStyle();
+
+    // 消息渲染分支：数据丢失 / 自动回复 / 等待回复 / 未接通语音 / 自定义分隔
+    function stampRow(){
+      if (!messagesEl) return null;
+      const d = document.createElement('div');
+      d.className = 'msg-ts';
+      try { d.textContent = '  ' + gameClockText(); } catch (e) { d.textContent = '  '; }
+      d.style.textAlign = 'right';
+      messagesEl.appendChild(d);
+      return d;
+    }
+    function npcSay(text, contact, cb){
+      if (!messagesEl) { if (cb) cb(); return; }
+      const row = document.createElement('div');
+      row.className = 'msg-row msg-npc received';
+      const av = document.createElement('div'); av.className = 'msg-avatar'; av.innerHTML = renderAvatar(contact && contact.avatar, '🤖');
+      const bub = document.createElement('div'); bub.className = 'arg-typing';
+      bub.innerHTML = '<i></i><i></i><i></i>';
+      row.appendChild(av); row.appendChild(bub);
+      messagesEl.appendChild(row);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      const wait = 620 + Math.min(1500, String(text || '').length * 26);
+      setTimeout(function(){
+        row.remove();
+        appendMessage('npc', text, contact && contact.avatar);
+        stampRow();
+        if (contact && contact.id) logMsg(contact.id, 'npc', text);
+        if (cb) cb();
+      }, wait);
+    }
+    function renderMessage(m, contact){
+      const type = m.type || '';
+      if (!messagesEl) return;
+      if (type === 'lost') {
+        const row = document.createElement('div'); row.className = 'msg-lost';
+        const tag = document.createElement('span'); tag.className = 'lost-tag'; tag.textContent = '[数据丢失]';
+        const txt = document.createElement('span'); txt.className = 'lost-txt'; txt.textContent = m.text || '▇▇▇▇▇▇▇▇▇';
+        row.appendChild(tag); row.appendChild(txt); messagesEl.appendChild(row);
+      } else if (type === 'auto') {
+        const row = document.createElement('div'); row.className = 'msg-row msg-npc received msg-auto';
+        const av = document.createElement('div'); av.className = 'msg-avatar'; av.innerHTML = renderAvatar(contact && contact.avatar, '🤖');
+        const bub = document.createElement('div'); bub.className = 'msg-bubble';
+        const lab = document.createElement('span'); lab.className = 'auto-tag'; lab.textContent = '[自动回复]';
+        bub.appendChild(lab); bub.appendChild(document.createTextNode(m.text || ''));
+        row.appendChild(av); row.appendChild(bub); messagesEl.appendChild(row);
+      } else if (type === 'waiting' || type === 'noreply') {
+        const d = document.createElement('div'); d.className = 'msg-waiting';
+        d.textContent = type === 'waiting' ? '（等待回复…）' : '（无回复）';
+        messagesEl.appendChild(d);
+      } else if (type === 'call') {
+        const d = document.createElement('div'); d.className = 'msg-call';
+        d.textContent = '📞 ' + (m.text || '语音通话 · 未接通');
+        messagesEl.appendChild(d);
+      } else if (type === 'divider') {
+        const d = document.createElement('div'); d.className = 'msg-time-divider';
+        d.textContent = '—— ' + (m.text || '·') + ' ——';
+        messagesEl.appendChild(d);
+      } else if (type === 'action') {
+        appendAction(m.text, true);
+      } else {
+        appendMessage(m.sender, m.text, contact && contact.avatar);
+      }
+    }
     // 行动条：玩家"做了某事"而非"说了某话"（避免把指令当台词念出来）
     function appendAction(text, silent){
       if (!messagesEl) return;
@@ -902,18 +1312,50 @@
         btn.textContent = choice.text;
         btn.addEventListener('click', () => {
           playSynthSound('click');
-          // 行动条而非台词：玩家是"做了这个决定"，不是把指令念出来
-          appendAction(choice.text);
-          logMsg(contact.id, 'action', choice.text);
-          if (choice.reply) {
-            setTimeout(() => { appendMessage('npc', choice.reply, contact.avatar); logMsg(contact.id, 'npc', choice.reply); }, 300);
-          }
-          if (choice.target) {
-            setTimeout(() => go(choice.target), choice.reply ? 600 : 250);
-          }
+          armChoice(choice, contact);
         });
         choicesEl.appendChild(btn);
       });
+    }
+
+    // —— scripted 演出：话先打在框里，按不按出去由玩家决定 ——
+    var pendingChoice = null;
+    function disarmSend(){
+      pendingChoice = null;
+      if (form) {
+        const send = form.querySelector('button[type="submit"],.chat-send-btn,button');
+        if (send) send.classList.remove('arg-send-armed');
+      }
+      if (choicesEl) {
+        const hint = choicesEl.querySelector('.arg-scripted-hint');
+        if (hint) hint.remove();
+      }
+    }
+    function armChoice(choice, contact){
+      if (!input || !form || choice.say === false) { fireChoice(choice, contact); return; }
+      pendingChoice = { choice: choice, contact: contact };
+      input.value = choice.text;
+      try { input.focus(); } catch (e) {}
+      const send = form.querySelector('button[type="submit"],.chat-send-btn,button');
+      if (send) send.classList.add('arg-send-armed');
+      if (choicesEl && !choicesEl.querySelector('.arg-scripted-hint')) {
+        const hint = document.createElement('div');
+        hint.className = 'arg-scripted-hint';
+        hint.textContent = '↑ 话替你打在框里了。按不按出去，你自己决定。';
+        choicesEl.appendChild(hint);
+      }
+    }
+    function fireChoice(choice, contact){
+      disarmSend();
+      appendAction(choice.text);
+      logMsg(contact.id, 'action', choice.text);
+      if (choice.reply) {
+        npcSay(choice.reply, contact, function(){
+          if (choice.target) setTimeout(function(){ go(choice.target); }, 460);
+        });
+      } else if (choice.target) {
+        setTimeout(function(){ go(choice.target); }, 260);
+      }
     }
 
     function loadChat(contact){
@@ -928,9 +1370,7 @@
       messagesEl.appendChild(timeDiv);
 
       if (contact.messages && contact.messages.length) {
-        contact.messages.forEach(m => {
-          appendMessage(m.sender, m.text, contact.avatar);
-        });
+        contact.messages.forEach(m => { renderMessage(m, contact); });
       }
 
       // 重放历史动态对话（打字/选项/回复），跨会话持久
@@ -959,29 +1399,36 @@
         e.preventDefault();
         const text = input.value.trim();
         if (!text) return;
+        const contact = contacts[currentIdx];
+        // scripted：这一句是选项替你打好的，按出去才真正执行
+        if (pendingChoice && pendingChoice.contact === contact && text === pendingChoice.choice.text) {
+          const pc = pendingChoice;
+          input.value = '';
+          fireChoice(pc.choice, pc.contact);
+          return;
+        }
+        disarmSend();
         input.value = '';
         appendMessage('user', text);
-        const contact = contacts[currentIdx];
+        stampRow();
         logMsg(contact.id, 'user', text);
         // ARG：联系人答案校验——把查到的答案打字发给他，对了才给回信并记线索
         const accepted = String(contact.passphrase || '').split(/[,，;|/]+/).map(s => s.trim().toLowerCase()).filter(Boolean);
         const hit = accepted.length > 0 && accepted.indexOf(text.toLowerCase()) !== -1;
-        setTimeout(() => {
-          let replyText;
-          if (hit) {
-            replyText = contact.passphraseReply || '……对。就是这个。';
-            if (contact.passphraseClue) triggerClue(contact.passphraseClue);
-          } else {
-            // 角色化敷衍回复：轮换池（可用联系人自定义 fallbackReplies 覆盖）
-            const pool = (contact.fallbackReplies && contact.fallbackReplies.length) ? contact.fallbackReplies :
-              ['（对方沉默了很久。）', '（对方正在输入，又停下了。）', '（对方只回了一个句号。）', '（对方没有回复。海那头的信号，断断续续。）', '（对方把话头，轻轻收了回去。）'];
-            const logLen = (() => { try { return (readChatLog()[contact.id] || []).length; } catch (e) { return 0; } })();
-            replyText = pool[logLen % pool.length];
-          }
-          appendMessage('npc', replyText, contact?.avatar);
-          logMsg(contact.id, 'npc', replyText);
-          if (hit && contact.passphraseTarget) setTimeout(() => go(contact.passphraseTarget), 700);
-        }, 350);
+        let replyText;
+        if (hit) {
+          replyText = contact.passphraseReply || '……对。就是这个。';
+          if (contact.passphraseClue) triggerClue(contact.passphraseClue);
+        } else {
+          // 角色化敷衍回复：轮换池（可用联系人自定义 fallbackReplies 覆盖）
+          const pool = (contact.fallbackReplies && contact.fallbackReplies.length) ? contact.fallbackReplies :
+            ['（对方沉默了很久。）', '（对方正在输入，又停下了。）', '（对方只回了一个句号。）', '（对方没有回复。海那头的信号，断断续续。）', '（对方把话头，轻轻收了回去。）'];
+          const logLen = (() => { try { return (readChatLog()[contact.id] || []).length; } catch (e) { return 0; } })();
+          replyText = pool[logLen % pool.length];
+        }
+        npcSay(replyText, contact, function(){
+          if (hit && contact.passphraseTarget) setTimeout(() => go(contact.passphraseTarget), 520);
+        });
       });
     }
 
@@ -1031,6 +1478,13 @@
     // 进度角标/重置、4.5Hz 底噪开关、隐藏访问统计（均兜底，不影响游戏）
     try { ensureViewportMeta(); } catch (e) {}
     try { ensureLandscapeProbe(); } catch (e) {}
+    try { ensureGameClock(); } catch (e) {}
+    try { ensureNotifyRelay(); } catch (e) {}
+    try {
+      if (document.querySelector('.win98-desktop,.xp-desktop,.winxp-desktop,.macos-desktop,.cyber-desktop,.dark-desktop,.desktop-main,.mac-main-area')) {
+        ensureWindowManager(); ensurePowerMenu(); ensureTrayTexture();
+      }
+    } catch (e) {}
     try { ensureProgressPill(); } catch (e) {}
     try { ensureDroneToggle(); } catch (e) {}
     try { trackVisit(); } catch (e) {}
