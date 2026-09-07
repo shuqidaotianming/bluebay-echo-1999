@@ -253,7 +253,10 @@
     document.getElementById('arg-pv-reset').addEventListener('click', function(ev){
       ev.stopPropagation();
       if (window.confirm('确定重置全部调查进度？线索与聊天记录将清空，页面将重新载入。')) {
-        try { localStorage.removeItem('arg_visited_nodes'); localStorage.removeItem('arg_chat_log_v1'); } catch (e) {}
+        try {
+          localStorage.removeItem('arg_visited_nodes'); localStorage.removeItem('arg_chat_log_v1');
+          localStorage.removeItem('arg_game_start'); localStorage.removeItem('arg_notify_v1'); localStorage.removeItem('arg_notify_seen');
+        } catch (e) {}
         window.location.reload();
       }
     });
@@ -980,7 +983,9 @@
     const title = document.createElement('div'); title.className = 'pl-title';
     title.textContent = '🔒 本帖已由【' + lockName + '】加密';
     const sub = document.createElement('div'); sub.className = 'pl-sub';
-    sub.textContent = lockName === '本人' ? '楼主本人加密。口令只有他和收信的人知道。' : '版务操作记录：此层含违规内容，输口令调阅。';
+    sub.textContent = lockName === '本人' ? '楼主本人加密。口令只有他和收信的人知道。'
+      : lockName === '系统' ? '系统归档加密。此会话须凭调阅编号开启。'
+      : '版务操作记录：此层含违规内容，输口令调阅。';
     const row = document.createElement('div'); row.className = 'pl-row';
     const input = document.createElement('input'); input.placeholder = '输入口令…';
     input.setAttribute('autocomplete', 'off');
@@ -1196,6 +1201,7 @@
   };
 
   window.ARG = { bind, go, checkRule, checkLink, playSynthSound };
+  try { window['潮声'] = window.ARG; } catch (e) {} // 世界观内 API 别名：控制台输入 潮声.getClues()
 
   function bindSearch(form){
     form.addEventListener('submit', function(e){
