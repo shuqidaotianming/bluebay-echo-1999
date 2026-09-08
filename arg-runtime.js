@@ -1041,6 +1041,29 @@
     paint();
     setInterval(function(){ n = Math.max(900, n + Math.floor(Math.random() * 15) - 7); paint(); }, 26000);
 
+    // 已封存幽灵帖行（*** 作者，点不开，只提示"这里删过东西"）
+    var linkBox = document.querySelector('.bbs-links-container');
+    if (linkBox && !document.getElementById('arg-sealed') && config.nodeId === 'node_forum') {
+      var box = document.createElement('div'); box.id = 'arg-sealed';
+      box.style.cssText = 'margin:8px 0 2px;padding:8px 10px;border:1px dashed #cbbfa2;border-radius:8px;background:#f4efe0';
+      var cap = document.createElement('div'); cap.style.cssText = 'font-size:11px;color:#8a7f63;letter-spacing:1px;margin-bottom:6px';
+      cap.textContent = '—— 以下帖子已被版主或系统封存 ——';
+      box.appendChild(cap);
+      [['▇▇▇ 的最后一夜', '引渡', '4 年前 · 回复 ***'],
+       ['听潮会 内圈 报名帖', '***', '3 年前 · 回复 ***'],
+       ['03:14 打卡（长期更新）', '***', '最近回复：昨天 03:14']].forEach(function(p){
+        var d = document.createElement('div'); d.className = 'arg-sealed-row';
+        d.innerHTML = '<span class="arg-sealed-lock">🔒</span><span class="arg-sealed-title"></span><span class="arg-sealed-meta"></span>';
+        d.querySelector('.arg-sealed-title').textContent = p[0];
+        d.querySelector('.arg-sealed-meta').textContent = '作者 ' + p[1] + ' · ' + p[2];
+        box.appendChild(d);
+      });
+      var st2 = document.createElement('style');
+      st2.textContent = '.arg-sealed-row{display:flex;align-items:center;gap:8px;padding:5px 2px;color:#a89f88;font-size:12.5px;border-top:1px dotted #ddd3b8;cursor:not-allowed}.arg-sealed-row:first-of-type{border-top:0}.arg-sealed-lock{opacity:.6}.arg-sealed-title{flex:1;text-decoration:line-through;overflow-wrap:anywhere}.arg-sealed-meta{font-size:10.5px;opacity:.8}';
+      document.head.appendChild(st2);
+      linkBox.appendChild(box);
+    }
+
     function check(){
       if (getClues().some(function(id){ return id.indexOf('ns_') === 0; }) || hasClue('clue_shadow_949')) {
         left.innerHTML = '当前身份：<b>已验证</b> · 欢迎回来，知微。夜航的记录你都看过了。';
