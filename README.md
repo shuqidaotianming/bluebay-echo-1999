@@ -5,7 +5,10 @@
 
 ## 在线试玩
 
-纯静态站点，无需服务器。直接访问本仓库的 GitHub Pages；或下载整仓库用浏览器打开 `index.html`（建议 `npx serve .` 以保证线索进度一致）。
+- **Cloudflare Pages（推荐，国内访问更稳）**：https://fm994.pages.dev/
+- **GitHub Pages**：https://shuqidaotianming.github.io/bluebay-echo-1999/
+
+纯静态站点，无需服务器。也可下载整仓库用浏览器打开 `index.html`（建议 `npx serve .` 以保证线索进度一致）。
 
 ## 玩法速览
 
