@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.cache/
+*.log
+.DS_Store
+Thumbs.db
+# 本地调试用；生成物 arg-search-index.js / arg-runtime.js 属于源码产物，需入库
+.env
+.env.local

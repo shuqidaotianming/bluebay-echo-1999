@@ -1,0 +1,5 @@
+# 蓝湾广播站 · 档案机 robots
+User-agent: *
+Disallow: /node_hidden_recs.html
+Disallow: /assets/deep-hum.json
+# 给肯翻源码的人：那页的答案，写在那页自己身上。

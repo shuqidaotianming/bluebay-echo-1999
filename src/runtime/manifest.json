@@ -1,0 +1,22 @@
+{
+  "note": "arg-runtime.js 的模块拼接清单。打包器按 import 递归重排，确保依赖先声明；此顺序为可读性种子序。",
+  "order": [
+    "logic.mjs",
+    "core.mjs",
+    "audio.mjs",
+    "typewriter.mjs",
+    "desktop.mjs",
+    "notify.mjs",
+    "router.mjs",
+    "forum.mjs",
+    "chat.mjs",
+    "progress.mjs",
+    "save.mjs",
+    "stats.mjs",
+    "skin.mjs",
+    "nameinput.mjs",
+    "games.mjs",
+    "puzzles.mjs",
+    "index.mjs"
+  ]
+}

@@ -6850,6 +6850,256 @@
         "title": "新暗号",
         "body": "阿灯的暗号只有三个字母：\nD J L（等你们）。\n——她在等会修声音的人。\n\n◈ 接下来： <a data-arg-link=\"返回夜航船\">← 返回夜航船</a>"
       }
+    },
+    {
+      "id": "hr_playfair",
+      "name": "夹页 · 只剩半张方格",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_login_reef",
+      "name": "礁声 · 深层档案门禁",
+      "type": "Login",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_files_reef",
+      "name": "礁声 · 深层卷宗柜",
+      "type": "Files",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_polybius",
+      "name": "卷宗 · 棋盘密码",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_freq",
+      "name": "卷宗 · 单表截获",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_xor",
+      "name": "残带 · 两遍噪声",
+      "type": "Browse",
+      "template": "crt",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_luhn",
+      "name": "卷宗 · 船籍校验",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_df",
+      "name": "卷宗 · 测向交点",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "hr_stego",
+      "name": "音频 · 藏在嗡鸣里",
+      "type": "Browse",
+      "template": "crt",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "end_reef",
+      "name": "结局 · 深潮",
+      "type": "Ending",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_workbench",
+      "name": "声音修复工作台",
+      "type": "Files",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_spectral",
+      "name": "修复台 · 补全频谱",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_gate",
+      "name": "修复台 · 去噪门限",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_align",
+      "name": "修复台 · 走带对位",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_dial",
+      "name": "修复台 · 调谐旋钮",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_splice",
+      "name": "修复台 · 剪辑拼接",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "mg_eq",
+      "name": "修复台 · 三段均衡",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "end_goldear",
+      "name": "结局 · 金耳朵",
+      "type": "Ending",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_nightwatch",
+      "name": "夜航 · 03:14 值守",
+      "type": "Browse",
+      "template": "crt",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_anniv",
+      "name": "滴漏 · 周年未寄",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_sitwith",
+      "name": "守夜 · 陪一段",
+      "type": "Browse",
+      "template": "crt",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_dial_radio",
+      "name": "夜航电台 · 发信端",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_dial_phone",
+      "name": "夜航电台 · 手机端",
+      "type": "Browse",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "node_hidden_recs",
+      "name": "调阅 · 没有旁注的那页",
+      "type": "Browse",
+      "template": "dossier",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
+    },
+    {
+      "id": "end_livewave",
+      "name": "结局 · 现场直播",
+      "type": "Ending",
+      "template": "terminal",
+      "x": 0,
+      "y": 0,
+      "fields": {},
+      "isStart": false
     }
   ],
   "edges": [
@@ -14120,8 +14370,327 @@
       "to": "doc_66_table",
       "port": "声纹对照",
       "label": "名单 · 声纹对照表"
+    },
+    {
+      "from": "node_timeline",
+      "to": "hr_playfair",
+      "port": "深潮",
+      "label": "深潮",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_playfair",
+      "to": "node_login_reef",
+      "port": "去开深层档案",
+      "label": "去开深层档案",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_login_reef",
+      "to": "node_files_reef",
+      "port": "解锁",
+      "label": "解锁",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_polybius",
+      "port": "棋盘",
+      "label": "棋盘",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_freq",
+      "port": "截获",
+      "label": "截获",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_xor",
+      "port": "残带",
+      "label": "残带",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_luhn",
+      "port": "船籍",
+      "label": "船籍",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_df",
+      "port": "交点",
+      "label": "交点",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_reef",
+      "to": "hr_stego",
+      "port": "嗡鸣",
+      "label": "嗡鸣",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_polybius",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_freq",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_xor",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_luhn",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_df",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "hr_stego",
+      "to": "node_files_reef",
+      "port": "返回柜",
+      "label": "返回柜",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_files_secret",
+      "to": "mg_workbench",
+      "port": "修复台",
+      "label": "修复台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "node_files_secret",
+      "port": "返回保险箱",
+      "label": "返回保险箱",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_spectral",
+      "port": "补全频谱",
+      "label": "补全频谱",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_spectral",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_gate",
+      "port": "去噪门限",
+      "label": "去噪门限",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_gate",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_align",
+      "port": "走带对位",
+      "label": "走带对位",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_align",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_dial",
+      "port": "调谐旋钮",
+      "label": "调谐旋钮",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_dial",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_splice",
+      "port": "剪辑拼接",
+      "label": "剪辑拼接",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_splice",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_workbench",
+      "to": "mg_eq",
+      "port": "三段均衡",
+      "label": "三段均衡",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "mg_eq",
+      "to": "mg_workbench",
+      "port": "回工作台",
+      "label": "回工作台",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "node_nightwatch",
+      "port": "node_nightwatch",
+      "label": "node_nightwatch",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "node_anniv",
+      "port": "node_anniv",
+      "label": "node_anniv",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "node_sitwith",
+      "port": "node_sitwith",
+      "label": "node_sitwith",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "node_dial_radio",
+      "port": "node_dial_radio",
+      "label": "node_dial_radio",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "node_hidden_recs",
+      "port": "node_hidden_recs",
+      "label": "node_hidden_recs",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightship",
+      "to": "end_livewave",
+      "port": "end_livewave",
+      "label": "end_livewave",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_nightwatch",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_anniv",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_sitwith",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_hidden_recs",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "返回夜航船",
+      "icon": "",
+      "desc": ""
+    },
+    {
+      "from": "node_dial_radio",
+      "to": "node_nightship",
+      "port": "返回夜航船",
+      "label": "返回夜航船",
+      "icon": "",
+      "desc": ""
     }
   ],
-  "customTemplates": [],
-  "selected": "node_prologue"
+  "customTemplates": []
 }

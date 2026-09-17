@@ -1,0 +1,26 @@
+{
+  "name": "bluebay-echo-1999",
+  "version": "1.1.0",
+  "private": true,
+  "description": "白噪·1999 蓝湾镇回声事件 — 纯静态 ARG 解谜引擎（零依赖构建/校验/测试管线）",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:runtime": "node scripts/build-runtime.mjs",
+    "build:index": "node scripts/build-search-index.mjs",
+    "gen:hardcore": "node scripts/gen-hardcore.mjs",
+    "gen:minigames": "node scripts/gen-minigames.mjs",
+    "gen:arg": "node scripts/gen-arg.mjs",
+    "gen:stego": "node scripts/gen-stego-audio.mjs BLACKTIDE",
+    "gen:all": "node scripts/gen-stego-audio.mjs BLACKTIDE && node scripts/gen-hardcore.mjs && node scripts/gen-minigames.mjs && node scripts/gen-arg.mjs && node scripts/build.mjs",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "check": "node scripts/validate.mjs && node --test \"tests/**/*.test.mjs\"",
+    "prepublish:check": "node scripts/build.mjs && node --test \"tests/**/*.test.mjs\""
+  },
+  "keywords": ["arg", "puzzle", "static-site", "game", "escape-room"],
+  "license": "MPL-2.0"
+}

@@ -1,0 +1,110 @@
+{
+  "note": "由 gen-hardcore.mjs 维护；validate.mjs 强制这些线索断锁后不可达。",
+  "guarded": [
+    {
+      "clueId": "hr_polybius",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "hr_freq",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "hr_xor",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "hr_luhn",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "hr_df",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "hr_stego",
+      "behind": "node_login_reef"
+    },
+    {
+      "clueId": "clue_stegoaudio",
+      "behind": "node_login_reef",
+      "credit": {
+        "clueId": "clue_stegoaudio",
+        "host": "hr_stego",
+        "answer": "blacktide"
+      }
+    },
+    {
+      "clueId": "mg_spectral",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "mg_gate",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "mg_align",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "mg_dial",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "mg_splice",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "mg_eq",
+      "behind": "node_login_safe"
+    },
+    {
+      "clueId": "clue_mg_spectral",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_spectral",
+        "host": "mg_spectral"
+      }
+    },
+    {
+      "clueId": "clue_mg_gate",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_gate",
+        "host": "mg_gate"
+      }
+    },
+    {
+      "clueId": "clue_mg_align",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_align",
+        "host": "mg_align"
+      }
+    },
+    {
+      "clueId": "clue_mg_dial",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_dial",
+        "host": "mg_dial"
+      }
+    },
+    {
+      "clueId": "clue_mg_splice",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_splice",
+        "host": "mg_splice"
+      }
+    },
+    {
+      "clueId": "clue_mg_eq",
+      "behind": "node_login_safe",
+      "credit": {
+        "clueId": "clue_mg_eq",
+        "host": "mg_eq"
+      }
+    }
+  ]
+}
