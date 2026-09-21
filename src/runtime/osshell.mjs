@@ -53,6 +53,14 @@ export function ensureOS() {
     document.body.appendChild(open); setTimeout(() => document.addEventListener('click', function h() { open.remove(); document.removeEventListener('click', h); }), 0); };
   function cycleTheme(btn) { const keys = Object.keys(SKINS); const next = keys[(keys.indexOf(currentTheme()) + 1) % keys.length]; applyTheme(next); btn.textContent = '🎨 ' + SKINS[next].label.split(' ')[0]; playSynthSound('unlock'); }
 
-  // 文件柜页：自动开一个资源管理器，直接治“丑”
-  if (document.querySelector('.folder')) { const nid = (window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || ''; openExplorer(guessFolder(nid) || undefined); fixPE(); }
+  // 悬浮“我的电脑”图标（桌面/文件柜页常驻，一眼可见）
+  const dicon = document.createElement('div');
+  dicon.textContent = '💻 我的电脑';
+  dicon.style.cssText = 'position:fixed;right:12px;top:12px;z-index:99987;cursor:pointer;background:var(--os-titlebar,#000080);color:#fff;font:12px/1 Tahoma,sans-serif;padding:7px 11px;border-radius:8px;box-shadow:var(--os-shadow);user-select:none';
+  dicon.onclick = () => { playSynthSound('click'); openExplorer(guessFolder((window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || '')); fixPE(); };
+  document.body.appendChild(dicon);
+
+  // 自动开一次资源管理器，让它“看得见”（桌面 + 文件柜页都开；用户关过后本会话不再自动弹）
+  let dismissed = false; try { dismissed = sessionStorage.getItem('os_exp_dismissed') === '1'; } catch (e) {}
+  if (!dismissed) { const nid = (window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || ''; const w = openExplorer(guessFolder(nid) || undefined); if (w) { const ob = w.el.querySelector('.os-bar button:last-child'); if (ob) ob.addEventListener('click', () => { try { sessionStorage.setItem('os_exp_dismissed', '1'); } catch (e) {} }); } fixPE(); }
 }
