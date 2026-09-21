@@ -46,6 +46,8 @@ function renderExplorer(body, win, startFolder) {
     });
   }
   function locked(it) { return it.lockedBy ? !hasClue(it.lockedBy) : false; }
+  // 锁定项隐去真实名，防剧透（只显示“加密档案”）
+  function dispName(it) { return locked(it) ? '🔒 加密档案 · 未解锁' : it.name; }
   function sorted() {
     const arr = cur.items.slice();
     arr.sort((a, b) => { const ka = sortKey === 'size' ? String(a.name).length : a[sortKey === 'type' ? 'id' : 'name'], kb = b[sortKey === 'size' ? 'size' : sortKey === 'type' ? 'id' : 'name']; return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
@@ -65,7 +67,7 @@ function renderExplorer(body, win, startFolder) {
       [['名称','name'],['类型','type'],['大小','size']].forEach(([lab,k]) => { const th = document.createElement('th'); th.textContent = lab + (sortKey===k ? (sortDir>0?' ▲':' ▼') : ''); th.style.cssText='text-align:left;padding:3px 8px;border-bottom:1px solid rgba(0,0,0,.3);cursor:pointer;user-select:none'; th.onclick=()=>{ if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;} renderList(); }; head.appendChild(th); });
       t.appendChild(head);
       items.forEach((it) => { const tr = document.createElement('tr'); if (sel.has(it.id)) tr.style.background = 'var(--os-sel)'; tr.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); }; tr.ondblclick = () => open(it); tr.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
-        ['<td>'+ (locked(it)?'🔒':'') + escapeHtml(it.name) +'</td>','<td>' + extOf(it.name).toUpperCase() + ' 文件</td>','<td>' + ((it.name.length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
+        ['<td>'+ escapeHtml(dispName(it)) +'</td>','<td>' + extOf(it.name).toUpperCase() + ' 文件</td>','<td>' + ((it.name.length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
         t.appendChild(tr); });
       mainHost.appendChild(t);
     } else {
@@ -76,7 +78,7 @@ function renderExplorer(body, win, startFolder) {
       items.forEach((it) => {
         const cell = document.createElement('div'); const lk = locked(it);
         cell.style.cssText = 'display:flex;align-items:center;gap:8px;padding:' + (view==='列表'?'2px 8px':'8px') + ';cursor:pointer;border-radius:var(--os-radius);' + (sel.has(it.id) ? 'background:var(--os-sel);color:#fff' : '');
-        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(it.name)]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(it.name) + '</span>';
+        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(it.name)]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(dispName(it)) + '</span>';
         cell.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); };
         cell.ondblclick = () => open(it);
         cell.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };

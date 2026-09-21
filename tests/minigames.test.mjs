@@ -11,7 +11,7 @@ const cut = reachability(bp, { cutLocks: true });
 test('工作台集群节点已入蓝图且挂在保险箱锁后', () => {
   for (const p of pages) assert.ok(ids.has(p), '缺节点 ' + p);
   const hub = pageConfig('mg_workbench');
-  assert.equal(hub.requiresClue, 'node_login_safe');
+  assert.equal(hub.requiresClue, 'lock:node_login_safe'); // apply-locks 规范化为“破解”门控
 });
 test('6 个小游戏页各接一种游戏类型', () => {
   const types = ['mg_spectral', 'mg_gate', 'mg_align', 'mg_dial', 'mg_splice', 'mg_eq'].map((p) => pageConfig(p).minigame.type);

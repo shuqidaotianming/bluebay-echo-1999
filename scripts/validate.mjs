@@ -1,6 +1,6 @@
 // scripts/validate.mjs — 完整性 + 防旁路硬门槛校验（可被测试 import，也可 CLI 运行）
 import { loadBlueprint, reachability, endingRequirements, pageConfig, buildGraph } from './lib/blueprint.mjs';
-import { exists } from './lib/util.mjs';
+import { exists, readJSON } from './lib/util.mjs';
 import { CORE_CLUES, HIDDEN_EXTRA, ARG_EXTRA, PROTECTED_ENDINGS, WALL_CLUES, REEF_CLUES, GOLD_CLUES, LIVEWAVE_CLUES, EXTRA_GUARDED, KNOWLEDGE_GATED, HASH_GATED, SOLVER_CREDITED } from './content/guard.mjs';
 
 export function runValidation() {
@@ -51,6 +51,9 @@ export function runValidation() {
   for (const id of lockGated) {
     if (!ids.has(id)) { errors.push(`锁门控线索未在蓝图中找到: ${id}`); continue; }
     if (cut.has(id)) errors.push(`⚠ 旁路! 断锁后锁门控线索仍可达: ${id}`);
+    // 直接-URL 硬门：锁门控页必须声明 requiresClue，否则光开网页地址就会被记账
+    const pc = pageConfig(id);
+    if (pc && !pc.__parseError && !pc.requiresClue) errors.push(`锁门控页缺 requiresClue(可被直接 URL 白嫖): ${id}`);
   }
   // 2) 知识门控：作为线索页应存在（其难度来自“先解出进入词”），并仍受高阶结局必需 CORE 9 条间接守住
   for (const id of [...HIDDEN_EXTRA, ...ARG_EXTRA].filter((x) => KNOWLEDGE_GATED.has(x))) {
@@ -112,6 +115,14 @@ export function runValidation() {
   for (const g of EXTRA_GUARDED) {
     if (!g.behind || !loginSet.has(g.behind)) errors.push(`硬核线索 ${g.clueId} 未挂到有效锁(behind=${g.behind})`);
   }
+
+  // 泄露面·搜索白名单不得包含任何锁门控页（否则检索直接喂答案/剧透）
+  try {
+    const inc = readJSON('scripts/content/search-include.json').ids || [];
+    const lockSet = new Set(lockGated);
+    for (const id of inc) if (lockSet.has(id)) errors.push(`泄露! 搜索白名单含锁门控页: ${id}`);
+    for (const id of inc) if (/^end_/.test(id)) errors.push(`泄露! 搜索白名单含结局页: ${id}`);
+  } catch (e) { /* 文件缺失则跳过 */ }
 
   const ok = errors.length === 0;
   return { ok, errors, warnings, stats, full, cut };

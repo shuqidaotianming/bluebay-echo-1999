@@ -16,9 +16,10 @@ function makeEl() {
   return el;
 }
 
-function loadBundle({ nodeId, cfg, visited }) {
+function loadBundle({ nodeId, cfg, visited, unlocked }) {
   const store = new Map();
   if (visited) store.set('arg_visited_nodes', JSON.stringify(visited));
+  if (unlocked) store.set('arg_unlocked_locks', JSON.stringify(unlocked));
   const localStorage = {
     getItem: (k) => (store.has(k) ? store.get(k) : null),
     setItem: (k, v) => store.set(k, String(v)),
@@ -69,4 +70,14 @@ test('前置门控：requiresClue 满足时正常记线索', () => {
 test('hash 线索：带正确 hash 且已解锁才记账', () => {
   const a = loadBundle({ nodeId: 'clue_frequency_note', cfg: { hashClue: 'clue_firstlight', hashValue: '#firstlight', hashPresent: true }, visited: [] });
   assert.ok(JSON.parse(a.store.get('arg_visited_nodes')).includes('clue_firstlight'), 'hash 命中未记线索');
+});
+
+test('反白嫖·lock: 门控：仅访问过登录页不足以解锁（须真正破解）', () => {
+  const { store } = loadBundle({ nodeId: 'doc_experiment', cfg: { requiresClue: 'lock:node_login_station' }, visited: ['node_login_station'] /* 只是路过登录页 */ });
+  const visited = JSON.parse(store.get('arg_visited_nodes'));
+  assert.ok(!visited.includes('doc_experiment'), '未破解却解锁记账 → 泄露!');
+});
+test('反白嫖·lock: 门控：arg_unlocked_locks 含该锁才记账', () => {
+  const { store } = loadBundle({ nodeId: 'doc_experiment', cfg: { requiresClue: 'lock:node_login_station' }, visited: [], unlocked: ['node_login_station'] });
+  assert.ok(JSON.parse(store.get('arg_visited_nodes')).includes('doc_experiment'), '已破解却未记线索');
 });

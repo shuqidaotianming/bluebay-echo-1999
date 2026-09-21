@@ -27,7 +27,7 @@ if (typeof window !== 'undefined' && config.trackProgress !== false) {
   try {
     const visited = readVisited();
     const currentPageId = config.nodeId || config.pageName || window.location.pathname.split('/').pop().replace('.html', '');
-    const unlocked = !config.requiresClue || hasClueOf(visited, config.requiresClue);
+    const unlocked = !config.requiresClue || hasClue(config.requiresClue);
     if (unlocked && currentPageId && !visited.includes(currentPageId)) { visited.push(currentPageId); writeVisited(visited); }
     // 地址栏 hash 谜题（#firstlight / #sixtysix）——命中即记入线索
     if (unlocked && config.hashClue && config.hashValue &&
@@ -41,7 +41,13 @@ if (typeof window !== 'undefined' && config.trackProgress !== false) {
 
 export function hasClue(req) {
   if (!req) return true;
-  try { return hasClueOf(readVisited(), req); } catch (e) { return true; }
+  try {
+    const visited = readVisited();
+    let unlocked = [];
+    try { unlocked = (JSON.parse(localStorage.getItem('arg_unlocked_locks') || '[]') || []).map((x) => String(x).toLowerCase()); } catch (e) {}
+    const parts = String(req).split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+    return parts.every((r) => r.startsWith('lock:') ? unlocked.includes(r.slice(5)) : visited.some((v) => String(v).toLowerCase() === r));
+  } catch (e) { return true; }
 }
 export function triggerClue(id) {
   if (!id) return;
