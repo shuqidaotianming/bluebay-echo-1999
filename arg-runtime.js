@@ -2051,8 +2051,314 @@ function runPuzzleHost() {
 }
 
 
+/* ---- ostheme.mjs ---- */
+// src/runtime/ostheme.mjs — 桌面皮肤引擎：win98 / winxp / classic 三套可切换
+const BASE = [
+  '.os-win{position:absolute;display:flex;flex-direction:column;min-width:220px;min-height:120px;overflow:hidden;font-family:"Tahoma","Microsoft YaHei",sans-serif;box-shadow:var(--os-shadow)}',
+  '.os-win>.os-bar{display:flex;align-items:center;gap:6px;height:26px;padding:0 6px;background:var(--os-titlebar);color:var(--os-title-fg);font-size:12.5px;user-select:none;flex:0 0 auto}',
+  '.os-win>.os-bar .os-title{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}',
+  '.os-win>.os-bar button{width:20px;height:18px;line-height:15px;border:var(--os-btn-border);background:var(--os-btn);color:var(--os-btn-fg);cursor:pointer;font-size:11px;padding:0;border-radius:var(--os-radius)}',
+  '.os-win>.os-body{flex:1;overflow:auto;background:var(--os-face);color:var(--os-fg);font-size:13px}',
+  '.os-win.os-max{left:0!important;top:0!important;width:100%!important;height:calc(100% - 30px)!important;border-radius:0}',
+  '.os-win.os-min{display:none}',
+  '.os-rz{position:absolute;width:12px;height:12px;right:0;bottom:0;cursor:nwse-resize}',
+  '.os-res{position:absolute;left:0;bottom:-1px;right:0;height:22px;background:var(--os-face);border-top:var(--os-border);display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--os-muted);padding:0 8px;flex:0 0 auto}',
+].join('\n');
+
+const SKINS = {
+  win98: { label: 'Win98 青灰', vars: {
+    '--os-face':'#c0c0c0','--os-fg':'#000','--os-muted':'#3a3a3a','--os-border':'1px solid #808080',
+    '--os-titlebar':'linear-gradient(90deg,#000080,#1084d0)','--os-title-fg':'#fff',
+    '--os-btn':'#c0c0c0','--os-btn-fg':'#000','--os-btn-border':'1px solid #000','--os-radius':'0',
+    '--os-shadow':'4px 4px 0 rgba(0,0,0,.35)','--os-accent':'#000080','--os-sel':'#000080',
+  }},
+  winxp: { label: 'Win XP Luna', vars: {
+    '--os-face':'#ece9d8','--os-fg':'#202020','--os-muted':'#5a5a5a','--os-border':'1px solid #a0a0a0',
+    '--os-titlebar':'linear-gradient(180deg,#0058e6,#3a86ff 8%,#0054e3 92%,#003fb0)','--os-title-fg':'#fff',
+    '--os-btn':'#ece9d8','--os-btn-fg':'#222','--os-btn-border':'1px solid #7f9db9','--os-radius':'3px',
+    '--os-shadow':'0 10px 30px -8px rgba(0,0,0,.5)','--os-accent':'#2a6ee0','--os-sel':'#316ac5',
+  }},
+  classic: { label: 'Classic Mac', vars: {
+    '--os-face':'#d8d8d0','--os-fg':'#000','--os-muted':'#555','--os-border':'1px solid #7a7a72',
+    '--os-titlebar':'repeating-linear-gradient(180deg,#fff 0 1px,#c9c9c1 1px 3px)','--os-title-fg':'#000',
+    '--os-btn':'#e6e6de','--os-btn-fg':'#000','--os-btn-border':'1px solid #6b6b63','--os-radius':'0',
+    '--os-shadow':'3px 3px 0 rgba(0,0,0,.25)','--os-accent':'#3a5fcd','--os-sel':'#3a5fcd',
+  }},
+};
+
+let injected = null;
+function applyTheme(name, root) {
+  const skin = SKINS[name] || SKINS.win98;
+  const host = root || document.documentElement;
+  host.classList.add('os-skin');
+  for (const [k, v] of Object.entries(skin.vars)) host.style.setProperty(k, v);
+  if (injected !== name) {
+    let st = document.getElementById('os-theme-style');
+    if (!st) { st = document.createElement('style'); st.id = 'os-theme-style'; document.head.appendChild(st); }
+    const extra = name === 'classic'
+      ? '.os-win>.os-bar{font-weight:bold;letter-spacing:.3px}'
+      : name === 'win98'
+      ? '.os-win>.os-bar button{border-radius:0}.os-tree .os-node.sel{background:#000080;color:#fff}'
+      : '.os-win>.os-bar{border-radius:8px 8px 0 0}';
+    st.textContent = BASE + '\n' + extra;
+    injected = name;
+  }
+  try { localStorage.setItem('os_theme', name); } catch (e) {}
+  return name;
+}
+function currentTheme() { try { return localStorage.getItem('os_theme') || 'win98'; } catch (e) { return 'win98'; } }
+
+
+/* ---- os.mjs ---- */
+// src/runtime/os.mjs — 桌面窗口管理器（零依赖）：创建/拖动/缩放/最小化/最大化/还原/z序/任务栏/Alt-Tab/状态持久化
+
+
+
+const STATE_KEY = 'os_windows_v1';
+const windows = new Map(); // id -> handle
+let topZ = 100, activeId = null, taskbar = null, workArea = null;
+
+function persist(id) {
+  try {
+    const all = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
+    const w = windows.get(id); if (!w) return;
+    all[id] = { x: w.el.offsetLeft, y: w.el.offsetTop, w: w.el.offsetWidth, h: w.el.offsetHeight, min: w.min, max: w.max };
+    localStorage.setItem(STATE_KEY, JSON.stringify(all));
+  } catch (e) {}
+}
+function restore(id) { try { return JSON.parse(localStorage.getItem(STATE_KEY) || '{}')[id] || null; } catch (e) { return null; } }
+
+function makeBar(win) {
+  const bar = document.createElement('div'); bar.className = 'os-bar';
+  const title = document.createElement('span'); title.className = 'os-title'; title.textContent = win.title;
+  const mk = (t, act, ttl) => { const b = document.createElement('button'); b.textContent = t; b.title = ttl; b.onclick = (e) => { e.stopPropagation(); act(); }; return b; };
+  bar.appendChild(title);
+  bar.appendChild(mk('–', () => minimize(win.id), '最小化'));
+  bar.appendChild(mk('□', () => toggleMax(win.id), '最大化/还原'));
+  bar.appendChild(mk('×', () => close(win.id), '关闭'));
+  return bar;
+}
+function focusWin(id) {
+  if (!windows.has(id)) return;
+  activeId = id; const w = windows.get(id); w.el.style.zIndex = String(++topZ); w.el.classList.add('os-focus');
+  windows.forEach((x, k) => { if (k !== id) x.el.classList.remove('os-focus'); if (x.tb) x.tb.classList.toggle('active', k === id); });
+}
+function minimize(id) { const w = windows.get(id); if (!w) return; w.min = !w.min; w.el.classList.toggle('os-min', w.min); if (w.tb) w.tb.classList.toggle('active', !w.min); if (!w.min) focusWin(id); playSynthSound('click'); }
+function toggleMax(id) { const w = windows.get(id); if (!w) return; w.max = !w.max; w.el.classList.toggle('os-max', w.max); persist(id); focusWin(id); playSynthSound('click'); }
+function close(id) { const w = windows.get(id); if (!w) return; try { w.el.remove(); if (w.tb) w.tb.remove(); } catch (e) {} windows.delete(id); if (activeId === id) activeId = null; playSynthSound('click'); }
+
+function dragResize(win) {
+  const bar = win.el.querySelector('.os-bar');
+  let d = null;
+  bar.addEventListener('pointerdown', (e) => { if (e.target.tagName === 'BUTTON') return; focusWin(win.id); const r = win.el.getBoundingClientRect(), h = (workArea||document.body).getBoundingClientRect(); d = { dx: e.clientX - r.left, dy: e.clientY - r.top, baseL: r.left - h.left, baseT: r.top - h.top }; win.el.classList.add('os-drag'); try { bar.setPointerCapture(e.pointerId); } catch (_) {} });
+  bar.addEventListener('pointermove', (e) => { if (!d) return; const h = (workArea||document.body).getBoundingClientRect(); win.el.style.left = Math.max(0, e.clientX - h.left - d.dx) + 'px'; win.el.style.top = Math.max(0, e.clientY - h.top - d.dy) + 'px'; });
+  bar.addEventListener('pointerup', () => { if (d) { d = null; win.el.classList.remove('os-drag'); persist(win.id); } });
+  const rz = document.createElement('div'); rz.className = 'os-rz'; win.el.appendChild(rz);
+  let g = null;
+  rz.addEventListener('pointerdown', (e) => { e.stopPropagation(); focusWin(win.id); g = { x: e.clientX, y: e.clientY, w: win.el.offsetWidth, h: win.el.offsetHeight }; try { rz.setPointerCapture(e.pointerId); } catch (_) {} });
+  rz.addEventListener('pointermove', (e) => { if (!g) return; win.el.style.width = Math.max(200, g.w + (e.clientX - g.x)) + 'px'; win.el.style.height = Math.max(120, g.h + (e.clientY - g.y)) + 'px'; });
+  rz.addEventListener('pointerup', () => { if (g) { g = null; persist(win.id); } });
+}
+
+function openWindow({ id, title, render, x = 60, y = 40, w = 460, h = 320 }) {
+  id = id || ('win_' + Math.random().toString(36).slice(2, 8));
+  if (windows.has(id)) { focusWin(id); return windows.get(id); }
+  applyTheme(currentTheme());
+  const el = document.createElement('div'); el.className = 'os-win';
+  const st = restore(id); if (st && !st.max) { x = st.x; y = st.y; w = st.w; h = st.h; }
+  el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.width = w + 'px'; el.style.height = h + 'px';
+  el.appendChild(makeBar({ id, title }));
+  const body = document.createElement('div'); body.className = 'os-body'; el.appendChild(body);
+  const res = document.createElement('div'); res.className = 'os-res'; res.textContent = '就绪'; el.appendChild(res);
+  (workArea || document.body).appendChild(el);
+  const win = { id, title, el, body, res, min: false, max: !!(st && st.max) };
+  if (win.max) el.classList.add('os-max');
+  el.addEventListener('pointerdown', () => focusWin(id));
+  if (taskbar) { const tb = document.createElement('button'); tb.className = 'os-tbtn'; tb.textContent = title; tb.onclick = () => { if (win.min) minimize(id); else if (activeId === id) minimize(id); else focusWin(id); }; taskbar.appendChild(tb); win.tb = tb; }
+  windows.set(id, win); dragResize(win); focusWin(id);
+  try { if (render) render(body, win); } catch (e) { body.textContent = '（窗口渲染出错：' + e.message + '）'; }
+  return win;
+}
+
+function cycle() { const ids = [...windows.keys()]; if (ids.length < 2) return; const i = ids.indexOf(activeId); focusWin(ids[(i + 1) % ids.length]); playSynthSound('click'); }
+
+function initOS({ work, bar } = {}) {
+  workArea = work || document.querySelector('.os-workarea') || document.body;
+  taskbar = bar || document.querySelector('.os-taskbar .os-tasks') || null;
+  applyTheme(currentTheme());
+  document.addEventListener('keydown', (e) => { if (e.altKey && e.key === 'Tab') { e.preventDefault(); cycle(); } });
+}
+function listWindows() { return [...windows.keys()]; }
+function _resetOS() { windows.forEach((w) => { try { w.el.remove(); w.tb && w.tb.remove(); } catch (e) {} }); windows.clear(); }
+
+
+/* ---- osexplorer.mjs ---- */
+// src/runtime/osexplorer.mjs — 资源管理器 App（消费 arg-vfs.js：目录树 + 文件区四视图 + 面包屑 + 排序 + 多选 + 右键 + ACL）
+
+
+
+
+
+const V = () => (typeof window !== 'undefined' && window.ARG_VFS) || { folders: [], lockedBy: {} };
+const ICON = { doc:'📄', txt:'📃', pdf:'📕', jpg:'🖼️', jpeg:'🖼️', png:'🖼️', wav:'🎧', mp3:'🎵', exe:'⚙️', msg:'✉️' };
+function extOf(name) { const m = /\.(txt|pdf|jpg|jpeg|png|wav|mp3|exe|doc|msg)$/i.exec(name || ''); return m ? m[1].toLowerCase() : 'doc'; }
+
+function openExplorer(startFolder) {
+  return openWindow({
+    id: 'os_explorer', title: '潮声资源管理器', w: 640, h: 440,
+    render: (body, win) => renderExplorer(body, win, startFolder),
+  });
+}
+
+function renderExplorer(body, win, startFolder) {
+  const vfs = V();
+  let cur = vfs.folders.find((f) => f.folder === startFolder) || vfs.folders[0];
+  let view = 'list', sortKey = 'name', sortDir = 1, sel = new Set();
+
+  body.style.cssText = 'display:flex;height:100%';
+  const tree = document.createElement('div'); tree.className = 'os-tree'; tree.style.cssText = 'width:180px;overflow:auto;border-right:1px solid rgba(0,0,0,.25);flex:0 0 auto;font-size:12.5px;padding:4px 0';
+  const main = document.createElement('div'); main.style.cssText = 'flex:1;display:flex;flex-direction:column;min-width:0';
+  body.appendChild(tree); body.appendChild(main);
+
+  const nav = document.createElement('div'); nav.className = 'os-nav'; nav.style.cssText = 'display:flex;gap:6px;align-items:center;padding:4px 6px;border-bottom:1px solid rgba(0,0,0,.2);font-size:12px';
+  const crumbs = document.createElement('div'); crumbs.style.cssText = 'flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
+  const seg = (t, on) => { const b = document.createElement('button'); b.textContent = t; b.style.cssText = 'border:1px solid rgba(0,0,0,.35);background:var(--os-btn);color:var(--os-btn-fg);cursor:pointer;border-radius:var(--os-radius);padding:1px 6px;font-size:11px'; if (on) { b.style.background = 'var(--os-accent)'; b.style.color = '#fff'; } b.onclick = () => { view = t; renderList(); }; return b; };
+  nav.appendChild(crumbs); ['图标', '列表', '详细', '平铺'].forEach((v) => nav.appendChild(seg(v, false)));
+  const mainHost = document.createElement('div'); mainHost.className = 'os-list'; mainHost.style.cssText = 'flex:1;overflow:auto';
+  const status = document.createElement('div'); status.className = 'os-status'; status.style.cssText = 'border-top:1px solid rgba(0,0,0,.2);padding:2px 8px;font-size:11.5px;color:var(--os-muted)';
+  main.appendChild(nav); main.appendChild(mainHost); main.appendChild(status); win.res.textContent = '资源管理器';
+
+  // 目录树
+  function renderTree() {
+    tree.innerHTML = '';
+    vfs.folders.forEach((f) => {
+      const n = document.createElement('div'); n.className = 'os-node'; n.textContent = f.folder; n.title = f.folder;
+      n.style.cssText = 'padding:2px 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
+      if (f === cur) { n.classList.add('sel'); n.style.background = 'var(--os-sel)'; n.style.color = '#fff'; }
+      n.onclick = () => { cur = f; sel.clear(); renderTree(); renderList(); };
+      tree.appendChild(n);
+    });
+  }
+  function locked(it) { return it.lockedBy ? !hasClue(it.lockedBy) : false; }
+  function sorted() {
+    const arr = cur.items.slice();
+    arr.sort((a, b) => { const ka = sortKey === 'size' ? String(a.name).length : a[sortKey === 'type' ? 'id' : 'name'], kb = b[sortKey === 'size' ? 'size' : sortKey === 'type' ? 'id' : 'name']; return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
+    return arr;
+  }
+  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + it.name + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); go(it.id); }
+
+  function renderList() {
+    mainHost.innerHTML = '';
+    crumbs.textContent = '🖥️ 我的电脑 › ' + cur.folder;
+    [...nav.querySelectorAll('button')].forEach((b) => { const on = ['图标','列表','详细','平铺'][['图标','列表','详细','平铺'].indexOf(b.textContent)] === view; b.style.background = on ? 'var(--os-accent)' : 'var(--os-btn)'; b.style.color = on ? '#fff' : 'var(--os-btn-fg)'; });
+    const items = sorted();
+    if (view === '详细') {
+      const t = document.createElement('table'); t.style.cssText = 'width:100%;border-collapse:collapse;font-size:12.5px';
+      const head = document.createElement('tr');
+      [['名称','name'],['类型','type'],['大小','size']].forEach(([lab,k]) => { const th = document.createElement('th'); th.textContent = lab + (sortKey===k ? (sortDir>0?' ▲':' ▼') : ''); th.style.cssText='text-align:left;padding:3px 8px;border-bottom:1px solid rgba(0,0,0,.3);cursor:pointer;user-select:none'; th.onclick=()=>{ if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;} renderList(); }; head.appendChild(th); });
+      t.appendChild(head);
+      items.forEach((it) => { const tr = document.createElement('tr'); if (sel.has(it.id)) tr.style.background = 'var(--os-sel)'; tr.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); }; tr.ondblclick = () => open(it); tr.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
+        ['<td>'+ (locked(it)?'🔒':'') + escapeHtml(it.name) +'</td>','<td>' + extOf(it.name).toUpperCase() + ' 文件</td>','<td>' + ((it.name.length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
+        t.appendChild(tr); });
+      mainHost.appendChild(t);
+    } else {
+      const grid = document.createElement('div');
+      grid.style.cssText = view === '平铺' ? 'display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding:8px'
+        : view === '图标' ? 'display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;padding:10px'
+        : 'display:flex;flex-direction:column';
+      items.forEach((it) => {
+        const cell = document.createElement('div'); const lk = locked(it);
+        cell.style.cssText = 'display:flex;align-items:center;gap:8px;padding:' + (view==='列表'?'2px 8px':'8px') + ';cursor:pointer;border-radius:var(--os-radius);' + (sel.has(it.id) ? 'background:var(--os-sel);color:#fff' : '');
+        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(it.name)]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(it.name) + '</span>';
+        cell.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); };
+        cell.ondblclick = () => open(it);
+        cell.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
+        grid.appendChild(cell);
+      });
+      mainHost.appendChild(grid);
+    }
+    status.textContent = cur.items.length + ' 个项目' + (sel.size ? ' ｜ 已选 ' + sel.size : '') + (cur.items.some(locked) ? ' ｜ 🔒=需先解锁' : '');
+  }
+
+  let tmr;
+  function toast(t) { status.textContent = t; clearTimeout(tmr); tmr = setTimeout(renderList, 3000); }
+  function menu(e, it) {
+    document.querySelectorAll('.os-menu').forEach((m) => m.remove());
+    const m = document.createElement('div'); m.className = 'os-menu'; m.style.cssText = 'position:fixed;z-index:99998;min-width:160px;background:var(--os-face);border:var(--os-border);box-shadow:var(--os-shadow);padding:3px;font-size:12.5px';
+    const item = (lab, fn, dis) => { const b = document.createElement('div'); b.textContent = lab; b.style.cssText = 'padding:5px 10px;cursor:' + (dis ? 'not-allowed' : 'pointer') + ';color:' + (dis ? '#999' : 'var(--os-fg)'); if (!dis) b.onmouseenter = () => b.style.background = 'var(--os-accent)', b.onmouseleave = () => b.style.background = '', b.onclick = () => { m.remove(); fn(); }; b.onmouseenter = () => { if (!dis) b.style.background = 'var(--os-accent)'; }; b.onmouseleave = () => (b.style.background = ''); return b; };
+    m.appendChild(item('打开', () => open(it)));
+    m.appendChild(item('重命名（只读档案）', () => toast('调查资料不可重命名。'), true));
+    m.appendChild(item('属性', () => toast(it.id + ' · ' + extOf(it.name) + (it.lockedBy ? ' · 需 ' + it.lockedBy : ''))));
+    m.style.left = Math.min(e.clientX, innerWidth - 180) + 'px'; m.style.top = Math.min(e.clientY, innerHeight - 120) + 'px';
+    document.body.appendChild(m);
+    setTimeout(() => document.addEventListener('click', function h() { m.remove(); document.removeEventListener('click', h); }), 0);
+  }
+
+  renderTree(); renderList();
+}
+
+
+/* ---- osshell.mjs ---- */
+// src/runtime/osshell.mjs — 桌面外壳装配：任务栏 + 开始(打开资源管理器) + 皮肤快切；仅在桌面/文件柜页激活（DOM 探测）
+
+
+
+
+
+function isOSTargetPage() {
+  if (typeof document === 'undefined') return false;
+  return !!(document.querySelector('.folder') || document.querySelector('.winxp-desktop') || document.querySelector('.desktop-main') || document.querySelector('.desktop-icons'));
+}
+// Files 页 → 猜要展开哪个文件夹（按该页 nodeId 命中的 vfs 夹）
+function guessFolder(nodeId) {
+  const vfs = (typeof window !== 'undefined' && window.ARG_VFS) || { folders: [] };
+  for (const f of vfs.folders) if (f.items.some((it) => it.id === nodeId)) return f.folder;
+  return null;
+}
+
+function ensureOS() {
+  if (typeof document === 'undefined') return;
+  if (window.__osBooted || !isOSTargetPage()) return;
+  window.__osBooted = true;
+
+  // 桌面工作区（浮层容器）：不遮挡原页面，但承载窗口
+  const layer = document.createElement('div'); layer.id = 'os-layer';
+  layer.style.cssText = 'position:fixed;inset:0 0 30px 0;z-index:99980;pointer-events:none;';
+  document.body.appendChild(layer);
+  const work = document.createElement('div'); work.className = 'os-workarea'; work.style.cssText = 'position:absolute;inset:0;pointer-events:none';
+  layer.appendChild(work);
+
+  // 任务栏
+  const bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;height:30px;z-index:99985;display:flex;align-items:center;gap:6px;padding:0 6px;background:var(--os-titlebar,#000080);color:#fff;font-family:Tahoma,sans-serif;font-size:12px;box-shadow:0 -2px 8px rgba(0,0,0,.3)';
+  const start = document.createElement('button'); start.textContent = '▶ 开始'; start.style.cssText = 'border:none;border-radius:6px;padding:3px 10px;font-weight:bold;cursor:pointer;background:linear-gradient(#e8e8e8,#cfcfcf);color:#111';
+  const tasks = document.createElement('div'); tasks.className = 'os-tasks'; tasks.style.cssText = 'display:flex;gap:5px;flex:1;overflow:hidden';
+  const thm = document.createElement('button'); thm.textContent = '🎨 ' + (SKINS[currentTheme()] ? SKINS[currentTheme()].label.split(' ')[0] : '皮肤'); thm.style.cssText = 'border:none;border-radius:6px;padding:3px 8px;cursor:pointer;background:rgba(255,255,255,.18);color:#fff';
+  bar.appendChild(start); bar.appendChild(tasks); bar.appendChild(thm);
+  document.body.appendChild(bar);
+
+  // 让窗口落在工作区、按钮落在任务栏
+  initOS({ work, bar: tasks });
+  // os-win 需可点（layer pointer-events none，窗口本身 auto）
+  const fixPE = () => { document.querySelectorAll('#os-layer .os-win').forEach((w) => (w.style.pointerEvents = 'auto')); };
+  const mo = new MutationObserver(fixPE); mo.observe(work, { childList: true });
+
+  start.onclick = () => { playSynthSound('click'); const open = document.createElement('div'); open.className = 'os-menu'; open.style.cssText = 'position:fixed;left:6px;bottom:34px;z-index:99986;min-width:190px;background:var(--os-face);border:var(--os-border);box-shadow:var(--os-shadow);padding:4px;color:var(--os-fg);font-size:12.5px';
+    const mi = (lab, fn) => { const b = document.createElement('div'); b.textContent = lab; b.style.cssText = 'padding:7px 10px;cursor:pointer;border-radius:3px'; b.onmouseenter = () => (b.style.background = 'var(--os-accent)'), b.style.color = '#fff'; b.onmouseleave = () => (b.style.background = '', b.style.color = 'var(--os-fg)'); b.onclick = () => { open.remove(); fn(); }; return b; };
+    open.appendChild(mi('📁 资源管理器', () => { openExplorer(guessFolder((window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || '')); fixPE(); }));
+    open.appendChild(mi('🖥️ 关于本机', () => { openWindow({ id: 'os_about', title: '关于本机', w: 360, h: 200, render: (b) => { b.style.padding = '12px'; b.innerHTML = '<b>潮声 OS · FM99.4</b><br>声音修复师工作台<br>窗口 ' + listWindows().length + ' 个<br>皮肤 ' + (SKINS[currentTheme()] || {}).label; } }); fixPE(); }));
+    open.appendChild(mi('🎨 换皮肤', () => cycleTheme(thm)));
+    document.body.appendChild(open); setTimeout(() => document.addEventListener('click', function h() { open.remove(); document.removeEventListener('click', h); }), 0); };
+  function cycleTheme(btn) { const keys = Object.keys(SKINS); const next = keys[(keys.indexOf(currentTheme()) + 1) % keys.length]; applyTheme(next); btn.textContent = '🎨 ' + SKINS[next].label.split(' ')[0]; playSynthSound('unlock'); }
+
+  // 文件柜页：自动开一个资源管理器，直接治“丑”
+  if (document.querySelector('.folder')) { const nid = (window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || ''; openExplorer(guessFolder(nid) || undefined); fixPE(); }
+}
+
+
 /* ---- index.mjs ---- */
 // src/runtime/index.mjs — 装配入口 bind()、对外 API、维基侧栏接线、彩蛋
+
 
 
 
@@ -2110,6 +2416,7 @@ function bind() {
   try { ensureNameInput(); } catch (e) {}
   try { ensureGlobalSkin(); } catch (e) {}
   try { runPuzzleHost(); } catch (e) {}
+  try { ensureOS(); } catch (e) {}
 
   // 维基侧栏：给「首页/最近更改/随机条目/绝密专题」真实功能
   try {

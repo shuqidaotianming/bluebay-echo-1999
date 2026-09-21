@@ -5,6 +5,9 @@
 ## [Unreleased]
 
 ### Added
+- **潮声OS · M1 桌面外壳与资源管理器**：零依赖窗口管理器 `src/runtime/os.mjs`（创建/拖动/缩放/最小化/最大化还原/z序/任务栏/Alt-Tab/窗口位置持久化）+ 三套可切换皮肤引擎 `ostheme.mjs`（Win98/WinXP-Luna/Classic-Mac，localStorage 记忆）+ 资源管理器 App `osexplorer.mjs`（目录树 + 图标/列表/详细/平铺四视图 + 面包屑 + 列排序 + 多选 + 右键菜单 + 状态栏 + 搜索）+ 装配 `osshell.mjs`（桌面/文件柜页自动注入任务栏与资源管理器窗口）。
+- 虚拟文件系统数据层 `scripts/build-vfs.mjs` → `arg-vfs.js`：从蓝图按前缀生成 33 夹 / 421 文件的可浏览树，并按页内 `requiresClue` 标注"无权访问"灰显，双击经 `go()` 路由到页面。构建新增第 3 步与三脚本指纹（runtime/data/vfs）。
+- 新增单测：VFS 数据一致性（无悬空、锁对齐防旁路）、三套皮肤 token 完整、窗口管理逻辑（建窗/去重/渲染降级），测试 50 → **54 全绿**。
 - 共享数据文件 `arg-data.js`（全站 `files/names` 单一来源）+ `scripts/build-data.mjs` + `scripts/slim-pages.mjs`：各页不再内嵌大表，页面总体积 15.7MB → 4.1MB（约 -60%）；运行时优先读全局、页内作覆盖，向后兼容。
 - 声音修复师小游戏接入真·Web Audio 实时反馈（`src/runtime/audio-games.mjs` `createStudio`）：去噪门限 / 走带对位 / 调谐旋钮 / 三段均衡均可 ▶ 试听，噪声/人声/拍频随操作变化；无 `AudioContext` 环境安全降级为纯视觉。
 - `scripts/golden-path.mjs`：13 个结局可达性模拟（须解题 vs 随手可达），并入 `npm run check` 与测试。

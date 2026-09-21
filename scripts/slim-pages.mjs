@@ -19,12 +19,13 @@ export function slimPages({ dry = false } = {}) {
         stripped++;
       }
     }
-    // 注入 arg-data.js（在 arg-runtime.js 之前）
+    // 注入 arg-data.js + arg-vfs.js（在 arg-runtime.js 之前）
     if (!/src="arg-data\.js/.test(html)) {
-      const inj = html.replace(/(<script src="arg-runtime\.js)/, '<script src="arg-data.js"></script>\n$1');
+      const inj = html.replace(/(<script src="arg-runtime\.js)/, '<script src="arg-data.js"></script>\n<script src="arg-vfs.js"></script>\n$1');
       if (inj !== html) { html = inj; injected++; }
-    } else {
-      // 已有但确保顺序在 runtime 前：不处理（stamp 只管版本）
+    } else if (!/src="arg-vfs\.js/.test(html)) {
+      const inj = html.replace(/(<script src="arg-runtime\.js)/, '<script src="arg-vfs.js"></script>\n$1');
+      if (inj !== html) { html = inj; injected++; }
     }
     if (!dry) write(f, html);
   }

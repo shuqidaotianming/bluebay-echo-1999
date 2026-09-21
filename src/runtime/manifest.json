@@ -19,6 +19,10 @@
     "games.mjs",
     "games-builtin.mjs",
     "puzzles.mjs",
+    "ostheme.mjs",
+    "os.mjs",
+    "osexplorer.mjs",
+    "osshell.mjs",
     "index.mjs"
   ]
 }

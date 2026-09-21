@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 function hashOf(file) { return exists(file) ? crypto.createHash('sha1').update(read(file)).digest('hex').slice(0, 8) : null; }
 
 export function stamp({ dry = false } = {}) {
-  const versions = { runtime: hashOf('arg-runtime.js'), data: hashOf('arg-data.js') };
+  const versions = { runtime: hashOf('arg-runtime.js'), data: hashOf('arg-data.js'), vfs: hashOf('arg-vfs.js') };
   let touched = 0;
   const files = fs.readdirSync(abs('.')).filter((f) => f.endsWith('.html'));
   for (const f of files) {
@@ -15,6 +15,7 @@ export function stamp({ dry = false } = {}) {
     let next = html;
     if (versions.runtime) next = next.replace(/<script\s+src="arg-runtime\.js(?:\?v=[^"]*)?"?\s*"><\/script>/g, `<script src="arg-runtime.js?v=${versions.runtime}"></script>`);
     if (versions.data) next = next.replace(/<script\s+src="arg-data\.js(?:\?v=[^"]*)?"?\s*"><\/script>/g, `<script src="arg-data.js?v=${versions.data}"></script>`);
+    if (versions.vfs) next = next.replace(/<script\s+src="arg-vfs\.js(?:\?v=[^"]*)?"?\s*"><\/script>/g, `<script src="arg-vfs.js?v=${versions.vfs}"></script>`);
     if (next !== html) { if (!dry) write(f, next); touched++; }
   }
   return { ...versions, touched };
@@ -22,5 +23,5 @@ export function stamp({ dry = false } = {}) {
 
 if (process.argv[1] && process.argv[1].endsWith('stamp-version.mjs')) {
   const r = stamp();
-  console.log(`[stamp] runtime ?v=${r.runtime} · data ?v=${r.data} · 更新 ${r.touched} 页`);
+  console.log(`[stamp] runtime ?v=${r.runtime} · data ?v=${r.data} · vfs ?v=${r.vfs} · 更新 ${r.touched} 页`);
 }

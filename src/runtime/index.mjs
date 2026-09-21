@@ -13,6 +13,7 @@ import { go, checkRule, checkLink, bindSearch, bindLogin } from './router.mjs';
 import { bindChat } from './chat.mjs';
 import { ensurePostLock, ensureForumLife } from './forum.mjs';
 import { runPuzzleHost } from './puzzles.mjs';
+import { ensureOS } from './osshell.mjs';
 import { registerGame } from './games.mjs';
 import './games-builtin.mjs'; // 副作用：注册内置小游戏
 
@@ -56,6 +57,7 @@ export function bind() {
   try { ensureNameInput(); } catch (e) {}
   try { ensureGlobalSkin(); } catch (e) {}
   try { runPuzzleHost(); } catch (e) {}
+  try { ensureOS(); } catch (e) {}
 
   // 维基侧栏：给「首页/最近更改/随机条目/绝密专题」真实功能
   try {
