@@ -39,6 +39,19 @@ export function bundle({ out = 'arg-runtime.js' } = {}) {
   }
   for (const f of order) load(f);
 
+  // 共享作用域隐患防护：检测跨模块「顶层」重复声明（列首，无缩进）→ 重名会静默覆盖
+  const topDeclRe = /^(?:function|const|let|var|class)[ \t]+([A-Za-z_$][\w$]*)/gm;
+  const dup = [];
+  const firstOwner = new Map();
+  for (const c of chunks) {
+    let m2; topDeclRe.lastIndex = 0;
+    while ((m2 = topDeclRe.exec(c.src))) {
+      if (firstOwner.has(m2[1]) && firstOwner.get(m2[1]) !== c.key) dup.push(`${m2[1]} (${firstOwner.get(m2[1])} ✕ ${c.key})`);
+      else if (!firstOwner.has(m2[1])) firstOwner.set(m2[1], c.key);
+    }
+  }
+  if (dup.length) throw new Error('打包失败：顶层符号跨模块重名会相互覆盖 → ' + [...new Set(dup)].join('; '));
+
   const body = chunks.map((c) => `/* ---- ${c.key} ---- */\n${c.src}`).join('\n\n');
   const banner = '/* 白噪1999 运行时（构建产物）。由 src/runtime/*.mjs 打包生成；请勿直接编辑本文件，改 src/runtime 后运行 node scripts/build.mjs。 */\n';
   const final = `${banner}(function(){\n"use strict";\ntry{\n${body}\n}catch(err){\n  try{var p=document.createElement("div");p.style.cssText="position:fixed;left:0;bottom:0;background:#7f1d1d;color:#fff;font:12px/1.4 monospace;padding:4px 8px;z-index:2147483647";p.textContent="运行时错误(调试)："+err.message;document.body&&document.body.appendChild(p);}catch(e2){}\n  if(window.console)console.error("[ARG runtime]",err);\n}\n})();\n`;

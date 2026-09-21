@@ -9,6 +9,10 @@ const BASE = [
   '.os-win.os-min{display:none}',
   '.os-rz{position:absolute;width:12px;height:12px;right:0;bottom:0;cursor:nwse-resize}',
   '.os-res{position:absolute;left:0;bottom:-1px;right:0;height:22px;background:var(--os-face);border-top:var(--os-border);display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--os-muted);padding:0 8px;flex:0 0 auto}',
+  'html.os-reduce *{animation:none!important;transition:none!important}',
+  'html.os-reduce #arg-noise,html.os-reduce .arg-atmosphere-glitch{display:none!important}',
+  'html.os-contrast .os-win>.os-body,html.os-contrast .os-tree{background:#000!important;color:#fff!important}',
+  'html.os-contrast .os-tree .os-node{color:#fff!important}',
 ].join('\n');
 
 export const SKINS = {

@@ -1,6 +1,7 @@
 // src/runtime/osshell.mjs — 桌面外壳装配：任务栏 + 开始(打开资源管理器) + 皮肤快切；仅在桌面/文件柜页激活（DOM 探测）
 import { initOS, openWindow, listWindows } from './os.mjs';
 import { openExplorer } from './osexplorer.mjs';
+import { openControlPanel, applyOsuia11y } from './oscontrol.mjs';
 import { applyTheme, currentTheme, SKINS } from './ostheme.mjs';
 import { playSynthSound } from './audio.mjs';
 
@@ -38,6 +39,7 @@ export function ensureOS() {
 
   // 让窗口落在工作区、按钮落在任务栏
   initOS({ work, bar: tasks });
+  try { applyOsuia11y(); } catch (e) {}
   // os-win 需可点（layer pointer-events none，窗口本身 auto）
   const fixPE = () => { document.querySelectorAll('#os-layer .os-win').forEach((w) => (w.style.pointerEvents = 'auto')); };
   const mo = new MutationObserver(fixPE); mo.observe(work, { childList: true });
@@ -46,6 +48,7 @@ export function ensureOS() {
     const mi = (lab, fn) => { const b = document.createElement('div'); b.textContent = lab; b.style.cssText = 'padding:7px 10px;cursor:pointer;border-radius:3px'; b.onmouseenter = () => (b.style.background = 'var(--os-accent)'), b.style.color = '#fff'; b.onmouseleave = () => (b.style.background = '', b.style.color = 'var(--os-fg)'); b.onclick = () => { open.remove(); fn(); }; return b; };
     open.appendChild(mi('📁 资源管理器', () => { openExplorer(guessFolder((window.ARG_RUNTIME && ARG_RUNTIME.config && ARG_RUNTIME.config.nodeId) || '')); fixPE(); }));
     open.appendChild(mi('🖥️ 关于本机', () => { openWindow({ id: 'os_about', title: '关于本机', w: 360, h: 200, render: (b) => { b.style.padding = '12px'; b.innerHTML = '<b>潮声 OS · FM99.4</b><br>声音修复师工作台<br>窗口 ' + listWindows().length + ' 个<br>皮肤 ' + (SKINS[currentTheme()] || {}).label; } }); fixPE(); }));
+    open.appendChild(mi('🎛️ 控制面板', () => { openControlPanel((k) => { thm.textContent = '🎨 ' + SKINS[k].label.split(' ')[0]; }); fixPE(); }));
     open.appendChild(mi('🎨 换皮肤', () => cycleTheme(thm)));
     document.body.appendChild(open); setTimeout(() => document.addEventListener('click', function h() { open.remove(); document.removeEventListener('click', h); }), 0); };
   function cycleTheme(btn) { const keys = Object.keys(SKINS); const next = keys[(keys.indexOf(currentTheme()) + 1) % keys.length]; applyTheme(next); btn.textContent = '🎨 ' + SKINS[next].label.split(' ')[0]; playSynthSound('unlock'); }

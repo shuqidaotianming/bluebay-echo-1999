@@ -23,6 +23,7 @@
     "os.mjs",
     "osdoc.mjs",
     "osexplorer.mjs",
+    "oscontrol.mjs",
     "osshell.mjs",
     "index.mjs"
   ]
