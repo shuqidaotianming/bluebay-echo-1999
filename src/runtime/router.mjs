@@ -1,8 +1,8 @@
 // src/runtime/router.mjs — 核心路由：go / checkRule / checkLink / bindSearch / bindLogin
-import { config, result, hasClue, triggerClue, isShadow, applyShadowSkin, normShadow } from './core.mjs';
+import { config, result, hasClue, triggerClue, isShadow, applyShadowSkin } from './core.mjs';
 import { playSynthSound } from './audio.mjs';
 import { pushNotify } from './notify.mjs';
-import { passwordOk } from './logic.mjs';
+import { passwordOk, normShadow } from './logic.mjs';
 import { fallbackSearch } from './forum.mjs';
 
 export const go = (target) => {

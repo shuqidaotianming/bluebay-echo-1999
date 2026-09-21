@@ -1,5 +1,6 @@
 // src/runtime/osexplorer.mjs — 资源管理器 App（消费 arg-vfs.js：目录树 + 文件区四视图 + 面包屑 + 排序 + 多选 + 右键 + ACL）
 import { openWindow } from './os.mjs';
+import { openDoc } from './osdoc.mjs';
 import { config, hasClue, escapeHtml } from './core.mjs';
 import { go } from './router.mjs';
 import { playSynthSound } from './audio.mjs';
@@ -50,7 +51,8 @@ function renderExplorer(body, win, startFolder) {
     arr.sort((a, b) => { const ka = sortKey === 'size' ? String(a.name).length : a[sortKey === 'type' ? 'id' : 'name'], kb = b[sortKey === 'size' ? 'size' : sortKey === 'type' ? 'id' : 'name']; return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
     return arr;
   }
-  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + it.name + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); go(it.id); }
+  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + it.name + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); openDoc(it.id, it.name); }
+  function openFull(it) { if (locked(it)) { toast('🔒 未解锁'); return; } go(it.id); }
 
   function renderList() {
     mainHost.innerHTML = '';
@@ -91,7 +93,8 @@ function renderExplorer(body, win, startFolder) {
     document.querySelectorAll('.os-menu').forEach((m) => m.remove());
     const m = document.createElement('div'); m.className = 'os-menu'; m.style.cssText = 'position:fixed;z-index:99998;min-width:160px;background:var(--os-face);border:var(--os-border);box-shadow:var(--os-shadow);padding:3px;font-size:12.5px';
     const item = (lab, fn, dis) => { const b = document.createElement('div'); b.textContent = lab; b.style.cssText = 'padding:5px 10px;cursor:' + (dis ? 'not-allowed' : 'pointer') + ';color:' + (dis ? '#999' : 'var(--os-fg)'); if (!dis) b.onmouseenter = () => b.style.background = 'var(--os-accent)', b.onmouseleave = () => b.style.background = '', b.onclick = () => { m.remove(); fn(); }; b.onmouseenter = () => { if (!dis) b.style.background = 'var(--os-accent)'; }; b.onmouseleave = () => (b.style.background = ''); return b; };
-    m.appendChild(item('打开', () => open(it)));
+    m.appendChild(item('打开（窗口内阅读）', () => open(it)));
+    m.appendChild(item('整页打开', () => openFull(it)));
     m.appendChild(item('重命名（只读档案）', () => toast('调查资料不可重命名。'), true));
     m.appendChild(item('属性', () => toast(it.id + ' · ' + extOf(it.name) + (it.lockedBy ? ' · 需 ' + it.lockedBy : ''))));
     m.style.left = Math.min(e.clientX, innerWidth - 180) + 'px'; m.style.top = Math.min(e.clientY, innerHeight - 120) + 'px';
