@@ -1,6 +1,7 @@
 // src/runtime/games-builtin.mjs — 6 个「声音修复师」小游戏（Canvas/DOM 为主，可选音效，均有可视判定）
 import { registerGame } from './games.mjs';
 import { playSynthSound } from './audio.mjs';
+import { createStudio } from './audio-games.mjs';
 
 const CSS = '#arg-game-wrap canvas{display:block;width:100%;height:auto;border-radius:8px;background:#05070a;touch-action:none}' +
   '.arg-gctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}' +
@@ -11,6 +12,20 @@ let cssOn = false;
 function ensureCss() { if (cssOn) return; cssOn = true; const s = document.createElement('style'); s.textContent = CSS; document.head.appendChild(s); }
 function mk(stage, h) { ensureCss(); const c = document.createElement('canvas'); c.width = 360; c.height = h || 150; stage.appendChild(c); return c; }
 function say(status, t) { if (status) status.textContent = t; }
+// 给偏听觉的游戏挂一个 ▶/⏹ 实时音频开关；apply(studio) 每次交互调用以更新参数
+function attachAudio(stage, apply, onWin) {
+  const studio = createStudio();
+  const bar = document.createElement('div'); bar.className = 'arg-gctrl';
+  const btn = document.createElement('button'); btn.textContent = '▶ 播放坏带子'; btn.style.borderColor = '#16a34a'; btn.style.color = '#86efac';
+  btn.onclick = () => {
+    if (!studio.available) { say(bar, '（本环境无 Web Audio；视觉判定照常可用。）'); return; }
+    if (studio.running) { studio.stop(); btn.textContent = '▶ 播放坏带子'; }
+    else { studio.start(); apply(studio); btn.textContent = '⏹ 停止'; }
+    playSynthSound('click');
+  };
+  bar.appendChild(btn); stage.appendChild(bar);
+  return { studio, apply, stop() { try { studio.stop(); } catch (e) {} } };
+}
 
 // 1) 补全频谱：频谱图上有一块“塌陷缺口”，补对频段显字
 registerGame('spectral-repair', function (stage, opts, done, status) {
@@ -37,10 +52,9 @@ registerGame('spectral-repair', function (stage, opts, done, status) {
   stage.appendChild(bar);
 });
 
-// 2) 去噪门限：滑到“海轰噪声”被滤掉、人声能量达标
+// 2) 去噪门限：滑到“海轰噪声”被滤掉、人声能量达标（实时听感：噪声渐弱、一句人声渐显）
 registerGame('noise-gate', function (stage, opts, done, status) {
   const c = mk(stage, 130), x = c.getContext('2d'); let thr = 0.8;
-  const target = 0.45; // 门限落在 0.40–0.50 之间为“听清”
   function draw() {
     x.fillStyle = '#05070a'; x.fillRect(0, 0, 360, 130);
     x.strokeStyle = '#22d3ee'; x.beginPath();
@@ -52,14 +66,16 @@ registerGame('noise-gate', function (stage, opts, done, status) {
     }
     x.stroke();
   }
-  draw(); say(status, '拉门限把 4.5Hz 海轰噪声压下去，露出被埋的一句人声：');
+  const audio = attachAudio(stage, (s) => { s.setRumble(1 - thr); s.setVoice(thr < 0.55 ? 1 : 0.15); s.setHiss(0.1); });
+  function sync() { audio.studio.setRumble(1 - thr); audio.studio.setVoice(thr < 0.55 ? 1 : 0.15); }
+  draw(); say(status, '拉门限把 4.5Hz 海轰噪声压下去，露出被埋的一句人声（可点上方 ▶ 实时试听）：');
   const bar = document.createElement('div'); bar.className = 'arg-gctrl';
   const rg = document.createElement('input'); rg.type = 'range'; rg.min = 0; rg.max = 100; rg.value = 80;
-  rg.oninput = () => { thr = rg.value / 100; draw(); const ok = thr >= 0.40 && thr <= 0.50; if (ok && !rg._won) { rg._won = true; done(true); } };
+  rg.oninput = () => { thr = rg.value / 100; draw(); sync(); const ok = thr >= 0.40 && thr <= 0.50; if (ok && !rg._won) { rg._won = true; audio.stop(); done(true); } };
   bar.appendChild(rg); stage.appendChild(bar);
 });
 
-// 3) 走带对位：左右声道相位对齐，相关峰归零
+// 3) 走带对位：左右声道相位对齐，相关峰归零（实时听感：错位时拍频毛刺，对齐后单一清音）
 registerGame('tape-align', function (stage, opts, done, status) {
   const c = mk(stage, 130), x = c.getContext('2d'); const off0 = 46; let off = 0;
   function draw() {
@@ -68,27 +84,32 @@ registerGame('tape-align', function (stage, opts, done, status) {
     wave(45, 0, '#22d3ee'); wave(95, off0 + off, '#facc15');
     x.fillStyle = '#94a3b8'; x.font = '11px monospace'; x.fillText('错位 ' + Math.abs(off0 + off) + '（对齐到 0）', 8, 14);
   }
-  draw(); say(status, '两路信号错位了。拖动滑块让黄色波与青波对齐：');
+  const audio = attachAudio(stage, (s) => { s.setRumble(0.1); s.setHiss(0.05); s.setVoice(0.9); s.setDetune(off0 + off); });
+  function sync() { audio.studio.setDetune(off0 + off); }
+  draw(); say(status, '两路信号错位了。拖动滑块让黄色波与青波对齐（▶ 试听：对齐前拍频毛刺，对齐后归一）：');
   const bar = document.createElement('div'); bar.className = 'arg-gctrl';
   const rg = document.createElement('input'); rg.type = 'range'; rg.min = -60; rg.max = 20; rg.value = 0;
-  rg.oninput = () => { off = +rg.value; draw(); if (Math.abs(off0 + off) <= 2 && !rg._won) { rg._won = true; done(true); } };
+  rg.oninput = () => { off = +rg.value; draw(); sync(); if (Math.abs(off0 + off) <= 2 && !rg._won) { rg._won = true; audio.stop(); done(true); } };
   bar.appendChild(rg); stage.appendChild(bar);
 });
 
-// 4) 调谐旋钮：方向键拧到精确频率才“锁相”，冷热引导（错误频率是诱饵）
+// 4) 调谐旋钮：方向键拧到精确频率才“锁相”，冷热引导（错误频率是诱饵；实时听感：偏离越大噪声越响）
 registerGame('tuning-dial', function (stage, opts, done, status) {
   const target = (opts.freq || 94.90);
   let f = 99.40;
   const c = mk(stage, 90), x = c.getContext('2d');
+  function nearAmt() { return Math.max(0, 1 - Math.abs(f - target) / 10); }
   function draw() {
     x.fillStyle = '#05070a'; x.fillRect(0, 0, 360, 90);
-    const err = Math.abs(f - target); const near = Math.max(0, 1 - err / 10);
+    const near = nearAmt();
     x.fillStyle = 'rgba(34,211,238,' + (0.2 + near * 0.8) + ')'; x.fillRect(0, 62, 360, 6);
     x.fillStyle = '#a5f3fc'; x.font = 'bold 20px monospace'; x.fillText(f.toFixed(2) + ' MHz', 12, 34);
     x.fillStyle = '#facc15'; x.font = '12px monospace'; x.fillText(['冷', '凉', '温', '热', '锁相!'][Math.min(4, Math.floor(near * 5))], 250, 34);
   }
-  draw(); say(status, '用 ← → 方向键微调频率，找回那个“获批未启用”的备用台（提示：比 99.40 低一点）：');
-  function key(e) { if (e.key === 'ArrowLeft') f = +(f - 0.05).toFixed(2); else if (e.key === 'ArrowRight') f = +(f + 0.05).toFixed(2); else return; draw(); if (Math.abs(f - target) < 0.005 && !key._w) { key._w = true; done(true); } }
+  const audio = attachAudio(stage, (s) => { s.setRumble(0.15); s.setHiss(1 - nearAmt()); s.setVoice(nearAmt() > 0.85 ? 0.8 : 0); });
+  function sync() { audio.studio.setHiss(1 - nearAmt()); audio.studio.setVoice(nearAmt() > 0.85 ? 0.8 : 0); }
+  draw(); say(status, '用 ← → 方向键微调频率，找回那个“获批未启用”的备用台（比 99.40 低一点；▶ 试听：拧准了噪声退去）：');
+  function key(e) { if (e.key === 'ArrowLeft') f = +(f - 0.05).toFixed(2); else if (e.key === 'ArrowRight') f = +(f + 0.05).toFixed(2); else return; draw(); sync(); if (Math.abs(f - target) < 0.005 && !key._w) { key._w = true; audio.stop(); done(true); } }
   document.addEventListener('keydown', key);
   stage.addEventListener('mouseenter', () => document.removeEventListener('keydown', key));
 });
@@ -128,9 +149,16 @@ registerGame('eq-band', function (stage, opts, done, status) {
     x.stroke();
     x.fillStyle = '#94a3b8'; x.font = '11px monospace'; x.fillText('海噪 ' + (100 - Math.round(lowCut * 100)) + '% ｜ 人声 ' + Math.round(voiceGain * 100) + '% ｜ 嘶声 ' + (100 - Math.round(highCut * 100)) + '%', 8, 14);
   }
-  draw(); say(status, '把「低频海噪」和「高频嘶声」压下去、让「中频人声」抬起来，那句话就会露出来。');
+  function audioParams() {
+    const lowCut = 1 - Math.min(1, Math.max(0, (eq.low - 0.6) / 0.25));
+    const highCut = 1 - Math.min(1, Math.max(0, (eq.high - 0.6) / 0.25));
+    return { rumble: lowCut, hiss: highCut, voice: 1 - Math.min(1, eq.mid) };
+  }
+  const audio = attachAudio(stage, (s) => { const p = audioParams(); s.setRumble(p.rumble); s.setHiss(p.hiss); s.setVoice(p.voice); });
+  function sync() { const p = audioParams(); audio.studio.setRumble(p.rumble); audio.studio.setHiss(p.hiss); audio.studio.setVoice(p.voice); }
+  draw(); say(status, '把「低频海噪」和「高频嘶声」压下去、让「中频人声」抬起来，那句话就会露出来（▶ 实时试听）：');
   const bar = document.createElement('div'); bar.className = 'arg-gctrl';
-  function slider(name, label, init) { const rg = document.createElement('input'); rg.type = 'range'; rg.min = 0; rg.max = 100; rg.value = (init * 100); const lab = document.createElement('span'); lab.textContent = label; lab.style.fontSize = '12px'; rg.oninput = () => { eq[name] = rg.value / 100; draw(); check(); }; bar.appendChild(lab); bar.appendChild(rg); }
-  function check() { const win = eq.low > 0.68 && eq.mid < 0.34 && eq.high > 0.68; if (win && !bar._w) { bar._w = true; say(status, '✔ 那句话清楚了。'); done(true); } }
+  function slider(name, label, init) { const rg = document.createElement('input'); rg.type = 'range'; rg.min = 0; rg.max = 100; rg.value = (init * 100); const lab = document.createElement('span'); lab.textContent = label; lab.style.fontSize = '12px'; rg.oninput = () => { eq[name] = rg.value / 100; draw(); sync(); check(); }; bar.appendChild(lab); bar.appendChild(rg); }
+  function check() { const win = eq.low > 0.68 && eq.mid < 0.34 && eq.high > 0.68; if (win && !bar._w) { bar._w = true; audio.stop(); say(status, '✔ 那句话清楚了。'); done(true); } }
   slider('low', '切低频', 0.5); slider('mid', '中频', 0.5); slider('high', '切高频', 0.5); stage.appendChild(bar);
 });

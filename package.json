@@ -17,8 +17,9 @@
     "gen:stego": "node scripts/gen-stego-audio.mjs BLACKTIDE",
     "gen:all": "node scripts/gen-stego-audio.mjs BLACKTIDE && node scripts/gen-hardcore.mjs && node scripts/gen-minigames.mjs && node scripts/gen-arg.mjs && node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
+    "golden": "node scripts/golden-path.mjs",
     "test": "node --test \"tests/**/*.test.mjs\"",
-    "check": "node scripts/validate.mjs && node --test \"tests/**/*.test.mjs\"",
+    "check": "node scripts/validate.mjs && node scripts/golden-path.mjs && node --test \"tests/**/*.test.mjs\"",
     "prepublish:check": "node scripts/build.mjs && node --test \"tests/**/*.test.mjs\""
   },
   "keywords": ["arg", "puzzle", "static-site", "game", "escape-room"],

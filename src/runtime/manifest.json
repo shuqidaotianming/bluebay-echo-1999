@@ -15,7 +15,9 @@
     "stats.mjs",
     "skin.mjs",
     "nameinput.mjs",
+    "audio-games.mjs",
     "games.mjs",
+    "games-builtin.mjs",
     "puzzles.mjs",
     "index.mjs"
   ]

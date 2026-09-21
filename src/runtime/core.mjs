@@ -3,6 +3,12 @@ import { normShadow, hasClueOf, normalizeVisited } from './logic.mjs';
 
 export const configEl = (typeof document !== 'undefined') ? document.getElementById('arg-config') : null;
 export const config = configEl ? JSON.parse(configEl.textContent || '{}') : { rules: {}, files: {}, links: {} };
+// 全局数据文件 arg-data.js 提供整站 files/names；页内若带则作覆盖（省体积：多数页不再内嵌大表）
+(function mergeGlobalData() {
+  const G = (typeof window !== 'undefined' && window.ARG_DATA) ? window.ARG_DATA : {};
+  config.files = Object.assign({}, G.files || {}, config.files || {});
+  config.names = Object.assign({}, G.names || {}, config.names || {});
+})();
 export const result = (text) => { const el = document.querySelector('[data-arg-result]'); if (el) el.textContent = text; };
 
 // HTML 转义：所有拼进 innerHTML 的动态字符串一律过这里（XSS 收口）

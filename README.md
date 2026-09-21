@@ -45,13 +45,14 @@
 本仓库自带一套不依赖任何 npm 包的构建 / 校验 / 测试管线：
 
 ```
-node scripts/build.mjs          # 打包运行时(src/runtime) + 刷缓存指纹 + 生成搜索索引 + 防旁路校验
+node scripts/build.mjs          # 打包运行时(src/runtime) + 生成 arg-data.js + 页面瘦身 + 刷缓存指纹 + 索引 + 防旁路校验
 node scripts/validate.mjs       # 完整性 + 防旁路硬门槛（断锁后核心线索不可达、结局门槛可满足性）
-node --test "tests/**/*.test.mjs"   # 算法/门控/索引/运行时冒烟测试
+node scripts/golden-path.mjs    # 13 个结局可达性模拟（须解题 vs 随手可达）
+node --test "tests/**/*.test.mjs"   # 算法/门控/索引/运行时冒烟/结局 测试
 npm run gen:all                 # 一键重建硬核谜题/小游戏/ARG 内容 + 构建（幂等）
 ```
 
-`arg-runtime.js` 与 `arg-search-index.js` 是构建产物：改运行时请改 `src/runtime/*.mjs` 后重新构建，勿直接编辑产物。CI 见 `.github/workflows/ci.yml`。架构与「如何安全地加谜题」见 `docs/ENGINEERING.md`。
+整站 `files/names` 映射集中在共享 `arg-data.js`（各页不再内嵌大表，页面体积约降 60%：15.7MB→4.1MB）。`arg-runtime.js`、`arg-search-index.js`、`arg-data.js` 均为构建产物：改运行时请改 `src/runtime/*.mjs` 后重新构建，勿直接编辑产物。CI 见 `.github/workflows/ci.yml`。架构与「如何安全地加谜题」见 `docs/ENGINEERING.md`。
 
 ## 许可
 

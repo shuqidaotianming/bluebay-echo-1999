@@ -5,13 +5,13 @@
 ## [Unreleased]
 
 ### Added
-- 零依赖工程管线：`scripts/build.mjs`（运行时打包 + 缓存指纹 + 搜索索引 + 校验）、`scripts/validate.mjs`（防旁路 + 完整性硬门槛）、`scripts/build-runtime.mjs`（自研 ESM 打包器）、`scripts/build-search-index.mjs`（白名单口径重建）、`scripts/gen-stego-audio.mjs`（频谱隐写 WAV）、`scripts/gen-hardcore.mjs`、`scripts/gen-minigames.mjs`、`scripts/gen-arg.mjs`。
-- 运行时模块化：`arg-runtime.js` 拆为 `src/runtime/*.mjs`（17+1 模块）单一 IIFE 打包；新增 `puzzles.mjs`（解锁前置遮蔽 / 答案校验 solve-credit / 时间锁 / 双标签页）、`games.mjs`+`games-builtin.mjs`（声音修复师小游戏宿主 + 6 个游戏）、`save.mjs`（存档版本化 + 导入/导出）、`logic.mjs`（纯函数）。
-- **硬核谜题集群「深潮·礁声」**：新锁 + 枢纽 + 6 份硬核卷宗（Playfair / Polybius / 单表频率分析 / 双残带 XOR / 船籍 Luhn / 测向交点 / 频谱隐写 WAV）+ 新结局「深潮」。
-- **6 个「声音修复师」小游戏**（补全频谱 / 去噪门限 / 走带对位 / 调谐旋钮 / 剪辑拼接 / 三段均衡，均带纯视觉等价通道）+ 新结局「金耳朵」。
-- **真·ARG 层**：真实时钟时间锁、周年日期锁、持续收听、双标签页联动、robots.txt / 源码 / DevTools 彩蛋 + 新结局「现场直播」。
-- 防旁路三型门控（锁 / 知识 / 动作·校验）与结局「可满足性」校验；42 项自动化测试；GitHub Actions CI；工程文档 `docs/ENGINEERING.md`、`CONTRIBUTING.md`、`.editorconfig`。
-- 规模：417→**442 页**，6→**7 道锁**，10→**13 个结局**。
+- 共享数据文件 `arg-data.js`（全站 `files/names` 单一来源）+ `scripts/build-data.mjs` + `scripts/slim-pages.mjs`：各页不再内嵌大表，页面总体积 15.7MB → 4.1MB（约 -60%）；运行时优先读全局、页内作覆盖，向后兼容。
+- 声音修复师小游戏接入真·Web Audio 实时反馈（`src/runtime/audio-games.mjs` `createStudio`）：去噪门限 / 走带对位 / 调谐旋钮 / 三段均衡均可 ▶ 试听，噪声/人声/拍频随操作变化；无 `AudioContext` 环境安全降级为纯视觉。
+- `scripts/golden-path.mjs`：13 个结局可达性模拟（须解题 vs 随手可达），并入 `npm run check` 与测试。
+- 零依赖工程管线：`scripts/build.mjs`（运行时打包 + 共享数据 + 页面瘦身 + 缓存指纹 + 搜索索引 + 校验）、`scripts/validate.mjs`（防旁路 + 完整性硬门槛）、`scripts/build-runtime.mjs`（自研 ESM 打包器）、`scripts/gen-*.mjs`（硬核/小游戏/ARG/频谱隐写内容生成）。
+- 硬核谜题集群「深潮·礁声」（Playfair / Polybius / 单表频率分析 / 双残带 XOR / 船籍 Luhn / 测向交点 / 频谱隐写 WAV）+ 新结局「深潮」；6 个小游戏 + 新结局「金耳朵」；真·ARG（真实时钟/周年日期时间锁、持续收听、双标签页、robots.txt/源码/DevTools）+ 新结局「现场直播」。
+- 运行时模块化（`src/runtime/*.mjs`，19 模块单 IIFE 打包）+ `save.mjs`（存档版本化 + 导入/导出）；防旁路三型门控与结局「可满足性」校验；`node --test` 测试套件 + GitHub Actions CI。
+- 规模：417 → **442 页**，6 → **7 道锁**，10 → **13 个结局**；`npm run gen:all` 一键重建全部内容（幂等）。
 
 ### Changed
 - 线索记账新增「解锁前置」`requiresClue`：未满足时即使直接输入 URL 也不记线索，静态站防旁路更硬。
