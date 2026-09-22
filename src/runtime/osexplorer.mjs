@@ -44,10 +44,9 @@ function renderExplorer(body, win, startFolder) {
   const status = document.createElement('div'); status.className = 'os-status'; status.style.cssText = 'border-top:1px solid rgba(0,0,0,.2);padding:2px 8px;font-size:11.5px;color:var(--os-muted)';
   main.appendChild(nav); main.appendChild(mainHost); main.appendChild(status); win.res.textContent = '资源管理器';
 
-  // 目录树
   function renderTree() {
     tree.innerHTML = '';
-    allFolders.forEach((f) => {
+    allFolders.filter((f) => f.custom || f.items.some(acc)).forEach((f) => {
       const n = document.createElement('div'); n.className = 'os-node'; n.textContent = f.folder; n.title = f.folder;
       n.style.cssText = 'padding:2px 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
       if (f === cur) { n.classList.add('sel'); n.style.background = 'var(--os-sel)'; n.style.color = '#fff'; }
@@ -56,14 +55,16 @@ function renderExplorer(body, win, startFolder) {
     });
   }
   function locked(it) { return it.lockedBy ? !hasClue(it.lockedBy) : false; }
-  // 锁定项隐去真实名，防剧透（只显示“加密档案”）
-  function dispName(it) { return locked(it) ? '🔒 加密档案 · 未解锁' : it.name; }
+  function realName(it) { const N = (typeof window !== 'undefined' && window.ARG_DATA && window.ARG_DATA.names) || {}; return it.name || N[it.id] || it.id; }
+  function dispName(it) { return locked(it) ? '🔒 加密档案 · 未解锁' : realName(it); }
+  // 防泄露：锁住且未解锁的条目【整条隐藏】，不暴露其存在/数量；只有解锁后才现身
+  function acc(it) { return !locked(it); }
   function sorted() {
-    const arr = cur.items.slice();
-    arr.sort((a, b) => { const ka = sortKey === 'size' ? String(a.name).length : a[sortKey === 'type' ? 'id' : 'name'], kb = b[sortKey === 'size' ? 'size' : sortKey === 'type' ? 'id' : 'name']; return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
+    const arr = cur.items.filter(acc);
+    arr.sort((a, b) => { const ka = sortKey === 'size' ? String(realName(a)).length : (sortKey === 'type' ? a.id : realName(a)), kb = sortKey === 'size' ? String(realName(b)).length : (sortKey === 'type' ? b.id : realName(b)); return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
     return arr;
   }
-  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + it.name + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); openDoc(it.id, it.name); }
+  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + realName(it) + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); openDoc(it.id, realName(it)); }
   function openFull(it) { if (locked(it)) { toast('🔒 未解锁'); return; } go(it.id); }
 
   function renderList() {
@@ -77,7 +78,7 @@ function renderExplorer(body, win, startFolder) {
       [['名称','name'],['类型','type'],['大小','size']].forEach(([lab,k]) => { const th = document.createElement('th'); th.textContent = lab + (sortKey===k ? (sortDir>0?' ▲':' ▼') : ''); th.style.cssText='text-align:left;padding:3px 8px;border-bottom:1px solid rgba(0,0,0,.3);cursor:pointer;user-select:none'; th.onclick=()=>{ if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;} renderList(); }; head.appendChild(th); });
       t.appendChild(head);
       items.forEach((it) => { const tr = document.createElement('tr'); if (sel.has(it.id)) tr.style.background = 'var(--os-sel)'; tr.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); }; tr.ondblclick = () => open(it); tr.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
-        ['<td>'+ escapeHtml(dispName(it)) +'</td>','<td>' + extOf(it.name).toUpperCase() + ' 文件</td>','<td>' + ((it.name.length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
+        ['<td>'+ escapeHtml(dispName(it)) +'</td>','<td>' + extOf(realName(it)).toUpperCase() + ' 文件</td>','<td>' + ((realName(it).length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
         t.appendChild(tr); });
       mainHost.appendChild(t);
     } else {
@@ -88,7 +89,7 @@ function renderExplorer(body, win, startFolder) {
       items.forEach((it) => {
         const cell = document.createElement('div'); const lk = locked(it);
         cell.style.cssText = 'display:flex;align-items:center;gap:8px;padding:' + (view==='列表'?'2px 8px':'8px') + ';cursor:pointer;border-radius:var(--os-radius);' + (sel.has(it.id) ? 'background:var(--os-sel);color:#fff' : '');
-        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(it.name)]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(dispName(it)) + '</span>';
+        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(realName(it))]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(dispName(it)) + '</span>';
         cell.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); };
         cell.ondblclick = () => open(it);
         cell.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
@@ -96,7 +97,7 @@ function renderExplorer(body, win, startFolder) {
       });
       mainHost.appendChild(grid);
     }
-    status.textContent = cur.items.length + ' 个项目' + (sel.size ? ' ｜ 已选 ' + sel.size : '') + (cur.items.some(locked) ? ' ｜ 🔒=需先解锁' : '');
+    status.textContent = items.length + ' 个项目' + (sel.size ? ' ｜ 已选 ' + sel.size : '');
   }
 
   let tmr;

@@ -59,17 +59,18 @@ export function buildVfs() {
   ].filter(([id]) => byId.has(id)).map(([id]) => ({ id, name: byId.get(id).name }));
 
   const used = new Set(['index.html', 'node_prologue']);
+  const mkItem = (id) => ({ id, name: lockedBy[id] ? '' : byId.get(id).name, lockedBy: lockedBy[id] || null }); // 锁后条目名脱敏，防 arg-vfs.js 静态泄露
   const folders = GROUPS.map(([folder, prefix]) => {
     let ids;
     if (prefix === '@apps') ids = apps.map((a) => a.id);
     else ids = bp.nodes.filter((n) => (prefix.endsWith('_') ? n.id.startsWith(prefix) : n.id === prefix)).map((n) => n.id);
     ids = ids.filter((id) => !used.has(id) && byId.has(id) && !/^index$/.test(id));
     ids.forEach((id) => used.add(id));
-    return { folder, items: ids.map((id) => ({ id, name: byId.get(id).name, lockedBy: lockedBy[id] || null })) };
+    return { folder, items: ids.map(mkItem) };
   }).filter((f) => f.items.length);
 
   // 未归类
-  const other = bp.nodes.filter((n) => !used.has(n.id) && n.type !== 'Ending' && n.type !== 'Login' && n.id !== 'node_prologue').map((n) => ({ id: n.id, name: n.name, lockedBy: lockedBy[n.id] || null }));
+  const other = bp.nodes.filter((n) => !used.has(n.id) && n.type !== 'Ending' && n.type !== 'Login' && n.id !== 'node_prologue').map((n) => mkItem(n.id));
   if (other.length) folders.push({ folder: '📁 其它', items: other });
 
   const data = { generatedBy: 'build-vfs.mjs', folders, lockedBy };

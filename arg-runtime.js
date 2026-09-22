@@ -2207,8 +2207,12 @@ function _resetOS() { windows.forEach((w) => { try { w.el.remove(); w.tb && w.tb
 
 
 const SESSION = 'os_session_v1'; // sessionStorage：本会话是否已登录（关机后清）
+const BOOTED = 'os_booted_v1';   // sessionStorage：本会话是否已开机（关机/重启后清，重开则再放开机加载）
 function isLoggedIn() { try { return sessionStorage.getItem(SESSION) === '1'; } catch (e) { return false; } }
 function setLoggedIn(v) { try { v ? sessionStorage.setItem(SESSION, '1') : sessionStorage.removeItem(SESSION); } catch (e) {} }
+function hasBooted() { try { return sessionStorage.getItem(BOOTED) === '1'; } catch (e) { return false; } }
+function markBooted() { try { sessionStorage.setItem(BOOTED, '1'); } catch (e) {} }
+function powerOff() { try { sessionStorage.removeItem(SESSION); sessionStorage.removeItem(BOOTED); } catch (e) {} }
 
 function reduced() { try { return (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || localStorage.getItem('os_reduce') === '1'; } catch (e) { return false; } }
 
@@ -2228,7 +2232,7 @@ function spinner(d) {
   d.appendChild(s);
 }
 
-// 开机自检 + 启动
+// 开机：BIOS 自检逐行 → 潮声OS Logo + 进度条加载 → 回调
 function boot(done) {
   const d = fullscreen();
   d.style.alignItems = 'flex-start'; d.style.padding = '28px 32px'; d.style.background = '#0a0a0a';
@@ -2242,16 +2246,38 @@ function boot(done) {
     '', '> 正在启动 潮声 OS ...',
   ];
   let i = 0;
-  const speed = reduced() ? 0 : 130;
+  const speed = reduced() ? 0 : 110;
   const iv = setInterval(() => {
     if (i < lines.length) { log.textContent += lines[i] + '\n'; i++; }
-    else { clearInterval(iv); setTimeout(() => { if (done) done(); else login(); }, reduced() ? 200 : 650); }
+    else { clearInterval(iv); setTimeout(showOsLoading, reduced() ? 150 : 400); }
   }, speed || 1);
+
+  // 第二阶段：Logo + 进度条 + 转圈（真·加载观感）
+  function showOsLoading() {
+    d.style.alignItems = 'center'; d.style.background = '#0a1622';
+    d.innerHTML = '<div style="text-align:center;color:#cfe8ff;width:280px">' +
+      '<div style="font-size:40px;line-height:1">📻</div>' +
+      '<div style="font-size:22px;letter-spacing:6px;margin:12px 0 22px;font-weight:300">潮声 OS</div>' +
+      '<div style="height:8px;border:1px solid rgba(180,220,255,.4);border-radius:5px;overflow:hidden;background:rgba(255,255,255,.06)"><div id="os-prog" style="height:100%;width:0;background:linear-gradient(90deg,#2b6cb0,#5fb0ff);transition:width .18s"></div></div>' +
+      '<div id="os-loading-txt" style="margin-top:14px;font-size:12px;color:#8fb0cc;letter-spacing:1px">正在载入档案 …</div></div>';
+    spinner(d, true);
+    const bar = () => document.getElementById('os-prog');
+    const txt = () => document.getElementById('os-loading-txt');
+    if (reduced()) { if (bar()) bar().style.width = '100%'; setTimeout(() => done && done(), 300); return; }
+    const steps = ['正在载入档案 …', '校验调阅权限 …', '重建声音索引 …', '接入 4.5Hz 底噪 …', '就差一个签名。'];
+    let pct = 0, k = 0;
+    const pv = setInterval(() => {
+      pct = Math.min(100, pct + 8 + Math.random() * 14);
+      const b = bar(); if (b) b.style.width = pct + '%';
+      if (txt() && k < steps.length) { txt().textContent = steps[k++]; }
+      if (pct >= 100) { clearInterval(pv); setTimeout(() => done && done(), 520); }
+    }, reduced() ? 60 : 260);
+  }
 }
 
 // 登录（有密码）
 function login(onOk) {
-  setLoggedIn(false);
+  powerOff();
   // 去掉 boot 屏
   const old = document.getElementById('os-screen'); if (old) old.remove();
   const d = fullscreen();
@@ -2285,7 +2311,7 @@ function nowHM() { const n = new Date(); return (n.getHours() < 10 ? '0' : '') +
 
 // 关机 / 重启 / 休眠 / 锁屏
 function shutdown() {
-  setLoggedIn(false);
+  powerOff();
   const d = fullscreen();
   d.innerHTML = '<div style="color:#fff;font-size:18px">正在关机…</div>';
   spinner(d);
@@ -2298,7 +2324,7 @@ function shutdown() {
   }, reduced() ? 250 : 1800);
 }
 function restart() {
-  setLoggedIn(false);
+  powerOff();
   const d = fullscreen(); d.innerHTML = '<div style="color:#fff;font-size:18px">正在重新启动…</div>'; spinner(d);
   setTimeout(() => { const old = document.getElementById('os-screen'); if (old) old.remove(); boot(() => login(() => location.reload())); }, reduced() ? 250 : 1700);
 }
@@ -2438,10 +2464,9 @@ function renderExplorer(body, win, startFolder) {
   const status = document.createElement('div'); status.className = 'os-status'; status.style.cssText = 'border-top:1px solid rgba(0,0,0,.2);padding:2px 8px;font-size:11.5px;color:var(--os-muted)';
   main.appendChild(nav); main.appendChild(mainHost); main.appendChild(status); win.res.textContent = '资源管理器';
 
-  // 目录树
   function renderTree() {
     tree.innerHTML = '';
-    allFolders.forEach((f) => {
+    allFolders.filter((f) => f.custom || f.items.some(acc)).forEach((f) => {
       const n = document.createElement('div'); n.className = 'os-node'; n.textContent = f.folder; n.title = f.folder;
       n.style.cssText = 'padding:2px 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
       if (f === cur) { n.classList.add('sel'); n.style.background = 'var(--os-sel)'; n.style.color = '#fff'; }
@@ -2450,14 +2475,16 @@ function renderExplorer(body, win, startFolder) {
     });
   }
   function locked(it) { return it.lockedBy ? !hasClue(it.lockedBy) : false; }
-  // 锁定项隐去真实名，防剧透（只显示“加密档案”）
-  function dispName(it) { return locked(it) ? '🔒 加密档案 · 未解锁' : it.name; }
+  function realName(it) { const N = (typeof window !== 'undefined' && window.ARG_DATA && window.ARG_DATA.names) || {}; return it.name || N[it.id] || it.id; }
+  function dispName(it) { return locked(it) ? '🔒 加密档案 · 未解锁' : realName(it); }
+  // 防泄露：锁住且未解锁的条目【整条隐藏】，不暴露其存在/数量；只有解锁后才现身
+  function acc(it) { return !locked(it); }
   function sorted() {
-    const arr = cur.items.slice();
-    arr.sort((a, b) => { const ka = sortKey === 'size' ? String(a.name).length : a[sortKey === 'type' ? 'id' : 'name'], kb = b[sortKey === 'size' ? 'size' : sortKey === 'type' ? 'id' : 'name']; return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
+    const arr = cur.items.filter(acc);
+    arr.sort((a, b) => { const ka = sortKey === 'size' ? String(realName(a)).length : (sortKey === 'type' ? a.id : realName(a)), kb = sortKey === 'size' ? String(realName(b)).length : (sortKey === 'type' ? b.id : realName(b)); return String(ka).localeCompare(String(kb), 'zh') * sortDir; });
     return arr;
   }
-  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + it.name + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); openDoc(it.id, it.name); }
+  function open(it) { if (locked(it)) { playSynthSound('error'); toast('🔒 无权访问：' + realName(it) + '（先解锁 ' + it.lockedBy + '）'); return; } playSynthSound('click'); openDoc(it.id, realName(it)); }
   function openFull(it) { if (locked(it)) { toast('🔒 未解锁'); return; } go(it.id); }
 
   function renderList() {
@@ -2471,7 +2498,7 @@ function renderExplorer(body, win, startFolder) {
       [['名称','name'],['类型','type'],['大小','size']].forEach(([lab,k]) => { const th = document.createElement('th'); th.textContent = lab + (sortKey===k ? (sortDir>0?' ▲':' ▼') : ''); th.style.cssText='text-align:left;padding:3px 8px;border-bottom:1px solid rgba(0,0,0,.3);cursor:pointer;user-select:none'; th.onclick=()=>{ if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;} renderList(); }; head.appendChild(th); });
       t.appendChild(head);
       items.forEach((it) => { const tr = document.createElement('tr'); if (sel.has(it.id)) tr.style.background = 'var(--os-sel)'; tr.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); }; tr.ondblclick = () => open(it); tr.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
-        ['<td>'+ escapeHtml(dispName(it)) +'</td>','<td>' + extOf(it.name).toUpperCase() + ' 文件</td>','<td>' + ((it.name.length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
+        ['<td>'+ escapeHtml(dispName(it)) +'</td>','<td>' + extOf(realName(it)).toUpperCase() + ' 文件</td>','<td>' + ((realName(it).length*137)%900+80) + ' KB</td>'].forEach((c) => { const td = document.createElement('td'); td.innerHTML = c; td.style.cssText = 'padding:2px 8px;border-bottom:1px solid rgba(0,0,0,.08);opacity:' + (locked(it)?'.5':'1'); tr.appendChild(td); });
         t.appendChild(tr); });
       mainHost.appendChild(t);
     } else {
@@ -2482,7 +2509,7 @@ function renderExplorer(body, win, startFolder) {
       items.forEach((it) => {
         const cell = document.createElement('div'); const lk = locked(it);
         cell.style.cssText = 'display:flex;align-items:center;gap:8px;padding:' + (view==='列表'?'2px 8px':'8px') + ';cursor:pointer;border-radius:var(--os-radius);' + (sel.has(it.id) ? 'background:var(--os-sel);color:#fff' : '');
-        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(it.name)]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(dispName(it)) + '</span>';
+        cell.innerHTML = '<span style="font-size:' + (view === '图标' || view === '平铺' ? '30px' : '16px') + '">' + (lk ? '🔒' : ICON[extOf(realName(it))]) + '</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:' + (lk ? '.6' : '1') + '">' + escapeHtml(dispName(it)) + '</span>';
         cell.onclick = (e) => { if (!e.ctrlKey && !e.metaKey) sel.clear(); sel.has(it.id) ? sel.delete(it.id) : sel.add(it.id); renderList(); };
         cell.ondblclick = () => open(it);
         cell.oncontextmenu = (e) => { e.preventDefault(); menu(e, it); };
@@ -2490,7 +2517,7 @@ function renderExplorer(body, win, startFolder) {
       });
       mainHost.appendChild(grid);
     }
-    status.textContent = cur.items.length + ' 个项目' + (sel.size ? ' ｜ 已选 ' + sel.size : '') + (cur.items.some(locked) ? ' ｜ 🔒=需先解锁' : '');
+    status.textContent = items.length + ' 个项目' + (sel.size ? ' ｜ 已选 ' + sel.size : '');
   }
 
   let tmr;
@@ -2658,22 +2685,31 @@ function ensureOS() {
   if (typeof document === 'undefined') return;
   if (window.__osBooted || !isOSTargetPage()) return;
   window.__osBooted = true;
-  if (isLoggedIn()) buildShell();
-  else boot(() => login(() => buildShell()));
+  const proceed = () => { if (isLoggedIn()) buildShell(); else login(() => buildShell()); };
+  if (hasBooted()) proceed();                 // 本会话已开过机：直接进（翻文件夹不再重放开机）
+  else boot(() => { markBooted(); proceed(); }); // 首次通电：完整开机加载
 }
 
 function buildShell() {
   const cfg = (window.ARG_RUNTIME && window.ARG_RUNTIME.config) || {};
   const nid = cfg.nodeId || '';
-  // 文件柜/回收站页：藏掉旧模板界面，交给资源管理器
+  // 文件柜/回收站页：有可展示内容时才交给资源管理器并隐藏旧界面（否则保留原页，避免点开空白“不能用”）
   if (isCabinetPage()) {
-    let st = document.getElementById('os-cabinet-style');
-    if (!st) { st = document.createElement('style'); st.id = 'os-cabinet-style'; st.textContent = '.folder,.folder-container,body.os-cab>h1,body.os-cab>.breadcrumb{display:none!important}body.os-cab{background:linear-gradient(160deg,#0a1622,#0d2233 60%,#08131d)!important}'; document.head.appendChild(st); }
-    document.body.classList.add('os-cab');
-    const back = {};
     const links = cfg.links || {};
-    for (const [lab, target] of Object.entries(links)) { if (/返回|回桌面|桌面/.test(lab) || target === 'node_desktop') continue; back[lab] = target; }
-    window.__osCab = { name: selfName(nid), links: back };
+    const back = {}; const seenT = new Set();
+    for (const [lab, target] of Object.entries(links)) {
+      if (!target || typeof target !== 'string') continue;
+      if (/返回|回桌面|桌面|工作台/.test(lab)) continue;
+      if (/\.html$/.test(lab) || /^[a-z0-9_]+$/.test(lab)) continue;   // 丢裸 id / .html 变体
+      if (target === 'node_desktop' || seenT.has(target)) continue;     // 按目标去重
+      seenT.add(target); back[lab] = target;
+    }
+    if (Object.keys(back).length) {
+      let st = document.getElementById('os-cabinet-style');
+      if (!st) { st = document.createElement('style'); st.id = 'os-cabinet-style'; st.textContent = '.folder,.folder-container,body.os-cab>h1,body.os-cab>.breadcrumb{display:none!important}body.os-cab{background:linear-gradient(160deg,#0a1622,#0d2233 60%,#08131d)!important}'; document.head.appendChild(st); }
+      document.body.classList.add('os-cab');
+      window.__osCab = { name: selfName(nid), links: back };
+    }
   }
 
   const layer = document.createElement('div'); layer.id = 'os-layer';

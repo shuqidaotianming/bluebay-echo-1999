@@ -5,7 +5,7 @@ import { openControlPanel, applyOsuia11y } from './oscontrol.mjs';
 import { openMail } from './osmail.mjs';
 import { applyTheme, currentTheme, SKINS } from './ostheme.mjs';
 import { playSynthSound } from './audio.mjs';
-import { boot, login, isLoggedIn, shutdown, restart, sleep, lock } from './osboot.mjs';
+import { boot, login, isLoggedIn, hasBooted, markBooted, shutdown, restart, sleep, lock } from './osboot.mjs';
 
 function isCabinetPage() { return !!document.querySelector('.folder'); }
 function isDesktopPage() { return !!(document.querySelector('.winxp-desktop') || document.querySelector('.desktop-icons') || document.querySelector('.desktop-main')); }
@@ -21,22 +21,31 @@ export function ensureOS() {
   if (typeof document === 'undefined') return;
   if (window.__osBooted || !isOSTargetPage()) return;
   window.__osBooted = true;
-  if (isLoggedIn()) buildShell();
-  else boot(() => login(() => buildShell()));
+  const proceed = () => { if (isLoggedIn()) buildShell(); else login(() => buildShell()); };
+  if (hasBooted()) proceed();                 // 本会话已开过机：直接进（翻文件夹不再重放开机）
+  else boot(() => { markBooted(); proceed(); }); // 首次通电：完整开机加载
 }
 
 function buildShell() {
   const cfg = (window.ARG_RUNTIME && window.ARG_RUNTIME.config) || {};
   const nid = cfg.nodeId || '';
-  // 文件柜/回收站页：藏掉旧模板界面，交给资源管理器
+  // 文件柜/回收站页：有可展示内容时才交给资源管理器并隐藏旧界面（否则保留原页，避免点开空白“不能用”）
   if (isCabinetPage()) {
-    let st = document.getElementById('os-cabinet-style');
-    if (!st) { st = document.createElement('style'); st.id = 'os-cabinet-style'; st.textContent = '.folder,.folder-container,body.os-cab>h1,body.os-cab>.breadcrumb{display:none!important}body.os-cab{background:linear-gradient(160deg,#0a1622,#0d2233 60%,#08131d)!important}'; document.head.appendChild(st); }
-    document.body.classList.add('os-cab');
-    const back = {};
     const links = cfg.links || {};
-    for (const [lab, target] of Object.entries(links)) { if (/返回|回桌面|桌面/.test(lab) || target === 'node_desktop') continue; back[lab] = target; }
-    window.__osCab = { name: selfName(nid), links: back };
+    const back = {}; const seenT = new Set();
+    for (const [lab, target] of Object.entries(links)) {
+      if (!target || typeof target !== 'string') continue;
+      if (/返回|回桌面|桌面|工作台/.test(lab)) continue;
+      if (/\.html$/.test(lab) || /^[a-z0-9_]+$/.test(lab)) continue;   // 丢裸 id / .html 变体
+      if (target === 'node_desktop' || seenT.has(target)) continue;     // 按目标去重
+      seenT.add(target); back[lab] = target;
+    }
+    if (Object.keys(back).length) {
+      let st = document.getElementById('os-cabinet-style');
+      if (!st) { st = document.createElement('style'); st.id = 'os-cabinet-style'; st.textContent = '.folder,.folder-container,body.os-cab>h1,body.os-cab>.breadcrumb{display:none!important}body.os-cab{background:linear-gradient(160deg,#0a1622,#0d2233 60%,#08131d)!important}'; document.head.appendChild(st); }
+      document.body.classList.add('os-cab');
+      window.__osCab = { name: selfName(nid), links: back };
+    }
   }
 
   const layer = document.createElement('div'); layer.id = 'os-layer';
