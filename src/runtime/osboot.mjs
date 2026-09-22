@@ -27,52 +27,57 @@ function spinner(d) {
   d.appendChild(s);
 }
 
-// 开机：BIOS 自检逐行 → 潮声OS Logo + 进度条加载 → 回调
+// 开机：BIOS 自检逐行 → 潮声OS Logo + 进度条 → 回调（固定时间轴，单一 finish 幂等 + 看门狗兜底）
 export function boot(done) {
-  const d = fullscreen();
-  d.style.alignItems = 'flex-start'; d.style.padding = '28px 32px'; d.style.background = '#0a0a0a';
-  const log = document.createElement('pre');
-  log.style.cssText = 'font:13px/1.7 "Courier New",monospace;color:#7fe07f;margin:0;white-space:pre-wrap;text-align:left;width:100%';
-  d.appendChild(log);
-  const lines = [
-    'FM-BIOS v99.4  (C) 蓝湾电子 1962–2003', 'CPU: SHEN-YAN @ 800MHz  OK',
-    'Memory Test: 262144K  OK', 'Detect IDE Primary ..... 旧磁带机 [DETECTED]',
-    '潮声 音频子系统 ......... INIT', '挂载档案分区 D: \\蓝湾\\1999 ...... OK',
-    '', '> 正在启动 潮声 OS ...',
-  ];
-  let i = 0;
-  const speed = reduced() ? 0 : 110;
-  const iv = setInterval(() => {
-    if (i < lines.length) { log.textContent += lines[i] + '\n'; i++; }
-    else { clearInterval(iv); setTimeout(showOsLoading, reduced() ? 150 : 400); }
-  }, speed || 1);
+  let finished = false;
+  const finish = () => { if (finished) return; finished = true; try { if (done) done(); } catch (e) {} };
+  const fast = reduced();
+  try {
+    const d = fullscreen();
+    d.style.alignItems = 'flex-start'; d.style.padding = '28px 32px'; d.style.background = '#0a0a0a';
+    const log = document.createElement('pre');
+    log.style.cssText = 'font:13px/1.7 "Courier New",monospace;color:#7fe07f;margin:0;white-space:pre-wrap;text-align:left;width:100%';
+    d.appendChild(log);
+    const lines = [
+      'FM-BIOS v99.4  (C) 蓝湾电子 1962–2003', 'CPU: SHEN-YAN @ 800MHz  OK',
+      'Memory Test: 262144K  OK', 'Detect IDE Primary ..... 旧磁带机 [DETECTED]',
+      '潮声 音频子系统 ......... INIT', '挂载档案分区 D: \\蓝湾\\1999 ...... OK',
+      '', '> 正在启动 潮声 OS ...',
+    ];
+    // 固定时间轴：每行 90ms，共 8 行 → 720ms；再 300ms 进入加载页
+    const lineMs = fast ? 0 : 90;
+    lines.forEach((ln, idx) => { if (fast) { log.textContent += ln + '\n'; } else setTimeout(() => { log.textContent += ln + '\n'; }, lineMs * (idx + 1)); });
+    setTimeout(showOsLoading, fast ? 120 : lineMs * lines.length + 320);
+  } catch (e) { finish(); }
 
-  // 第二阶段：Logo + 进度条 + 转圈（真·加载观感）
   function showOsLoading() {
-    d.style.alignItems = 'center'; d.style.background = '#0a1622';
-    d.innerHTML = '<div style="text-align:center;color:#cfe8ff;width:280px">' +
-      '<div style="font-size:40px;line-height:1">📻</div>' +
-      '<div style="font-size:22px;letter-spacing:6px;margin:12px 0 22px;font-weight:300">潮声 OS</div>' +
-      '<div style="height:8px;border:1px solid rgba(180,220,255,.4);border-radius:5px;overflow:hidden;background:rgba(255,255,255,.06)"><div id="os-prog" style="height:100%;width:0;background:linear-gradient(90deg,#2b6cb0,#5fb0ff);transition:width .18s"></div></div>' +
-      '<div id="os-loading-txt" style="margin-top:14px;font-size:12px;color:#8fb0cc;letter-spacing:1px">正在载入档案 …</div></div>';
-    spinner(d, true);
-    const bar = () => document.getElementById('os-prog');
-    const txt = () => document.getElementById('os-loading-txt');
-    if (reduced()) { if (bar()) bar().style.width = '100%'; setTimeout(() => done && done(), 300); return; }
-    const steps = ['正在载入档案 …', '校验调阅权限 …', '重建声音索引 …', '接入 4.5Hz 底噪 …', '就差一个签名。'];
-    let pct = 0, k = 0;
-    const pv = setInterval(() => {
-      pct = Math.min(100, pct + 8 + Math.random() * 14);
-      const b = bar(); if (b) b.style.width = pct + '%';
-      if (txt() && k < steps.length) { txt().textContent = steps[k++]; }
-      if (pct >= 100) { clearInterval(pv); setTimeout(() => done && done(), 520); }
-    }, reduced() ? 60 : 260);
+    try {
+      const d = document.getElementById('os-screen'); if (!d) return;
+      d.style.alignItems = 'center'; d.style.background = '#0a1622';
+      d.innerHTML = '<div style="text-align:center;color:#cfe8ff;width:280px">' +
+        '<div style="font-size:40px;line-height:1">📻</div>' +
+        '<div style="font-size:22px;letter-spacing:6px;margin:12px 0 22px;font-weight:300">潮声 OS</div>' +
+        '<div style="height:8px;border:1px solid rgba(180,220,255,.4);border-radius:5px;overflow:hidden;background:rgba(255,255,255,.06)"><div id="os-prog" style="height:100%;width:0;background:linear-gradient(90deg,#2b6cb0,#5fb0ff);transition:width .18s"></div></div>' +
+        '<div id="os-loading-txt" style="margin-top:14px;font-size:12px;color:#8fb0cc;letter-spacing:1px">正在载入档案 …</div></div>';
+      spinner(d);
+      const steps = ['正在载入档案 …', '校验调阅权限 …', '重建声音索引 …', '接入 4.5Hz 底噪 …', '就差一个签名。'];
+      const bar = document.getElementById('os-prog'), txt = document.getElementById('os-loading-txt');
+      if (fast) { if (bar) bar.style.width = '100%'; setTimeout(finish, 250); return; }
+      // 固定 5 步、每步 380ms → 1900ms；最后一步后再 350ms 收尾
+      steps.forEach((s, idx) => setTimeout(() => {
+        if (bar) bar.style.width = Math.round(((idx + 1) / steps.length) * 100) + '%';
+        if (txt) txt.textContent = s;
+      }, 380 * (idx + 1)));
+      setTimeout(finish, 380 * steps.length + 420); // 约 2.3s 后必然进入登录
+    } catch (e) { finish(); }
   }
+  // 看门狗：无论如何 5.5s 兜底推进，绝不再卡住
+  setTimeout(finish, 5500);
 }
 
 // 登录（有密码）
 export function login(onOk) {
-  powerOff();
+  setLoggedIn(false);
   // 去掉 boot 屏
   const old = document.getElementById('os-screen'); if (old) old.remove();
   const d = fullscreen();
