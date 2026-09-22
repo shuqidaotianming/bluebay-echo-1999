@@ -16,9 +16,19 @@ export function openExplorer(startFolder) {
   });
 }
 
+// 由“某个文件柜/回收站页自身的 config.links”构造一个专属文件夹（name→{id,name,lockedBy}）
+export function folderFromLinks(pageName, linksMap) {
+  const vfs = V();
+  const items = Object.entries(linksMap || {}).map(([label, id]) => ({ id, name: label, lockedBy: (vfs.lockedBy && vfs.lockedBy[id]) || null }));
+  return { folder: pageName, items, custom: true };
+}
+
 function renderExplorer(body, win, startFolder) {
   const vfs = V();
-  let cur = vfs.folders.find((f) => f.folder === startFolder) || vfs.folders[0];
+  const allFolders = vfs.folders.slice();
+  if (startFolder && startFolder.custom) allFolders.unshift(startFolder); // 专属夹置顶
+  let cur = (startFolder && startFolder.custom) ? startFolder
+    : (allFolders.find((f) => f.folder === startFolder) || allFolders[0]);
   let view = 'list', sortKey = 'name', sortDir = 1, sel = new Set();
 
   body.style.cssText = 'display:flex;height:100%';
@@ -37,7 +47,7 @@ function renderExplorer(body, win, startFolder) {
   // 目录树
   function renderTree() {
     tree.innerHTML = '';
-    vfs.folders.forEach((f) => {
+    allFolders.forEach((f) => {
       const n = document.createElement('div'); n.className = 'os-node'; n.textContent = f.folder; n.title = f.folder;
       n.style.cssText = 'padding:2px 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
       if (f === cur) { n.classList.add('sel'); n.style.background = 'var(--os-sel)'; n.style.color = '#fff'; }

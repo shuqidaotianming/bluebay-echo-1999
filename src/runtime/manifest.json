@@ -21,6 +21,7 @@
     "puzzles.mjs",
     "ostheme.mjs",
     "os.mjs",
+    "osboot.mjs",
     "osdoc.mjs",
     "osexplorer.mjs",
     "osmail.mjs",
